@@ -30,9 +30,9 @@ namespace POS_Server.Controllers
         [Route("Get")]
         public string Get(string token)
         {
-token = TokenManager.readToken(HttpContext.Current.Request);
+            token = TokenManager.readToken(HttpContext.Current.Request);
             string type = "";
-            Boolean canDelete = false;
+
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
             {
@@ -48,184 +48,47 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                         type = c.Value;
                     }
                 }
-                using (incposdbEntities entity = new incposdbEntities())
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    var agentsList = entity.agents
-                   .Where(p => p.type == type)
+                    var agentsList = entity.Agent
+                   .Where(p => p.Type == type && p.IsActive == true)
                    .Select(p => new AgentModel
                    {
-                       agentId = p.agentId,
-                       name = p.name,
-                       code = p.code,
-                       company = p.company,
-                       address = p.address,
-                       email = p.email,
-                       phone = p.phone,
-                       mobile = p.mobile,
-                       image = p.image,
-                       type = p.type,
-                       accType = p.accType,
-                       balance = p.balance,
-                       balanceType = p.balanceType,
-                       notes = p.notes,
-                       isActive = p.isActive,
-                       createDate = p.createDate,
-                       updateDate = p.updateDate,
-                       maxDeserve = p.maxDeserve,
-                       fax = p.fax,
-                       isLimited = p.isLimited,
-                       payType = p.payType
+                       AgentId = p.AgentId,
+                       Name = p.Name,
+                       Code = p.Code,
+                       Company = p.Company,
+                       Address = p.Address,
+                       Email = p.Email,
+                       Mobile = p.Mobile,
+                       Image = p.Image,
+                       Type = p.Type,
+                       Balance = p.Balance,
+                       BalanceType = p.BalanceType,
+                       Notes = p.Notes,
+                       IsActive = p.IsActive,
+                       CreateDate = p.CreateDate,
+                       UpdateDate = p.UpdateDate,
+                       MaxDeserve = p.MaxDeserve,
+                       Fax = p.Fax,
+                       IsLimited = p.IsLimited,
+                       PayType = p.PayType
                     })
                    .ToList();
-                    if (agentsList.Count > 0)
-                    {
-                        for (int i = 0; i < agentsList.Count; i++)
-                        {
-                            canDelete = false;
-                            if (agentsList[i].isActive == 1)
-                            {
-                                int agentId = (int)agentsList[i].agentId;
-                                var invoicesL = entity.invoices.Where(x => x.agentId == agentId).Select(b => new { b.invoiceId }).FirstOrDefault();
-                                var cachTransferL = entity.cashTransfer.Where(x => x.agentId == agentId).Select(x => new { x.cashTransId }).FirstOrDefault();
-                                if ((invoicesL is null) && (cachTransferL is null))
-                                    canDelete = true;
-                            }
-                            agentsList[i].canDelete = canDelete;
-                        }
-                    }
+                   
                     return TokenManager.GenerateToken(agentsList);
                 }
             }
         }
-        [HttpPost]
-        [Route("GetAll")]
-        public string GetAll(string token)
-        {
-token = TokenManager.readToken(HttpContext.Current.Request);
-
-            Boolean canDelete = false;
-            var strP = TokenManager.GetPrincipal(token);
-            if (strP != "0") //invalid authorization
-            {
-                return TokenManager.GenerateToken(strP);
-            }
-            else
-            {
-
-                using (incposdbEntities entity = new incposdbEntities())
-                {
-                    var agentsList = entity.agents
-                   .Select(p => new AgentModel
-                   {
-                       agentId = p.agentId,
-                       name = p.name,
-                       code = p.code,
-                       company = p.company,
-                       address = p.address,
-                       email = p.email,
-                       phone = p.phone,
-                       mobile = p.mobile,
-                       image = p.image,
-                       type = p.type,
-                       accType = p.accType,
-                       balance = p.balance,
-                       balanceType = p.balanceType,
-                       notes = p.notes,
-                       isActive = p.isActive,
-                       createDate = p.createDate,
-                       updateDate = p.updateDate,
-                       maxDeserve = p.maxDeserve,
-                       fax = p.fax,
-                       isLimited = p.isLimited,
-                       payType = p.payType
-                    })
-                   .ToList();
-                    if (agentsList.Count > 0)
-                    {
-                        for (int i = 0; i < agentsList.Count; i++)
-                        {
-                            canDelete = false;
-                            if (agentsList[i].isActive == 1)
-                            {
-                                int agentId = (int)agentsList[i].agentId;
-                                var invoicesL = entity.invoices.Where(x => x.agentId == agentId).Select(b => new { b.invoiceId }).FirstOrDefault();
-                                var cachTransferL = entity.cashTransfer.Where(x => x.agentId == agentId).Select(x => new { x.cashTransId }).FirstOrDefault();
-                                if ((invoicesL is null) && (cachTransferL is null))
-                                    canDelete = true;
-                            }
-                            agentsList[i].canDelete = canDelete;
-                        }
-                    }
-                    return TokenManager.GenerateToken(agentsList);
-                }
-            }
-        }
-        [HttpPost]
-        [Route("GetActive")]
-        public string GetActive(string token)
-        {
-token = TokenManager.readToken(HttpContext.Current.Request);
-             
-            string type = "";
-            var strP = TokenManager.GetPrincipal(token);
-            if (strP != "0") //invalid authorization
-            {
-                return TokenManager.GenerateToken(strP);
-            }
-            else
-            {
-                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
-                foreach (Claim c in claims)
-                {
-                    if (c.Type == "type")
-                    {
-                        type = c.Value;
-                    }
-                }
-                using (incposdbEntities entity = new incposdbEntities())
-                {
-
-                    var agentsList = entity.agents
-                   .Where(p => p.type == type && p.isActive == 1)
-                   .Select(p => new
-                   {
-                       p.agentId,
-                       p.name,
-                       p.code,
-                       p.company,
-                       p.address,
-                       p.email,
-                       p.phone,
-                       p.mobile,
-                       p.image,
-                       p.type,
-                       p.accType,
-                       p.balance,
-                       p.balanceType,
-                       p.notes,
-                       p.maxDeserve,
-                       p.fax,
-                       p.isActive,
-                       p.createDate,
-                       p.isLimited,
-                       p.payType
-                   })
-                   .ToList();
-
-                    return TokenManager.GenerateToken(agentsList);
-
-                }
-            }
-        }
-
+       
         [HttpPost]
         [Route("GetActiveForAccount")]
         public string GetActiveForAccount(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
 
-            string type = "";
-            string payType = "";
+            string Type = "";
+            string PayType = "";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
             {
@@ -236,75 +99,46 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
-                    if (c.Type == "type")
+                    if (c.Type == "Type")
                     {
-                        type = c.Value;
+                        Type = c.Value;
                     }
-                    if (c.Type == "payType")
+                    if (c.Type == "PayType")
                     {
-                        payType = c.Value;
+                        PayType = c.Value;
                     }
                 }
-                using (incposdbEntities entity = new incposdbEntities())
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
 
-                    var agentsList = entity.agents
-                   .Where(p => p.type == type && (p.isActive == 1 || 
-                                                 (p.isActive == 0 && payType == "p" && p.balanceType == 0) || 
-                                                 (p.isActive == 0 && payType == "d" && p.balanceType == 1)))
+                    var agentsList = entity.Agent
+                   .Where(p => p.Type == Type && (p.IsActive == true || 
+                                                 (p.IsActive == false && PayType == "p" && p.BalanceType == 0) || 
+                                                 (p.IsActive == false && PayType == "d" && p.BalanceType == 1)))
                    .Select(p => new
                    {
-                       p.agentId,
-                       p.name,
-                       p.code,
-                       p.company,
-                       p.address,
-                       p.email,
-                       p.phone,
-                       p.mobile,
-                       p.image,
-                       p.type,
-                       p.accType,
-                       p.balance,
-                       p.balanceType,
-                       p.notes,
-                       p.maxDeserve,
-                       p.fax,
-                       p.isActive,
-                       p.createDate,
-                       p.isLimited,
-                       p.payType
+                       p.AgentId,
+                       p.Name,
+                       p.Code,
+                       p.Company,
+                       p.Address,
+                       p.Email,
+                       p.Mobile,
+                       p.Image,
+                       p.Type,
+                       p.Balance,
+                       p.BalanceType,
+                       p.Notes,
+                       p.MaxDeserve,
+                       p.Fax,
+                       p.IsActive,
+                       p.CreateDate,
+                       p.IsLimited,
+                       p.PayType
                    })
                    .ToList();
 
-                    //var agentsList2 = (from a in entity.agents.Where(a => a.type == type && a.isActive == 0)
-                    //                   join i in entity.invoices.Where(i => i.deserved > 0) on a.agentId equals i.agentId into ai
-                    //                   from aii in ai.DefaultIfEmpty()
-                    //                   select new 
-                    //                   {
-                    //                       agentId = a.agentId,
-                    //                       name = a.name,
-                    //                       code = a.code,
-                    //                       company = a.company,
-                    //                       address = a.address,
-                    //                       email = a.email,
-                    //                       phone = a.phone,
-                    //                       mobile = a.mobile,
-                    //                       image = a.image,
-                    //                       type = a.type,
-                    //                       accType = a.accType,
-                    //                       balance = a.balance,
-                    //                       balanceType = a.balanceType,
-                    //                       notes = a.notes,
-                    //                       maxDeserve = a.maxDeserve,
-                    //                       fax = a.fax,
-                    //                       isActive = a.isActive,
-                    //                       createDate = a.createDate,
-                    //                       isLimited = a.isLimited,
-                    //                       payType = a.payType,
-
-                    //                   }).ToList();
-                    //agentsList.AddRange(agentsList2);
+                   
 
                     return TokenManager.GenerateToken(agentsList);
 
@@ -324,13 +158,13 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                    int agentId = 0;
+                    long agentId = 0;
                     IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                     foreach (Claim c in claims)
                     {
                         if (c.Type == "agentId")
                         {
-                            agentId = int.Parse(c.Value);
+                            agentId = long.Parse(c.Value);
                         }
                     }
                     var agent = GetAgentByID(agentId);
@@ -339,35 +173,33 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
         }
 
-        public AgentModel GetAgentByID(int agentId)
+        public AgentModel GetAgentByID(long agentId)
         {
-            using (incposdbEntities entity = new incposdbEntities())
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
-                var agent = entity.agents
-               .Where(p => p.agentId == agentId)
+                var agent = entity.Agent
+               .Where(p => p.AgentId == agentId)
                .Select(p => new AgentModel
                {
-                   agentId = p.agentId,
-                   name = p.name,
-                   code = p.code,
-                   company = p.company,
-                   address = p.address,
-                   email = p.email,
-                   phone = p.phone,
-                   mobile = p.mobile,
-                   image = p.image,
-                   type = p.type,
-                   accType = p.accType,
-                   balance = p.balance,
-                   balanceType = p.balanceType,
-                   notes = p.notes,
-                   isActive = p.isActive,
-                   createDate = p.createDate,
-                   updateDate = p.updateDate,
-                   maxDeserve = p.maxDeserve,
-                   fax = p.fax,
-                   isLimited = p.isLimited,
-                   payType = p.payType
+                   AgentId = p.AgentId,
+                   Name = p.Name,
+                   Code = p.Code,
+                   Company = p.Company,
+                   Address = p.Address,
+                   Email = p.Email,
+                   Mobile = p.Mobile,
+                   Image = p.Image,
+                   Type = p.Type,
+                   Balance = p.Balance,
+                   BalanceType = p.BalanceType,
+                   Notes = p.Notes,
+                   IsActive = p.IsActive,
+                   CreateDate = p.CreateDate,
+                   UpdateDate = p.UpdateDate,
+                   MaxDeserve = p.MaxDeserve,
+                   Fax = p.Fax,
+                   IsLimited = p.IsLimited,
+                   PayType = p.PayType
                }).FirstOrDefault();
                 return agent;
             }
@@ -386,83 +218,79 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                string agentObject = "";
-                agents agentObj = null;
+                Agent agentObj = null;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemObject")
                     {
-                        agentObject = c.Value.Replace("\\", string.Empty);
-                        agentObject = agentObject.Trim('"');
-                        agentObj = JsonConvert.DeserializeObject<agents>(agentObject, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        agentObj = JsonConvert.DeserializeObject<Agent>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
                         break;
                     }
                 }
                 try
                 {
-                    agents agent;
-                    using (incposdbEntities entity = new incposdbEntities())
+                    Agent agent;
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<agents>();
-                        if (agentObj.agentId == 0)
+                        var agentEntity = entity.Set<Agent>();
+                        if (agentObj.AgentId == 0)
                         {
-                            ProgramInfo programInfo = new ProgramInfo();
-                            int agentMaxCount = 0;
-                            if (agentObj.type == "c")
-                                agentMaxCount = programInfo.getCustomerCount();
-                            else if (agentObj.type == "v")
-                                agentMaxCount = programInfo.getVendorCount();
+                            //ProgramInfo programInfo = new ProgramInfo();
+                            //int agentMaxCount = 0;
+                            //if (agentObj.Type == "c")
+                            //    agentMaxCount = programInfo.getCustomerCount();
+                            //else if (agentObj.Type == "v")
+                            //    agentMaxCount = programInfo.getVendorCount();
 
-                            int agentCount = entity.agents.Where(x => x.type == agentObj.type).Count();
-                            if (agentCount >= agentMaxCount && agentMaxCount != -1)
-                            {
-                                message = "-1";
-                                return TokenManager.GenerateToken(message);
-                            }
-                            else
+                            //int agentCount = entity.Agent.Where(x => x.Type == agentObj.Type).Count();
+                            //if (agentCount >= agentMaxCount && agentMaxCount != -1)
+                            //{
+                            //    message = "upgrade";
+                            //    return TokenManager.GenerateToken(message);
+                            //}
+                            //else
                             {
                            
-                                agentObj.createDate = cc.AddOffsetTodate(DateTime.Now);
-                                agentObj.updateDate = agentObj.createDate;
-                                agentObj.updateUserId = agentObj.createUserId;
-                                agentObj.balanceType = 0;
+                                agentObj.CreateDate = cc.AddOffsetTodate(DateTime.Now);
+                                agentObj.UpdateDate = agentObj.CreateDate;
+                                agentObj.UpdateUserId = agentObj.CreateUserId;
+                                agentObj.BalanceType = 0;
                                 agent = agentEntity.Add(agentObj);
                             }
                         }
                         else
                         {
-                            agent = entity.agents.Where(p => p.agentId == agentObj.agentId).First();
-                            agent.accType = agentObj.accType;
-                            agent.address = agentObj.address;
-                            agent.code = agentObj.code;
-                            agent.company = agentObj.company;
-                            agent.email = agentObj.email;
-                            agent.image = agentObj.image;
-                            agent.mobile = agentObj.mobile;
-                            agent.name = agentObj.name;
-                            agent.notes = agentObj.notes;
-                            agent.phone = agentObj.phone;
-                            agent.type = agentObj.type;
-                            agent.maxDeserve = agentObj.maxDeserve;
-                            agent.fax = agentObj.fax;
-                            agent.updateDate = cc.AddOffsetTodate(DateTime.Now); ;// server current date
-                            agent.updateUserId = agentObj.updateUserId;
-                            agent.isActive = agentObj.isActive;
-                            agent.balance = agentObj.balance;
-                            agent.balanceType = agentObj.balanceType;
-                            agent.isLimited = agentObj.isLimited;
-                            agent.payType = agentObj.payType;
+                            agent = entity.Agent.Where(p => p.AgentId == agentObj.AgentId).First();
+
+                            agent.Address = agentObj.Address;
+                            agent.Code = agentObj.Code;
+                            agent.Company = agentObj.Company;
+                            agent.Email = agentObj.Email;
+                            agent.Image = agentObj.Image;
+                            agent.Mobile = agentObj.Mobile;
+                            agent.Name = agentObj.Name;
+                            agent.Notes = agentObj.Notes;
+                            agent.Type = agentObj.Type;
+                            agent.MaxDeserve = agentObj.MaxDeserve;
+                            agent.Fax = agentObj.Fax;
+                            agent.UpdateDate = cc.AddOffsetTodate(DateTime.Now); ;// server current date
+                            agent.UpdateUserId = agentObj.UpdateUserId;
+                            agent.IsActive = agentObj.IsActive;
+                            agent.Balance = agentObj.Balance;
+                            agent.BalanceType = agentObj.BalanceType;
+                            agent.IsLimited = agentObj.IsLimited;
+                            agent.PayType = agentObj.PayType;
                         }
                         entity.SaveChanges();
-                        message = agent.agentId.ToString();
+                        message = agent.AgentId.ToString();
 
                     }
                     return TokenManager.GenerateToken(message);
                 }
                 catch
                 {
-                    message = "0";
+                    message = "failed";
                     return TokenManager.GenerateToken(message);
                 }
             }
@@ -471,8 +299,8 @@ token = TokenManager.readToken(HttpContext.Current.Request);
         [Route("Delete")]
         public string Delete(string token)
         {
-token = TokenManager.readToken(HttpContext.Current.Request);
-            string message = "";
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "success";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
             {
@@ -480,60 +308,54 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                int agentId = 0;
-                int userId = 0;
-                Boolean final = false;
+                long agentId = 0;
+                long userId = 0;
+
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemId")
                     {
-                        agentId = int.Parse(c.Value);
+                        agentId = long.Parse(c.Value);
                     }
                     else if (c.Type == "userId")
                     {
-                        userId = int.Parse(c.Value);
+                        userId = long.Parse(c.Value);
                     }
-                    else if (c.Type == "final")
-                    {
-                        final = bool.Parse(c.Value);
-                    }
-                }
-                if (!final)
-                {
-                    try
-                    {
-                        using (incposdbEntities entity = new incposdbEntities())
-                        {
-                            var tmpAgent = entity.agents.Where(p => p.agentId == agentId).First();
-                            tmpAgent.isActive = 0;
-                            tmpAgent.updateDate = cc.AddOffsetTodate(DateTime.Now);
-                            tmpAgent.updateUserId = userId;
 
-                            message = entity.SaveChanges().ToString();
-                        }
-                    return TokenManager.GenerateToken(message);
-                    }
-                    catch
+                }
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                    return TokenManager.GenerateToken("0");
+
+                        Agent tmp = entity.Agent.Find(agentId);
+                        entity.Agent.Remove(tmp);
+                        entity.SaveChanges();
+                        return TokenManager.GenerateToken(message);
+
                     }
                 }
-                else
+                catch
                 {
                     try
                     {
-                        using (incposdbEntities entity = new incposdbEntities())
+                        using (EasyGoDBEntities entity = new EasyGoDBEntities())
                         {
-                            var tmpAgent = entity.agents.Where(p => p.agentId == agentId).First();
-                            entity.agents.Remove(tmpAgent);
-                            message = entity.SaveChanges().ToString();
+                            Agent tmp = entity.Agent.Find(agentId);
+
+                            tmp.IsActive = false;
+                            tmp.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
+                            tmp.UpdateUserId = userId;
+                            entity.SaveChanges();
+                            return TokenManager.GenerateToken(message);
+
                         }
-                    return TokenManager.GenerateToken(message);
                     }
                     catch
                     {
-                    return TokenManager.GenerateToken("0");
+                        message = "failed";
+                        return TokenManager.GenerateToken(message);
                     }
                 }
             }
@@ -569,7 +391,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                         if (!AllowedFileExtensions.Contains(extension))
                         {
 
-                            var message = string.Format("Please Upload image of type .jpg,.gif,.png, .jfif, .bmp , .jpeg ,.tiff");
+                            var message = string.Format("Please Upload Image of Type .jpg,.gif,.png, .jfif, .bmp , .jpeg ,.tiff");
                             return Ok(message);
                         }
                         else if (postedFile.ContentLength > MaxContentLength)
@@ -581,7 +403,10 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                         }
                         else
                         {
-                            //  check if image exist
+                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent");
+                            if (!Directory.Exists(dir))
+                                Directory.CreateDirectory(dir);
+                            //  check if Image exist
                             var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt);
                             var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt + ".*");
                             if (files.Length > 0)
@@ -589,7 +414,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                                 File.Delete(files[0]);
                             }
 
-                            //Userimage myfolder name where i want to save my image
+                            //Userimage myfolder Name where i want to save my Image
                             var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
                             postedFile.SaveAs(filePath);
 
@@ -599,7 +424,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                     var message1 = string.Format("Image Updated Successfully.");
                     return Ok(message1);
                 }
-                var res = string.Format("Please Upload a image.");
+                var res = string.Format("Please Upload a Image.");
 
                 return Ok(res);
             }
@@ -609,26 +434,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
 
                 return Ok(res);
             }
-        }
-
-        //[HttpGet]
-        //[Route("GetImage")]
-        //public HttpResponseMessage GetImage(string imageName)
-        //{
-        //    if (String.IsNullOrEmpty(imageName))
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest);
-
-        //    string localFilePath;
-
-        //    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
-
-        //    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-        //    response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
-        //    response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-        //    response.Content.Headers.ContentDisposition.FileName = imageName;
-
-        //    return response;
-        //}
+        }    
 
         [HttpPost]
         [Route("GetImage")]
@@ -675,7 +481,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
         [Route("UpdateImage")]
         public string UpdateImage(string token)
         {
-token = TokenManager.readToken(HttpContext.Current.Request);
+            token = TokenManager.readToken(HttpContext.Current.Request);
             string message = "";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
@@ -684,36 +490,33 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                string agentObject = "";
-                agents agentObj = null;
+                Agent agentObj = null;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemObject")
                     {
-                        agentObject = c.Value.Replace("\\", string.Empty);
-                        agentObject = agentObject.Trim('"');
-                        agentObj = JsonConvert.DeserializeObject<agents>(agentObject, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        agentObj = JsonConvert.DeserializeObject<Agent>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
                         break;
                     }
                 }
                 try
                 {
-                    agents agent;
-                    using (incposdbEntities entity = new incposdbEntities())
+                    Agent agent;
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<agents>();                      
-                        agent = entity.agents.Where(p => p.agentId == agentObj.agentId).First();
-                        agent.image = agentObj.image;
+                        var agentEntity = entity.Set<Agent>();                      
+                        agent = entity.Agent.Where(p => p.AgentId == agentObj.AgentId).First();
+                        agent.Image = agentObj.Image;
                         entity.SaveChanges();
                     }
-                    message = agent.agentId.ToString();
+                    message = agent.AgentId.ToString();
                     return TokenManager.GenerateToken(message);
                 }
 
                 catch
                 {
-                    message = "0";
+                    message = "failed";
                     return TokenManager.GenerateToken(message);
                 }
             }
@@ -723,7 +526,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
         [Route("UpdateBalance")]
         public string UpdateBalance(string token)
         {
-token = TokenManager.readToken(HttpContext.Current.Request);
+            token = TokenManager.readToken(HttpContext.Current.Request);
             string message = "";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
@@ -732,14 +535,14 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                int agentId = 0;
+                long agentId = 0;
                 decimal balance = 0;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "agentId")
                     {
-                        agentId = int.Parse(c.Value);
+                        agentId = long.Parse(c.Value);
                     }
                     else if (c.Type == "balance")
                     {
@@ -748,15 +551,15 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                 }
                 try
                 {
-                    agents agent;
-                    using (incposdbEntities entity = new incposdbEntities())
+                    Agent agent;
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<agents>();
-                        agent = entity.agents.Where(p => p.agentId == agentId).First();
-                        agent.balance = balance;
+                        var agentEntity = entity.Set<Agent>();
+                        agent = entity.Agent.Where(p => p.AgentId == agentId).First();
+                        agent.Balance = balance;
                         entity.SaveChanges();
                     }
-                    message = agent.agentId.ToString();
+                    message = agent.AgentId.ToString();
                     return TokenManager.GenerateToken(message);
                 }
 
@@ -772,7 +575,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
         [Route("GetLastNumOfCode")]
         public string GetLastNumOfCode(string token)
         {
-token = TokenManager.readToken(HttpContext.Current.Request);
+            token = TokenManager.readToken(HttpContext.Current.Request);
             string message = "";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
@@ -781,25 +584,25 @@ token = TokenManager.readToken(HttpContext.Current.Request);
             }
             else
             {
-                string type = "";
+                string Type = "";
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "type")
                     {
-                        type = c.Value;
+                        Type = c.Value;
                     }
                 }
                 List<string> numberList;
                 int lastNum = 0;
-                using (incposdbEntities entity = new incposdbEntities())
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    numberList = entity.agents.Where(b => b.code.Contains(type + "-")).Select(b => b.code).ToList();
+                    numberList = entity.Agent.Where(b => b.Code.Contains(Type + "-")).Select(b => b.Code).ToList();
 
                     for (int i = 0; i < numberList.Count; i++)
                     {
-                        string code = numberList[i];
-                        string s = code.Substring(code.LastIndexOf("-") + 1);
+                        string Code = numberList[i];
+                        string s = Code.Substring(Code.LastIndexOf("-") + 1);
                         numberList[i] = s;
                     }
                     if (numberList.Count > 0)
@@ -809,7 +612,7 @@ token = TokenManager.readToken(HttpContext.Current.Request);
                     }
                 }
                 message = lastNum.ToString();
-                    return TokenManager.GenerateToken(message);
+                return TokenManager.GenerateToken(message);
             }
         }
 
