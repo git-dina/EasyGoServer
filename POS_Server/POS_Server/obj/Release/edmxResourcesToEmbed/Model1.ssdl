@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppSetting">
+    <Key>
+      <PropertyRef Name="SettingId" />
+    </Key>
+    <Property Name="SettingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Notes" Type="ntext" />
+  </EntityType>
+  <EntityType Name="AppSettingValue">
+    <Key>
+      <PropertyRef Name="ValId" />
+    </Key>
+    <Property Name="ValId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="ntext" />
+    <Property Name="IsDefault" Type="int" />
+    <Property Name="IsSystem" Type="int" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="SettingId" Type="int" />
+  </EntityType>
+  <EntityType Name="CountryCode">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsDefault" Type="tinyint" Nullable="false" />
+    <Property Name="CurrencyId" Type="int" Nullable="false" />
+    <Property Name="TimeZoneName" Type="nvarchar" MaxLength="100" />
+    <Property Name="TimeZoneOffset" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ProgramDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="ProgramName" Type="nvarchar" MaxLength="500" />
+    <Property Name="BranchCount" Type="int" Nullable="false" />
+    <Property Name="PosCount" Type="int" Nullable="false" />
+    <Property Name="UserCount" Type="int" Nullable="false" />
+    <Property Name="VendorCount" Type="int" Nullable="false" />
+    <Property Name="CustomerCount" Type="int" Nullable="false" />
+    <Property Name="ItemCount" Type="int" Nullable="false" />
+    <Property Name="SaleinvCount" Type="int" Nullable="false" />
+    <Property Name="ProgramIncId" Type="int" />
+    <Property Name="VersionIncId" Type="int" />
+    <Property Name="VersionName" Type="nvarchar" MaxLength="500" />
+    <Property Name="StoreCount" Type="int" Nullable="false" />
+    <Property Name="PackageSaleCode" Type="nvarchar" MaxLength="500" />
+    <Property Name="CustomerServerCode" Type="nvarchar" MaxLength="500" />
+    <Property Name="ExpireDate" Type="datetime2" Precision="7" />
+    <Property Name="IsOnlineServer" Type="bit" />
+    <Property Name="PackageNumber" Type="nvarchar" MaxLength="500" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IsLimitDate" Type="bit" />
+    <Property Name="IsLimitCount" Type="bit" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="500" />
+    <Property Name="BookDate" Type="datetime2" Precision="7" />
+    <Property Name="PId" Type="int" />
+    <Property Name="PcdId" Type="int" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="CustomerLastName" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsServerActivated" Type="bit" Nullable="false" />
+    <Property Name="Activatedate" Type="datetime2" Precision="7" />
+    <Property Name="PocrDate" Type="datetime2" Precision="7" />
+    <Property Name="PoId" Type="int" />
+    <Property Name="Upnum" Type="nvarchar" MaxLength="500" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsDemo" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TokensTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Token" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="Image" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="IsOnline" Type="bit" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="RoleId" Type="bigint" />
+    <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="BalanceType" Type="tinyint" />
+    <Property Name="HasCommission" Type="bit" Nullable="false" />
+    <Property Name="CommissionValue" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="CommissionRatio" Type="decimal" Precision="20" Scale="3" />
+  </EntityType>
+  <EntityType Name="UserLog">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SInDate" Type="datetime2" Precision="7" />
+    <Property Name="SOutDate" Type="datetime2" Precision="7" />
+    <Property Name="PosId" Type="bigint" />
+    <Property Name="UserId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserRequest">
+    <Key>
+      <PropertyRef Name="UserRequestId" />
+    </Key>
+    <Property Name="UserRequestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="SInDate" Type="datetime2" Precision="7" />
+    <Property Name="SOutDate" Type="datetime2" Precision="7" />
+    <Property Name="LastRequestDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="UserSettingValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="ValId" Type="int" />
+    <Property Name="Note" Type="ntext" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="SettingId" Type="int" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_AppSettingValue_AppSetting">
+    <End Role="AppSetting" Type="Self.AppSetting" Multiplicity="0..1" />
+    <End Role="AppSettingValue" Type="Self.AppSettingValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppSetting">
+        <PropertyRef Name="SettingId" />
+      </Principal>
+      <Dependent Role="AppSettingValue">
+        <PropertyRef Name="SettingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLog_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserLog" Type="Self.UserLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRequest_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserRequest" Type="Self.UserRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRequest">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSettingValue_AppSetting">
+    <End Role="AppSetting" Type="Self.AppSetting" Multiplicity="0..1" />
+    <End Role="UserSettingValue" Type="Self.UserSettingValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppSetting">
+        <PropertyRef Name="SettingId" />
+      </Principal>
+      <Dependent Role="UserSettingValue">
+        <PropertyRef Name="SettingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSettingValue_AppSettingValue">
+    <End Role="AppSettingValue" Type="Self.AppSettingValue" Multiplicity="0..1" />
+    <End Role="UserSettingValue" Type="Self.UserSettingValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppSettingValue">
+        <PropertyRef Name="ValId" />
+      </Principal>
+      <Dependent Role="UserSettingValue">
+        <PropertyRef Name="ValId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSettingValue_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserSettingValue" Type="Self.UserSettingValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserSettingValue">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="EasyGoDBModelStoreContainer">
+    <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountryCode" EntityType="Self.CountryCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TokensTable" EntityType="Self.TokensTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRequest" EntityType="Self.UserRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserSettingValue" EntityType="Self.UserSettingValue" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AppSettingValue_AppSetting" Association="Self.FK_AppSettingValue_AppSetting">
+      <End Role="AppSetting" EntitySet="AppSetting" />
+      <End Role="AppSettingValue" EntitySet="AppSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLog" EntitySet="UserLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRequest_User" Association="Self.FK_UserRequest_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserRequest" EntitySet="UserRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSettingValue_AppSetting" Association="Self.FK_UserSettingValue_AppSetting">
+      <End Role="AppSetting" EntitySet="AppSetting" />
+      <End Role="UserSettingValue" EntitySet="UserSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSettingValue_AppSettingValue" Association="Self.FK_UserSettingValue_AppSettingValue">
+      <End Role="AppSettingValue" EntitySet="AppSettingValue" />
+      <End Role="UserSettingValue" EntitySet="UserSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSettingValue_User" Association="Self.FK_UserSettingValue_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserSettingValue" EntitySet="UserSettingValue" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e649277bc13467a9f7cc3e6f17d1faa" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="EasyGoDBModel.AppSetting" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.AppSettingValue" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.CountryCode" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.ProgramDetails" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.TokensTable" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.User" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.UserLog" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.UserRequest" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.UserSettingValue" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="EasyGoDBModel.FK_AppSettingValue_AppSetting" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_AppSetting" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_AppSettingValue" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_UserLog_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_UserRequest_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

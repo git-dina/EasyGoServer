@@ -1,0 +1,1571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="posinv1000ModelStoreContainer" CdmEntityContainer="incposdbEntities">
+    <EntitySetMapping Name="adminMessages">
+      <EntityTypeMapping TypeName="posinv1000Model.adminMessages">
+        <MappingFragment StoreEntitySet="adminMessages">
+          <ScalarProperty Name="msgId" ColumnName="msgId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="msgContent" ColumnName="msgContent" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="branchCreatorId" ColumnName="branchCreatorId" />
+          <ScalarProperty Name="mainMsgId" ColumnName="mainMsgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="agentMemberships">
+      <EntityTypeMapping TypeName="posinv1000Model.agentMemberships">
+        <MappingFragment StoreEntitySet="agentMemberships">
+          <ScalarProperty Name="agentMembershipsId" ColumnName="agentMembershipsId" />
+          <ScalarProperty Name="subscriptionFeesId" ColumnName="subscriptionFeesId" />
+          <ScalarProperty Name="cashTransId" ColumnName="cashTransId" />
+          <ScalarProperty Name="membershipId" ColumnName="membershipId" />
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="agents">
+      <EntityTypeMapping TypeName="posinv1000Model.agents">
+        <MappingFragment StoreEntitySet="agents">
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+          <ScalarProperty Name="pointId" ColumnName="pointId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="company" ColumnName="company" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="accType" ColumnName="accType" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="balanceType" ColumnName="balanceType" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="maxDeserve" ColumnName="maxDeserve" />
+          <ScalarProperty Name="isLimited" ColumnName="isLimited" />
+          <ScalarProperty Name="payType" ColumnName="payType" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="countryId" ColumnName="countryId" />
+          <ScalarProperty Name="cityId" ColumnName="cityId" />
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="isShopCustomer" ColumnName="isShopCustomer" />
+          <ScalarProperty Name="countryName" ColumnName="countryName" />
+          <ScalarProperty Name="cityName" ColumnName="cityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="banks">
+      <EntityTypeMapping TypeName="posinv1000Model.banks">
+        <MappingFragment StoreEntitySet="banks">
+          <ScalarProperty Name="bankId" ColumnName="bankId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="accNumber" ColumnName="accNumber" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bondes">
+      <EntityTypeMapping TypeName="posinv1000Model.bondes">
+        <MappingFragment StoreEntitySet="bondes">
+          <ScalarProperty Name="bondId" ColumnName="bondId" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="deserveDate" ColumnName="deserveDate" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="isRecieved" ColumnName="isRecieved" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="cashTransId" ColumnName="cashTransId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="branches">
+      <EntityTypeMapping TypeName="posinv1000Model.branches">
+        <MappingFragment StoreEntitySet="branches">
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="parentId" ColumnName="parentId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="isShop" ColumnName="isShop" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="branchesUsers">
+      <EntityTypeMapping TypeName="posinv1000Model.branchesUsers">
+        <MappingFragment StoreEntitySet="branchesUsers">
+          <ScalarProperty Name="branchsUsersId" ColumnName="branchsUsersId" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="branchStore">
+      <EntityTypeMapping TypeName="posinv1000Model.branchStore">
+        <MappingFragment StoreEntitySet="branchStore">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="storeId" ColumnName="storeId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cards">
+      <EntityTypeMapping TypeName="posinv1000Model.cards">
+        <MappingFragment StoreEntitySet="cards">
+          <ScalarProperty Name="cardId" ColumnName="cardId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="hasProcessNum" ColumnName="hasProcessNum" />
+          <ScalarProperty Name="commissionValue" ColumnName="commissionValue" />
+          <ScalarProperty Name="commissionRatio" ColumnName="commissionRatio" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="balanceType" ColumnName="balanceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cashTransfer">
+      <EntityTypeMapping TypeName="posinv1000Model.cashTransfer">
+        <MappingFragment StoreEntitySet="cashTransfer">
+          <ScalarProperty Name="cashTransId" ColumnName="cashTransId" />
+          <ScalarProperty Name="agentMembershipsId" ColumnName="agentMembershipsId" />
+          <ScalarProperty Name="transType" ColumnName="transType" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+          <ScalarProperty Name="invId" ColumnName="invId" />
+          <ScalarProperty Name="transNum" ColumnName="transNum" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="cash" ColumnName="cash" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="posIdCreator" ColumnName="posIdCreator" />
+          <ScalarProperty Name="isConfirm" ColumnName="isConfirm" />
+          <ScalarProperty Name="cashTransIdSource" ColumnName="cashTransIdSource" />
+          <ScalarProperty Name="side" ColumnName="side" />
+          <ScalarProperty Name="docName" ColumnName="docName" />
+          <ScalarProperty Name="docNum" ColumnName="docNum" />
+          <ScalarProperty Name="docImage" ColumnName="docImage" />
+          <ScalarProperty Name="bankId" ColumnName="bankId" />
+          <ScalarProperty Name="processType" ColumnName="processType" />
+          <ScalarProperty Name="cardId" ColumnName="cardId" />
+          <ScalarProperty Name="bondId" ColumnName="bondId" />
+          <ScalarProperty Name="shippingCompanyId" ColumnName="shippingCompanyId" />
+          <ScalarProperty Name="commissionValue" ColumnName="commissionValue" />
+          <ScalarProperty Name="commissionRatio" ColumnName="commissionRatio" />
+          <ScalarProperty Name="isCommissionPaid" ColumnName="isCommissionPaid" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="deserved" ColumnName="deserved" />
+          <ScalarProperty Name="purpose" ColumnName="purpose" />
+          <ScalarProperty Name="isInvPurpose" ColumnName="isInvPurpose" />
+          <ScalarProperty Name="otherSide" ColumnName="otherSide" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="posinv1000Model.categories">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="categoryCode" ColumnName="categoryCode" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="taxes" ColumnName="taxes" />
+          <ScalarProperty Name="parentId" ColumnName="parentId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="fixedTax" ColumnName="fixedTax" />
+          <ScalarProperty Name="isTaxExempt" ColumnName="isTaxExempt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categoryuser">
+      <EntityTypeMapping TypeName="posinv1000Model.categoryuser">
+        <MappingFragment StoreEntitySet="categoryuser">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="sequence" ColumnName="sequence" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cities">
+      <EntityTypeMapping TypeName="posinv1000Model.cities">
+        <MappingFragment StoreEntitySet="cities">
+          <ScalarProperty Name="cityId" ColumnName="cityId" />
+          <ScalarProperty Name="cityCode" ColumnName="cityCode" />
+          <ScalarProperty Name="countryId" ColumnName="countryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="countriesCodes">
+      <EntityTypeMapping TypeName="posinv1000Model.countriesCodes">
+        <MappingFragment StoreEntitySet="countriesCodes">
+          <ScalarProperty Name="countryId" ColumnName="countryId" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="currency" ColumnName="currency" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+          <ScalarProperty Name="currencyId" ColumnName="currencyId" />
+          <ScalarProperty Name="timeZoneName" ColumnName="timeZoneName" />
+          <ScalarProperty Name="timeZoneOffset" ColumnName="timeZoneOffset" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="coupons">
+      <EntityTypeMapping TypeName="posinv1000Model.coupons">
+        <MappingFragment StoreEntitySet="coupons">
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="discountType" ColumnName="discountType" />
+          <ScalarProperty Name="discountValue" ColumnName="discountValue" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="remainQ" ColumnName="remainQ" />
+          <ScalarProperty Name="invMin" ColumnName="invMin" />
+          <ScalarProperty Name="invMax" ColumnName="invMax" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="barcode" ColumnName="barcode" />
+          <ScalarProperty Name="details" ColumnName="details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="couponsInvoices">
+      <EntityTypeMapping TypeName="posinv1000Model.couponsInvoices">
+        <MappingFragment StoreEntitySet="couponsInvoices">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="couponId" ColumnName="couponId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="discountValue" ColumnName="discountValue" />
+          <ScalarProperty Name="discountType" ColumnName="discountType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="docImages">
+      <EntityTypeMapping TypeName="posinv1000Model.docImages">
+        <MappingFragment StoreEntitySet="docImages">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="docName" ColumnName="docName" />
+          <ScalarProperty Name="docnum" ColumnName="docnum" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="tableName" ColumnName="tableName" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="tableId" ColumnName="tableId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="error">
+      <EntityTypeMapping TypeName="posinv1000Model.error">
+        <MappingFragment StoreEntitySet="error">
+          <ScalarProperty Name="errorId" ColumnName="errorId" />
+          <ScalarProperty Name="num" ColumnName="num" />
+          <ScalarProperty Name="msg" ColumnName="msg" />
+          <ScalarProperty Name="stackTrace" ColumnName="stackTrace" />
+          <ScalarProperty Name="targetSite" ColumnName="targetSite" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="programNamePos" ColumnName="programNamePos" />
+          <ScalarProperty Name="versionNamePos" ColumnName="versionNamePos" />
+          <ScalarProperty Name="programNameServer" ColumnName="programNameServer" />
+          <ScalarProperty Name="versionNameServer" ColumnName="versionNameServer" />
+          <ScalarProperty Name="source" ColumnName="source" />
+          <ScalarProperty Name="method" ColumnName="method" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="posinv1000Model.Expenses">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="exId" ColumnName="exId" />
+          <ScalarProperty Name="expense" ColumnName="expense" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="groupObject">
+      <EntityTypeMapping TypeName="posinv1000Model.groupObject">
+        <MappingFragment StoreEntitySet="groupObject">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="objectId" ColumnName="objectId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="addOb" ColumnName="addOb" />
+          <ScalarProperty Name="updateOb" ColumnName="updateOb" />
+          <ScalarProperty Name="deleteOb" ColumnName="deleteOb" />
+          <ScalarProperty Name="showOb" ColumnName="showOb" />
+          <ScalarProperty Name="reportOb" ColumnName="reportOb" />
+          <ScalarProperty Name="levelOb" ColumnName="levelOb" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="groups">
+      <EntityTypeMapping TypeName="posinv1000Model.groups">
+        <MappingFragment StoreEntitySet="groups">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inventory">
+      <EntityTypeMapping TypeName="posinv1000Model.Inventory">
+        <MappingFragment StoreEntitySet="Inventory">
+          <ScalarProperty Name="inventoryId" ColumnName="inventoryId" />
+          <ScalarProperty Name="num" ColumnName="num" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="inventoryType" ColumnName="inventoryType" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="mainInventoryId" ColumnName="mainInventoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="inventoryItemLocation">
+      <EntityTypeMapping TypeName="posinv1000Model.inventoryItemLocation">
+        <MappingFragment StoreEntitySet="inventoryItemLocation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="isDestroyed" ColumnName="isDestroyed" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="amountDestroyed" ColumnName="amountDestroyed" />
+          <ScalarProperty Name="realAmount" ColumnName="realAmount" />
+          <ScalarProperty Name="itemLocationId" ColumnName="itemLocationId" />
+          <ScalarProperty Name="inventoryId" ColumnName="inventoryId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="cause" ColumnName="cause" />
+          <ScalarProperty Name="isFalls" ColumnName="isFalls" />
+          <ScalarProperty Name="fallCause" ColumnName="fallCause" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoiceOrder">
+      <EntityTypeMapping TypeName="posinv1000Model.invoiceOrder">
+        <MappingFragment StoreEntitySet="invoiceOrder">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="itemsTransferId" ColumnName="itemsTransferId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoices">
+      <EntityTypeMapping TypeName="posinv1000Model.invoices">
+        <MappingFragment StoreEntitySet="invoices">
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="invNumber" ColumnName="invNumber" />
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="invType" ColumnName="invType" />
+          <ScalarProperty Name="discountType" ColumnName="discountType" />
+          <ScalarProperty Name="discountValue" ColumnName="discountValue" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="totalNet" ColumnName="totalNet" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="deserved" ColumnName="deserved" />
+          <ScalarProperty Name="deservedDate" ColumnName="deservedDate" />
+          <ScalarProperty Name="invDate" ColumnName="invDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="invoiceMainId" ColumnName="invoiceMainId" />
+          <ScalarProperty Name="invCase" ColumnName="invCase" />
+          <ScalarProperty Name="invTime" ColumnName="invTime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="vendorInvNum" ColumnName="vendorInvNum" />
+          <ScalarProperty Name="vendorInvDate" ColumnName="vendorInvDate" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="tax" ColumnName="tax" />
+          <ScalarProperty Name="taxtype" ColumnName="taxtype" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="shippingCompanyId" ColumnName="shippingCompanyId" />
+          <ScalarProperty Name="branchCreatorId" ColumnName="branchCreatorId" />
+          <ScalarProperty Name="shipUserId" ColumnName="shipUserId" />
+          <ScalarProperty Name="prevStatus" ColumnName="prevStatus" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="manualDiscountValue" ColumnName="manualDiscountValue" />
+          <ScalarProperty Name="manualDiscountType" ColumnName="manualDiscountType" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="invoiceProfit" ColumnName="invoiceProfit" />
+          <ScalarProperty Name="cashReturn" ColumnName="cashReturn" />
+          <ScalarProperty Name="printedcount" ColumnName="printedcount" />
+          <ScalarProperty Name="isOrginal" ColumnName="isOrginal" />
+          <ScalarProperty Name="shippingCost" ColumnName="shippingCost" />
+          <ScalarProperty Name="realShippingCost" ColumnName="realShippingCost" />
+          <ScalarProperty Name="isPrePaid" ColumnName="isPrePaid" />
+          <ScalarProperty Name="isShipPaid" ColumnName="isShipPaid" />
+          <ScalarProperty Name="sales_invoice_note" ColumnName="sales_invoice_note" />
+          <ScalarProperty Name="itemtax_note" ColumnName="itemtax_note" />
+          <ScalarProperty Name="sliceId" ColumnName="sliceId" />
+          <ScalarProperty Name="sliceName" ColumnName="sliceName" />
+          <ScalarProperty Name="isFreeShip" ColumnName="isFreeShip" />
+          <ScalarProperty Name="taxValue" ColumnName="taxValue" />
+          <ScalarProperty Name="VATValue" ColumnName="VATValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoiceStatus">
+      <EntityTypeMapping TypeName="posinv1000Model.invoiceStatus">
+        <MappingFragment StoreEntitySet="invoiceStatus">
+          <ScalarProperty Name="invStatusId" ColumnName="invStatusId" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoiceTaxes">
+      <EntityTypeMapping TypeName="posinv1000Model.invoiceTaxes">
+        <MappingFragment StoreEntitySet="invoiceTaxes">
+          <ScalarProperty Name="invoiceTaxId" ColumnName="invoiceTaxId" />
+          <ScalarProperty Name="taxId" ColumnName="taxId" />
+          <ScalarProperty Name="rate" ColumnName="rate" />
+          <ScalarProperty Name="taxValue" ColumnName="taxValue" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="taxType" ColumnName="taxType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceTypes">
+      <EntityTypeMapping TypeName="posinv1000Model.InvoiceTypes">
+        <MappingFragment StoreEntitySet="InvoiceTypes">
+          <ScalarProperty Name="invoiceTypeId" ColumnName="invoiceTypeId" />
+          <ScalarProperty Name="invoiceType" ColumnName="invoiceType" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="allowPaperSize" ColumnName="allowPaperSize" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="sequence" ColumnName="sequence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoiceTypesPrinters">
+      <EntityTypeMapping TypeName="posinv1000Model.invoiceTypesPrinters">
+        <MappingFragment StoreEntitySet="invoiceTypesPrinters">
+          <ScalarProperty Name="invTypePrinterId" ColumnName="invTypePrinterId" />
+          <ScalarProperty Name="printerId" ColumnName="printerId" />
+          <ScalarProperty Name="invoiceTypeId" ColumnName="invoiceTypeId" />
+          <ScalarProperty Name="sizeId" ColumnName="sizeId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="copyCount" ColumnName="copyCount" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="items">
+      <EntityTypeMapping TypeName="posinv1000Model.items">
+        <MappingFragment StoreEntitySet="items">
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="taxes" ColumnName="taxes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="min" ColumnName="min" />
+          <ScalarProperty Name="max" ColumnName="max" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="parentId" ColumnName="parentId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="minUnitId" ColumnName="minUnitId" />
+          <ScalarProperty Name="maxUnitId" ColumnName="maxUnitId" />
+          <ScalarProperty Name="avgPurchasePrice" ColumnName="avgPurchasePrice" />
+          <ScalarProperty Name="isShop" ColumnName="isShop" />
+          <ScalarProperty Name="warrantyId" ColumnName="warrantyId" />
+          <ScalarProperty Name="isExpired" ColumnName="isExpired" />
+          <ScalarProperty Name="alertDays" ColumnName="alertDays" />
+          <ScalarProperty Name="isTaxExempt" ColumnName="isTaxExempt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsLocations">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsLocations">
+        <MappingFragment StoreEntitySet="itemsLocations">
+          <ScalarProperty Name="itemsLocId" ColumnName="itemsLocId" />
+          <ScalarProperty Name="locationId" ColumnName="locationId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsMaterials">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsMaterials">
+        <MappingFragment StoreEntitySet="itemsMaterials">
+          <ScalarProperty Name="itemMatId" ColumnName="itemMatId" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="materialId" ColumnName="materialId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="unitId" ColumnName="unitId" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsOffers">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsOffers">
+        <MappingFragment StoreEntitySet="itemsOffers">
+          <ScalarProperty Name="ioId" ColumnName="ioId" />
+          <ScalarProperty Name="iuId" ColumnName="iuId" />
+          <ScalarProperty Name="offerId" ColumnName="offerId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="used" ColumnName="used" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsProp">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsProp">
+        <MappingFragment StoreEntitySet="itemsProp">
+          <ScalarProperty Name="itemPropId" ColumnName="itemPropId" />
+          <ScalarProperty Name="propertyItemId" ColumnName="propertyItemId" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsTransfer">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsTransfer">
+        <MappingFragment StoreEntitySet="itemsTransfer">
+          <ScalarProperty Name="itemsTransId" ColumnName="itemsTransId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="itemSerial" ColumnName="itemSerial" />
+          <ScalarProperty Name="inventoryItemLocId" ColumnName="inventoryItemLocId" />
+          <ScalarProperty Name="offerId" ColumnName="offerId" />
+          <ScalarProperty Name="profit" ColumnName="profit" />
+          <ScalarProperty Name="purchasePrice" ColumnName="purchasePrice" />
+          <ScalarProperty Name="cause" ColumnName="cause" />
+          <ScalarProperty Name="itemTax" ColumnName="itemTax" />
+          <ScalarProperty Name="itemUnitPrice" ColumnName="itemUnitPrice" />
+          <ScalarProperty Name="offerValue" ColumnName="offerValue" />
+          <ScalarProperty Name="offerType" ColumnName="offerType" />
+          <ScalarProperty Name="warrantyName" ColumnName="warrantyName" />
+          <ScalarProperty Name="warrantyDescription" ColumnName="warrantyDescription" />
+          <ScalarProperty Name="warrantyId" ColumnName="warrantyId" />
+          <ScalarProperty Name="priceId" ColumnName="priceId" />
+          <ScalarProperty Name="offerName" ColumnName="offerName" />
+          <ScalarProperty Name="VATRatio" ColumnName="VATRatio" />
+          <ScalarProperty Name="isTaxExempt" ColumnName="isTaxExempt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemsUnits">
+      <EntityTypeMapping TypeName="posinv1000Model.itemsUnits">
+        <MappingFragment StoreEntitySet="itemsUnits">
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="unitId" ColumnName="unitId" />
+          <ScalarProperty Name="unitValue" ColumnName="unitValue" />
+          <ScalarProperty Name="defaultSale" ColumnName="defaultSale" />
+          <ScalarProperty Name="defaultPurchase" ColumnName="defaultPurchase" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="barcode" ColumnName="barcode" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="subUnitId" ColumnName="subUnitId" />
+          <ScalarProperty Name="purchasePrice" ColumnName="purchasePrice" />
+          <ScalarProperty Name="storageCostId" ColumnName="storageCostId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="warrantyId" ColumnName="warrantyId" />
+          <ScalarProperty Name="hasWarranty" ColumnName="hasWarranty" />
+          <ScalarProperty Name="skipProperties" ColumnName="skipProperties" />
+          <ScalarProperty Name="skipSerialsNum" ColumnName="skipSerialsNum" />
+          <ScalarProperty Name="packCost" ColumnName="packCost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemTransferOffer">
+      <EntityTypeMapping TypeName="posinv1000Model.itemTransferOffer">
+        <MappingFragment StoreEntitySet="itemTransferOffer">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="itemTransId" ColumnName="itemTransId" />
+          <ScalarProperty Name="offerId" ColumnName="offerId" />
+          <ScalarProperty Name="discountType" ColumnName="discountType" />
+          <ScalarProperty Name="discountValue" ColumnName="discountValue" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itemUnitUser">
+      <EntityTypeMapping TypeName="posinv1000Model.itemUnitUser">
+        <MappingFragment StoreEntitySet="itemUnitUser">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="locations">
+      <EntityTypeMapping TypeName="posinv1000Model.locations">
+        <MappingFragment StoreEntitySet="locations">
+          <ScalarProperty Name="locationId" ColumnName="locationId" />
+          <ScalarProperty Name="x" ColumnName="x" />
+          <ScalarProperty Name="y" ColumnName="y" />
+          <ScalarProperty Name="z" ColumnName="z" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="isFreeZone" ColumnName="isFreeZone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medalAgent">
+      <EntityTypeMapping TypeName="posinv1000Model.medalAgent">
+        <MappingFragment StoreEntitySet="medalAgent">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="medalId" ColumnName="medalId" />
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medals">
+      <EntityTypeMapping TypeName="posinv1000Model.medals">
+        <MappingFragment StoreEntitySet="medals">
+          <ScalarProperty Name="medalId" ColumnName="medalId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="symbol" ColumnName="symbol" />
+          <ScalarProperty Name="CashPointsRequired" ColumnName="CashPointsRequired" />
+          <ScalarProperty Name="invoiceCountPointsRequired" ColumnName="invoiceCountPointsRequired" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="memberships">
+      <EntityTypeMapping TypeName="posinv1000Model.memberships">
+        <MappingFragment StoreEntitySet="memberships">
+          <ScalarProperty Name="membershipId" ColumnName="membershipId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="deliveryDiscount" ColumnName="deliveryDiscount" />
+          <ScalarProperty Name="deliveryDiscountType" ColumnName="deliveryDiscountType" />
+          <ScalarProperty Name="invoiceDiscount" ColumnName="invoiceDiscount" />
+          <ScalarProperty Name="invoiceDiscountType" ColumnName="invoiceDiscountType" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="messagesPos">
+      <EntityTypeMapping TypeName="posinv1000Model.messagesPos">
+        <MappingFragment StoreEntitySet="messagesPos">
+          <ScalarProperty Name="msgPosId" ColumnName="msgPosId" />
+          <ScalarProperty Name="msgId" ColumnName="msgId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="isReaded" ColumnName="isReaded" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="userReadId" ColumnName="userReadId" />
+          <ScalarProperty Name="toUserId" ColumnName="toUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notification">
+      <EntityTypeMapping TypeName="posinv1000Model.notification">
+        <MappingFragment StoreEntitySet="notification">
+          <ScalarProperty Name="notId" ColumnName="notId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="ncontent" ColumnName="ncontent" />
+          <ScalarProperty Name="side" ColumnName="side" />
+          <ScalarProperty Name="msgType" ColumnName="msgType" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notificationUser">
+      <EntityTypeMapping TypeName="posinv1000Model.notificationUser">
+        <MappingFragment StoreEntitySet="notificationUser">
+          <ScalarProperty Name="notUserId" ColumnName="notUserId" />
+          <ScalarProperty Name="notId" ColumnName="notId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="isRead" ColumnName="isRead" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="objects">
+      <EntityTypeMapping TypeName="posinv1000Model.objects">
+        <MappingFragment StoreEntitySet="objects">
+          <ScalarProperty Name="objectId" ColumnName="objectId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="parentObjectId" ColumnName="parentObjectId" />
+          <ScalarProperty Name="objectType" ColumnName="objectType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="offers">
+      <EntityTypeMapping TypeName="posinv1000Model.offers">
+        <MappingFragment StoreEntitySet="offers">
+          <ScalarProperty Name="offerId" ColumnName="offerId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="discountType" ColumnName="discountType" />
+          <ScalarProperty Name="discountValue" ColumnName="discountValue" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="packages">
+      <EntityTypeMapping TypeName="posinv1000Model.packages">
+        <MappingFragment StoreEntitySet="packages">
+          <ScalarProperty Name="packageId" ColumnName="packageId" />
+          <ScalarProperty Name="parentIUId" ColumnName="parentIUId" />
+          <ScalarProperty Name="childIUId" ColumnName="childIUId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paperSize">
+      <EntityTypeMapping TypeName="posinv1000Model.paperSize">
+        <MappingFragment StoreEntitySet="paperSize">
+          <ScalarProperty Name="sizeId" ColumnName="sizeId" />
+          <ScalarProperty Name="paperSize1" ColumnName="paperSize" />
+          <ScalarProperty Name="printfor" ColumnName="printfor" />
+          <ScalarProperty Name="sizeValue" ColumnName="sizeValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Points">
+      <EntityTypeMapping TypeName="posinv1000Model.Points">
+        <MappingFragment StoreEntitySet="Points">
+          <ScalarProperty Name="pointId" ColumnName="pointId" />
+          <ScalarProperty Name="Cash" ColumnName="Cash" />
+          <ScalarProperty Name="CashPoints" ColumnName="CashPoints" />
+          <ScalarProperty Name="invoiceCount" ColumnName="invoiceCount" />
+          <ScalarProperty Name="invoiceCountPoints" ColumnName="invoiceCountPoints" />
+          <ScalarProperty Name="CashArchive" ColumnName="CashArchive" />
+          <ScalarProperty Name="CashPointsArchive" ColumnName="CashPointsArchive" />
+          <ScalarProperty Name="invoiceCountArchive" ColumnName="invoiceCountArchive" />
+          <ScalarProperty Name="invoiceCountPoinstArchive" ColumnName="invoiceCountPoinstArchive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="agentId" ColumnName="agentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pos">
+      <EntityTypeMapping TypeName="posinv1000Model.pos">
+        <MappingFragment StoreEntitySet="pos">
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="balanceAll" ColumnName="balanceAll" />
+          <ScalarProperty Name="boxState" ColumnName="boxState" />
+          <ScalarProperty Name="isAdminClose" ColumnName="isAdminClose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posPrinters">
+      <EntityTypeMapping TypeName="posinv1000Model.posPrinters">
+        <MappingFragment StoreEntitySet="posPrinters">
+          <ScalarProperty Name="printerId" ColumnName="printerId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="printerName" ColumnName="printerName" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="purpose" ColumnName="purpose" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="copiesCount" ColumnName="copiesCount" />
+          <ScalarProperty Name="sizeId" ColumnName="sizeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posSerials">
+      <EntityTypeMapping TypeName="posinv1000Model.posSerials">
+        <MappingFragment StoreEntitySet="posSerials">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="posSerial" ColumnName="posSerial" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posSetting">
+      <EntityTypeMapping TypeName="posinv1000Model.posSetting">
+        <MappingFragment StoreEntitySet="posSetting">
+          <ScalarProperty Name="posSettingId" ColumnName="posSettingId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="saleInvPrinterId" ColumnName="saleInvPrinterId" />
+          <ScalarProperty Name="reportPrinterId" ColumnName="reportPrinterId" />
+          <ScalarProperty Name="saleInvPapersizeId" ColumnName="saleInvPapersizeId" />
+          <ScalarProperty Name="posSerial" ColumnName="posSerial" />
+          <ScalarProperty Name="docPapersizeId" ColumnName="docPapersizeId" />
+          <ScalarProperty Name="posDeviceCode" ColumnName="posDeviceCode" />
+          <ScalarProperty Name="posSerialId" ColumnName="posSerialId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="programName" ColumnName="programName" />
+          <ScalarProperty Name="versionName" ColumnName="versionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posUsers">
+      <EntityTypeMapping TypeName="posinv1000Model.posUsers">
+        <MappingFragment StoreEntitySet="posUsers">
+          <ScalarProperty Name="posUserId" ColumnName="posUserId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="posinv1000Model.Prices">
+        <MappingFragment StoreEntitySet="Prices">
+          <ScalarProperty Name="priceId" ColumnName="priceId" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="sliceId" ColumnName="sliceId" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="printers">
+      <EntityTypeMapping TypeName="posinv1000Model.printers">
+        <MappingFragment StoreEntitySet="printers">
+          <ScalarProperty Name="printerId" ColumnName="printerId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="printFor" ColumnName="printFor" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgramDetails">
+      <EntityTypeMapping TypeName="posinv1000Model.ProgramDetails">
+        <MappingFragment StoreEntitySet="ProgramDetails">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="programName" ColumnName="programName" />
+          <ScalarProperty Name="branchCount" ColumnName="branchCount" />
+          <ScalarProperty Name="posCount" ColumnName="posCount" />
+          <ScalarProperty Name="userCount" ColumnName="userCount" />
+          <ScalarProperty Name="vendorCount" ColumnName="vendorCount" />
+          <ScalarProperty Name="customerCount" ColumnName="customerCount" />
+          <ScalarProperty Name="itemCount" ColumnName="itemCount" />
+          <ScalarProperty Name="saleinvCount" ColumnName="saleinvCount" />
+          <ScalarProperty Name="programIncId" ColumnName="programIncId" />
+          <ScalarProperty Name="versionIncId" ColumnName="versionIncId" />
+          <ScalarProperty Name="versionName" ColumnName="versionName" />
+          <ScalarProperty Name="storeCount" ColumnName="storeCount" />
+          <ScalarProperty Name="packageSaleCode" ColumnName="packageSaleCode" />
+          <ScalarProperty Name="customerServerCode" ColumnName="customerServerCode" />
+          <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+          <ScalarProperty Name="isOnlineServer" ColumnName="isOnlineServer" />
+          <ScalarProperty Name="packageNumber" ColumnName="packageNumber" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="isLimitDate" ColumnName="isLimitDate" />
+          <ScalarProperty Name="isLimitCount" ColumnName="isLimitCount" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="packageName" ColumnName="packageName" />
+          <ScalarProperty Name="bookDate" ColumnName="bookDate" />
+          <ScalarProperty Name="pId" ColumnName="pId" />
+          <ScalarProperty Name="pcdId" ColumnName="pcdId" />
+          <ScalarProperty Name="customerName" ColumnName="customerName" />
+          <ScalarProperty Name="customerLastName" ColumnName="customerLastName" />
+          <ScalarProperty Name="agentName" ColumnName="agentName" />
+          <ScalarProperty Name="agentLastName" ColumnName="agentLastName" />
+          <ScalarProperty Name="agentAccountName" ColumnName="agentAccountName" />
+          <ScalarProperty Name="isServerActivated" ColumnName="isServerActivated" />
+          <ScalarProperty Name="activatedate" ColumnName="activatedate" />
+          <ScalarProperty Name="pocrDate" ColumnName="pocrDate" />
+          <ScalarProperty Name="poId" ColumnName="poId" />
+          <ScalarProperty Name="upnum" ColumnName="upnum" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isDemo" ColumnName="isDemo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="properties">
+      <EntityTypeMapping TypeName="posinv1000Model.properties">
+        <MappingFragment StoreEntitySet="properties">
+          <ScalarProperty Name="propertyId" ColumnName="propertyId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="propertyIndex" ColumnName="propertyIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="propertiesItems">
+      <EntityTypeMapping TypeName="posinv1000Model.propertiesItems">
+        <MappingFragment StoreEntitySet="propertiesItems">
+          <ScalarProperty Name="propertyItemId" ColumnName="propertyItemId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="propertyId" ColumnName="propertyId" />
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sections">
+      <EntityTypeMapping TypeName="posinv1000Model.sections">
+        <MappingFragment StoreEntitySet="sections">
+          <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="isFreeZone" ColumnName="isFreeZone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="serials">
+      <EntityTypeMapping TypeName="posinv1000Model.serials">
+        <MappingFragment StoreEntitySet="serials">
+          <ScalarProperty Name="serialId" ColumnName="serialId" />
+          <ScalarProperty Name="itemsTransId" ColumnName="itemsTransId" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="serialNum" ColumnName="serialNum" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isSold" ColumnName="isSold" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicesCosts">
+      <EntityTypeMapping TypeName="posinv1000Model.servicesCosts">
+        <MappingFragment StoreEntitySet="servicesCosts">
+          <ScalarProperty Name="costId" ColumnName="costId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="costVal" ColumnName="costVal" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="setting">
+      <EntityTypeMapping TypeName="posinv1000Model.setting">
+        <MappingFragment StoreEntitySet="setting">
+          <ScalarProperty Name="settingId" ColumnName="settingId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="setValues">
+      <EntityTypeMapping TypeName="posinv1000Model.setValues">
+        <MappingFragment StoreEntitySet="setValues">
+          <ScalarProperty Name="valId" ColumnName="valId" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+          <ScalarProperty Name="isSystem" ColumnName="isSystem" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="settingId" ColumnName="settingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="shippingCompanies">
+      <EntityTypeMapping TypeName="posinv1000Model.shippingCompanies">
+        <MappingFragment StoreEntitySet="shippingCompanies">
+          <ScalarProperty Name="shippingCompanyId" ColumnName="shippingCompanyId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="RealDeliveryCost" ColumnName="RealDeliveryCost" />
+          <ScalarProperty Name="deliveryCost" ColumnName="deliveryCost" />
+          <ScalarProperty Name="deliveryType" ColumnName="deliveryType" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="balanceType" ColumnName="balanceType" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="siteContact">
+      <EntityTypeMapping TypeName="posinv1000Model.siteContact">
+        <MappingFragment StoreEntitySet="siteContact">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="subjectId" ColumnName="subjectId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="siteContents">
+      <EntityTypeMapping TypeName="posinv1000Model.siteContents">
+        <MappingFragment StoreEntitySet="siteContents">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="contents" ColumnName="contents" />
+          <ScalarProperty Name="lang" ColumnName="lang" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="siteSubject">
+      <EntityTypeMapping TypeName="posinv1000Model.siteSubject">
+        <MappingFragment StoreEntitySet="siteSubject">
+          <ScalarProperty Name="subjectId" ColumnName="subjectId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="lang" ColumnName="lang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="slices">
+      <EntityTypeMapping TypeName="posinv1000Model.slices">
+        <MappingFragment StoreEntitySet="slices">
+          <ScalarProperty Name="sliceId" ColumnName="sliceId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sliceUser">
+      <EntityTypeMapping TypeName="posinv1000Model.sliceUser">
+        <MappingFragment StoreEntitySet="sliceUser">
+          <ScalarProperty Name="sliceUserId" ColumnName="sliceUserId" />
+          <ScalarProperty Name="sliceId" ColumnName="sliceId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="storageCost">
+      <EntityTypeMapping TypeName="posinv1000Model.storageCost">
+        <MappingFragment StoreEntitySet="storageCost">
+          <ScalarProperty Name="storageCostId" ColumnName="storageCostId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="storeProperties">
+      <EntityTypeMapping TypeName="posinv1000Model.storeProperties">
+        <MappingFragment StoreEntitySet="storeProperties">
+          <ScalarProperty Name="storeProbId" ColumnName="storeProbId" />
+          <ScalarProperty Name="itemUnitId" ColumnName="itemUnitId" />
+          <ScalarProperty Name="itemsTransId" ColumnName="itemsTransId" />
+          <ScalarProperty Name="serialId" ColumnName="serialId" />
+          <ScalarProperty Name="count" ColumnName="count" />
+          <ScalarProperty Name="isSold" ColumnName="isSold" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="storePropertiesValues">
+      <EntityTypeMapping TypeName="posinv1000Model.storePropertiesValues">
+        <MappingFragment StoreEntitySet="storePropertiesValues">
+          <ScalarProperty Name="storeProbValueId" ColumnName="storeProbValueId" />
+          <ScalarProperty Name="propertyId" ColumnName="propertyId" />
+          <ScalarProperty Name="propertyItemId" ColumnName="propertyItemId" />
+          <ScalarProperty Name="storeProbId" ColumnName="storeProbId" />
+          <ScalarProperty Name="propertyName" ColumnName="propertyName" />
+          <ScalarProperty Name="propertyValue" ColumnName="propertyValue" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subscriptionFees">
+      <EntityTypeMapping TypeName="posinv1000Model.subscriptionFees">
+        <MappingFragment StoreEntitySet="subscriptionFees">
+          <ScalarProperty Name="subscriptionFeesId" ColumnName="subscriptionFeesId" />
+          <ScalarProperty Name="membershipId" ColumnName="membershipId" />
+          <ScalarProperty Name="monthsCount" ColumnName="monthsCount" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="posinv1000Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysEmails">
+      <EntityTypeMapping TypeName="posinv1000Model.sysEmails">
+        <MappingFragment StoreEntitySet="sysEmails">
+          <ScalarProperty Name="emailId" ColumnName="emailId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="port" ColumnName="port" />
+          <ScalarProperty Name="isSSL" ColumnName="isSSL" />
+          <ScalarProperty Name="smtpClient" ColumnName="smtpClient" />
+          <ScalarProperty Name="side" ColumnName="side" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="branchId" ColumnName="branchId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="isMajor" ColumnName="isMajor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="taxes">
+      <EntityTypeMapping TypeName="posinv1000Model.taxes">
+        <MappingFragment StoreEntitySet="taxes">
+          <ScalarProperty Name="taxId" ColumnName="taxId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="nameAr" ColumnName="nameAr" />
+          <ScalarProperty Name="taxType" ColumnName="taxType" />
+          <ScalarProperty Name="rate" ColumnName="rate" />
+          <ScalarProperty Name="taxTypeId" ColumnName="taxTypeId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="taxTypes">
+      <EntityTypeMapping TypeName="posinv1000Model.taxTypes">
+        <MappingFragment StoreEntitySet="taxTypes">
+          <ScalarProperty Name="taxTypeId" ColumnName="taxTypeId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="nameTr" ColumnName="nameTr" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TokensTable">
+      <EntityTypeMapping TypeName="posinv1000Model.TokensTable">
+        <MappingFragment StoreEntitySet="TokensTable">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="token" ColumnName="token" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="units">
+      <EntityTypeMapping TypeName="posinv1000Model.units">
+        <MappingFragment StoreEntitySet="units">
+          <ScalarProperty Name="unitId" ColumnName="unitId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isSmallest" ColumnName="isSmallest" />
+          <ScalarProperty Name="smallestId" ColumnName="smallestId" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="posinv1000Model.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="job" ColumnName="job" />
+          <ScalarProperty Name="workHours" ColumnName="workHours" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isOnline" ColumnName="isOnline" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="balanceType" ColumnName="balanceType" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="hasCommission" ColumnName="hasCommission" />
+          <ScalarProperty Name="commissionValue" ColumnName="commissionValue" />
+          <ScalarProperty Name="commissionRatio" ColumnName="commissionRatio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userSetValues">
+      <EntityTypeMapping TypeName="posinv1000Model.userSetValues">
+        <MappingFragment StoreEntitySet="userSetValues">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="valId" ColumnName="valId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+          <ScalarProperty Name="settingId" ColumnName="settingId" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usersLogs">
+      <EntityTypeMapping TypeName="posinv1000Model.usersLogs">
+        <MappingFragment StoreEntitySet="usersLogs">
+          <ScalarProperty Name="logId" ColumnName="logId" />
+          <ScalarProperty Name="sInDate" ColumnName="sInDate" />
+          <ScalarProperty Name="sOutDate" ColumnName="sOutDate" />
+          <ScalarProperty Name="posId" ColumnName="posId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersRequest">
+      <EntityTypeMapping TypeName="posinv1000Model.UsersRequest">
+        <MappingFragment StoreEntitySet="UsersRequest">
+          <ScalarProperty Name="UserRequestId" ColumnName="UserRequestId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="sInDate" ColumnName="sInDate" />
+          <ScalarProperty Name="sOutDate" ColumnName="sOutDate" />
+          <ScalarProperty Name="lastRequestDate" ColumnName="lastRequestDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="warranty">
+      <EntityTypeMapping TypeName="posinv1000Model.warranty">
+        <MappingFragment StoreEntitySet="warranty">
+          <ScalarProperty Name="warrantyId" ColumnName="warrantyId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+          <ScalarProperty Name="createUserId" ColumnName="createUserId" />
+          <ScalarProperty Name="updateUserId" ColumnName="updateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="posinv1000Model.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="posinv1000Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="posinv1000Model.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="posinv1000Model.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="posinv1000Model.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="posinv1000Model.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="posinv1000Model.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="posinv1000Model.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="posinv1000Model.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>
