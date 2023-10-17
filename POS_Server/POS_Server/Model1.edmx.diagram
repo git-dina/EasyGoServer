@@ -4,13 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e649277bc13467a9f7cc3e6f17d1faa" Name="Diagram1" ZoomLevel="67">
+      <Diagram DiagramId="c708d57f77cf487e8d6afbfae9e67010" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="EasyGoDBModel.AppSetting" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.AppSettingValue" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.CountryCode" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.ProgramDetails" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.TokensTable" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Customer" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.ProgramDetails" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Supplier" Width="1.5" PointX="8.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.TokensTable" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.User" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.UserLog" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.UserRequest" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
@@ -21,7 +23,6 @@
         <AssociationConnector Association="EasyGoDBModel.FK_UserLog_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserRequest_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_User" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EasyGoDBModel.Agent" Width="1.5" PointX="8.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

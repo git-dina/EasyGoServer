@@ -30,14 +30,15 @@ namespace POS_Server
         public virtual DbSet<AppSetting> AppSetting { get; set; }
         public virtual DbSet<AppSettingValue> AppSettingValue { get; set; }
         public virtual DbSet<CountryCode> CountryCode { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<ProgramDetails> ProgramDetails { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TokensTable> TokensTable { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserLog> UserLog { get; set; }
         public virtual DbSet<UserRequest> UserRequest { get; set; }
         public virtual DbSet<UserSettingValue> UserSettingValue { get; set; }
-        public virtual DbSet<Agent> Agent { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

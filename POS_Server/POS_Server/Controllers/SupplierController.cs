@@ -1,37 +1,29 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using POS_Server.Classes;
 using POS_Server.Models;
 using POS_Server.Models.VM;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web;
 
 namespace POS_Server.Controllers
 {
-    [RoutePrefix("api/Agent")]
-    public class AgentController : ApiController
+    [RoutePrefix("api/Supplier")]
+    public class SupplierController : ApiController
     {
         CountriesController cc = new CountriesController();
-        // GET api/Agent
+        // GET api/Supplier
         [HttpPost]
         [Route("Get")]
         public string Get(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
-            string type = "";
 
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
@@ -40,21 +32,14 @@ namespace POS_Server.Controllers
             }
             else
             {
-                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
-                foreach (Claim c in claims)
-                {
-                    if (c.Type == "type")
-                    {
-                        type = c.Value;
-                    }
-                }
+
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    var agentsList = entity.Agent
-                   .Where(p => p.Type == type && p.IsActive == true)
-                   .Select(p => new AgentModel
+                    var agentsList = entity.Supplier
+                   .Where(p => p.IsActive == true)
+                   .Select(p => new SupplierModel
                    {
-                       AgentId = p.AgentId,
+                       SupplierId = p.SupplierId,
                        Name = p.Name,
                        Code = p.Code,
                        Company = p.Company,
@@ -62,7 +47,6 @@ namespace POS_Server.Controllers
                        Email = p.Email,
                        Mobile = p.Mobile,
                        Image = p.Image,
-                       Type = p.Type,
                        Balance = p.Balance,
                        BalanceType = p.BalanceType,
                        Notes = p.Notes,
@@ -73,21 +57,20 @@ namespace POS_Server.Controllers
                        Fax = p.Fax,
                        IsLimited = p.IsLimited,
                        PayType = p.PayType
-                    })
+                   })
                    .ToList();
-                   
+
                     return TokenManager.GenerateToken(agentsList);
                 }
             }
         }
-       
+
         [HttpPost]
         [Route("GetActiveForAccount")]
         public string GetActiveForAccount(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
 
-            string Type = "";
             string PayType = "";
             var strP = TokenManager.GetPrincipal(token);
             if (strP != "0") //invalid authorization
@@ -99,10 +82,7 @@ namespace POS_Server.Controllers
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
-                    if (c.Type == "Type")
-                    {
-                        Type = c.Value;
-                    }
+
                     if (c.Type == "PayType")
                     {
                         PayType = c.Value;
@@ -111,13 +91,13 @@ namespace POS_Server.Controllers
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
 
-                    var agentsList = entity.Agent
-                   .Where(p => p.Type == Type && (p.IsActive == true || 
-                                                 (p.IsActive == false && PayType == "p" && p.BalanceType == 0) || 
+                    var agentsList = entity.Supplier
+                   .Where(p => (p.IsActive == true ||
+                                                 (p.IsActive == false && PayType == "p" && p.BalanceType == 0) ||
                                                  (p.IsActive == false && PayType == "d" && p.BalanceType == 1)))
                    .Select(p => new
                    {
-                       p.AgentId,
+                       p.SupplierId,
                        p.Name,
                        p.Code,
                        p.Company,
@@ -125,7 +105,6 @@ namespace POS_Server.Controllers
                        p.Email,
                        p.Mobile,
                        p.Image,
-                       p.Type,
                        p.Balance,
                        p.BalanceType,
                        p.Notes,
@@ -138,7 +117,7 @@ namespace POS_Server.Controllers
                    })
                    .ToList();
 
-                   
+
 
                     return TokenManager.GenerateToken(agentsList);
 
@@ -147,8 +126,8 @@ namespace POS_Server.Controllers
         }
 
         [HttpPost]
-        [Route("GetAgentByID")]
-        public string GetAgentByID(string token)
+        [Route("GetSupplierByID")]
+        public string GetSupplierByID(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
             var strP = TokenManager.GetPrincipal(token);
@@ -158,30 +137,30 @@ namespace POS_Server.Controllers
             }
             else
             {
-                    long agentId = 0;
-                    IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
-                    foreach (Claim c in claims)
+                long supplierId = 0;
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "supplierId")
                     {
-                        if (c.Type == "agentId")
-                        {
-                            agentId = long.Parse(c.Value);
-                        }
+                        supplierId = long.Parse(c.Value);
                     }
-                    var agent = GetAgentByID(agentId);
+                }
+                var agent = GetSupplierByID(supplierId);
                 return TokenManager.GenerateToken(agent);
 
             }
         }
 
-        public AgentModel GetAgentByID(long agentId)
+        public SupplierModel GetSupplierByID(long agentId)
         {
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
-                var agent = entity.Agent
-               .Where(p => p.AgentId == agentId)
-               .Select(p => new AgentModel
+                var agent = entity.Supplier
+               .Where(p => p.SupplierId == agentId)
+               .Select(p => new SupplierModel
                {
-                   AgentId = p.AgentId,
+                   SupplierId = p.SupplierId,
                    Name = p.Name,
                    Code = p.Code,
                    Company = p.Company,
@@ -189,7 +168,6 @@ namespace POS_Server.Controllers
                    Email = p.Email,
                    Mobile = p.Mobile,
                    Image = p.Image,
-                   Type = p.Type,
                    Balance = p.Balance,
                    BalanceType = p.BalanceType,
                    Notes = p.Notes,
@@ -218,23 +196,23 @@ namespace POS_Server.Controllers
             }
             else
             {
-                Agent agentObj = null;
+                Supplier agentObj = null;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemObject")
                     {
-                        agentObj = JsonConvert.DeserializeObject<Agent>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        agentObj = JsonConvert.DeserializeObject<Supplier>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
                         break;
                     }
                 }
                 try
                 {
-                    Agent agent;
+                    Supplier agent;
                     using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<Agent>();
-                        if (agentObj.AgentId == 0)
+                        var agentEntity = entity.Set<Supplier>();
+                        if (agentObj.SupplierId == 0)
                         {
                             //ProgramInfo programInfo = new ProgramInfo();
                             //int agentMaxCount = 0;
@@ -243,7 +221,7 @@ namespace POS_Server.Controllers
                             //else if (agentObj.Type == "v")
                             //    agentMaxCount = programInfo.getVendorCount();
 
-                            //int agentCount = entity.Agent.Where(x => x.Type == agentObj.Type).Count();
+                            //int agentCount = entity.Supplier.Where(x => x.Type == agentObj.Type).Count();
                             //if (agentCount >= agentMaxCount && agentMaxCount != -1)
                             //{
                             //    message = "upgrade";
@@ -251,7 +229,7 @@ namespace POS_Server.Controllers
                             //}
                             //else
                             {
-                           
+
                                 agentObj.CreateDate = cc.AddOffsetTodate(DateTime.Now);
                                 agentObj.UpdateDate = agentObj.CreateDate;
                                 agentObj.UpdateUserId = agentObj.CreateUserId;
@@ -261,7 +239,7 @@ namespace POS_Server.Controllers
                         }
                         else
                         {
-                            agent = entity.Agent.Where(p => p.AgentId == agentObj.AgentId).First();
+                            agent = entity.Supplier.Where(p => p.SupplierId == agentObj.SupplierId).First();
 
                             agent.Address = agentObj.Address;
                             agent.Code = agentObj.Code;
@@ -271,7 +249,6 @@ namespace POS_Server.Controllers
                             agent.Mobile = agentObj.Mobile;
                             agent.Name = agentObj.Name;
                             agent.Notes = agentObj.Notes;
-                            agent.Type = agentObj.Type;
                             agent.MaxDeserve = agentObj.MaxDeserve;
                             agent.Fax = agentObj.Fax;
                             agent.UpdateDate = cc.AddOffsetTodate(DateTime.Now); ;// server current date
@@ -283,7 +260,7 @@ namespace POS_Server.Controllers
                             agent.PayType = agentObj.PayType;
                         }
                         entity.SaveChanges();
-                        message = agent.AgentId.ToString();
+                        message = agent.SupplierId.ToString();
 
                     }
                     return TokenManager.GenerateToken(message);
@@ -329,8 +306,8 @@ namespace POS_Server.Controllers
                     using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
 
-                        Agent tmp = entity.Agent.Find(agentId);
-                        entity.Agent.Remove(tmp);
+                        Supplier tmp = entity.Supplier.Find(agentId);
+                        entity.Supplier.Remove(tmp);
                         entity.SaveChanges();
                         return TokenManager.GenerateToken(message);
 
@@ -342,7 +319,7 @@ namespace POS_Server.Controllers
                     {
                         using (EasyGoDBEntities entity = new EasyGoDBEntities())
                         {
-                            Agent tmp = entity.Agent.Find(agentId);
+                            Supplier tmp = entity.Supplier.Find(agentId);
 
                             tmp.IsActive = false;
                             tmp.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
@@ -359,13 +336,13 @@ namespace POS_Server.Controllers
                     }
                 }
             }
-            
+
         }
 
         [Route("PostUserImage")]
-        public  IHttpActionResult PostUserImage()
+        public IHttpActionResult PostUserImage()
         {
-          
+
             try
             {
                 var httpRequest = HttpContext.Current.Request;
@@ -403,19 +380,19 @@ namespace POS_Server.Controllers
                         }
                         else
                         {
-                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent");
+                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\supplier");
                             if (!Directory.Exists(dir))
                                 Directory.CreateDirectory(dir);
                             //  check if Image exist
-                            var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt);
-                            var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt + ".*");
+                            var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\supplier"), imageWithNoExt);
+                            var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\supplier"), imageWithNoExt + ".*");
                             if (files.Length > 0)
                             {
                                 File.Delete(files[0]);
                             }
 
                             //Userimage myfolder Name where i want to save my Image
-                            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
+                            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\supplier"), imageName);
                             postedFile.SaveAs(filePath);
 
                         }
@@ -434,7 +411,7 @@ namespace POS_Server.Controllers
 
                 return Ok(res);
             }
-        }    
+        }
 
         [HttpPost]
         [Route("GetImage")]
@@ -464,7 +441,7 @@ namespace POS_Server.Controllers
 
                 try
                 {
-                    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
+                    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\supplier"), imageName);
 
                     byte[] b = System.IO.File.ReadAllBytes(localFilePath);
                     return TokenManager.GenerateToken(Convert.ToBase64String(b));
@@ -490,27 +467,27 @@ namespace POS_Server.Controllers
             }
             else
             {
-                Agent agentObj = null;
+                Supplier agentObj = null;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemObject")
                     {
-                        agentObj = JsonConvert.DeserializeObject<Agent>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        agentObj = JsonConvert.DeserializeObject<Supplier>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
                         break;
                     }
                 }
                 try
                 {
-                    Agent agent;
+                    Supplier agent;
                     using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<Agent>();                      
-                        agent = entity.Agent.Where(p => p.AgentId == agentObj.AgentId).First();
+                        var agentEntity = entity.Set<Supplier>();
+                        agent = entity.Supplier.Where(p => p.SupplierId == agentObj.SupplierId).First();
                         agent.Image = agentObj.Image;
                         entity.SaveChanges();
                     }
-                    message = agent.AgentId.ToString();
+                    message = agent.SupplierId.ToString();
                     return TokenManager.GenerateToken(message);
                 }
 
@@ -520,7 +497,7 @@ namespace POS_Server.Controllers
                     return TokenManager.GenerateToken(message);
                 }
             }
-           
+
         }
         [HttpPost]
         [Route("UpdateBalance")]
@@ -551,15 +528,15 @@ namespace POS_Server.Controllers
                 }
                 try
                 {
-                    Agent agent;
+                    Supplier agent;
                     using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<Agent>();
-                        agent = entity.Agent.Where(p => p.AgentId == agentId).First();
+                        var agentEntity = entity.Set<Supplier>();
+                        agent = entity.Supplier.Where(p => p.SupplierId == agentId).First();
                         agent.Balance = balance;
                         entity.SaveChanges();
                     }
-                    message = agent.AgentId.ToString();
+                    message = agent.SupplierId.ToString();
                     return TokenManager.GenerateToken(message);
                 }
 
@@ -597,7 +574,7 @@ namespace POS_Server.Controllers
                 int lastNum = 0;
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    numberList = entity.Agent.Where(b => b.Code.Contains(Type + "-")).Select(b => b.Code).ToList();
+                    numberList = entity.Supplier.Where(b => b.Code.Contains(Type + "-")).Select(b => b.Code).ToList();
 
                     for (int i = 0; i < numberList.Count; i++)
                     {
@@ -615,6 +592,5 @@ namespace POS_Server.Controllers
                 return TokenManager.GenerateToken(message);
             }
         }
-
     }
 }

@@ -4,33 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Agent">
-          <Key>
-            <PropertyRef Name="AgentId" />
-          </Key>
-          <Property Name="AgentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Code" Type="nvarchar" MaxLength="100" />
-          <Property Name="Company" Type="nvarchar" MaxLength="100" />
-          <Property Name="Address" Type="ntext" />
-          <Property Name="Email" Type="nvarchar" MaxLength="200" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
-          <Property Name="Image" Type="ntext" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
-          <Property Name="BalanceType" Type="tinyint" />
-          <Property Name="Fax" Type="nvarchar" MaxLength="100" />
-          <Property Name="IsLimited" Type="bit" Nullable="false" />
-          <Property Name="MaxDeserve" Type="decimal" Precision="20" Scale="3" />
-          <Property Name="PayType" Type="nvarchar" MaxLength="20" />
-          <Property Name="Notes" Type="ntext" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime2" Precision="7" />
-          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
-          <Property Name="CreateUserId" Type="bigint" />
-          <Property Name="UpdateUserId" Type="bigint" />
-        </EntityType>
+      <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppSetting">
           <Key>
             <PropertyRef Name="SettingId" />
@@ -62,6 +36,31 @@
           <Property Name="CurrencyId" Type="int" Nullable="false" />
           <Property Name="TimeZoneName" Type="nvarchar" MaxLength="100" />
           <Property Name="TimeZoneOffset" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="ntext" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="ntext" />
+          <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="BalanceType" Type="tinyint" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsLimited" Type="bit" Nullable="false" />
+          <Property Name="MaxDeserve" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="PayType" Type="nvarchar" MaxLength="20" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="bigint" />
+          <Property Name="UpdateUserId" Type="bigint" />
         </EntityType>
         <EntityType Name="ProgramDetails">
           <Key>
@@ -102,6 +101,31 @@
           <Property Name="Upnum" Type="nvarchar" MaxLength="500" />
           <Property Name="Notes" Type="nvarchar" MaxLength="500" />
           <Property Name="IsDemo" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="ntext" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="ntext" />
+          <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="BalanceType" Type="tinyint" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsLimited" Type="bit" Nullable="false" />
+          <Property Name="MaxDeserve" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="PayType" Type="nvarchar" MaxLength="20" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="bigint" />
+          <Property Name="UpdateUserId" Type="bigint" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -288,11 +312,12 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="EasyGoDBModelStoreContainer">
-          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountryCode" EntityType="Self.CountryCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TokensTable" EntityType="Self.TokensTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -324,7 +349,8 @@
             <End Role="UserSettingValue" EntitySet="UserSettingValue" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyGoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -363,6 +389,31 @@
           <Property Name="CurrencyId" Type="Int32" Nullable="false" />
           <Property Name="TimeZoneName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TimeZoneOffset" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="BalanceType" Type="Byte" />
+          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsLimited" Type="Boolean" Nullable="false" />
+          <Property Name="MaxDeserve" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="PayType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int64" />
+          <Property Name="UpdateUserId" Type="Int64" />
         </EntityType>
         <EntityType Name="ProgramDetails">
           <Key>
@@ -403,6 +454,31 @@
           <Property Name="Upnum" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IsDemo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="BalanceType" Type="Byte" />
+          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsLimited" Type="Boolean" Nullable="false" />
+          <Property Name="MaxDeserve" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="PayType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int64" />
+          <Property Name="UpdateUserId" Type="Int64" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -569,7 +645,9 @@
           <EntitySet Name="AppSetting" EntityType="Self.AppSetting" />
           <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" />
           <EntitySet Name="CountryCode" EntityType="Self.CountryCode" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
           <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TokensTable" EntityType="Self.TokensTable" />
           <EntitySet Name="User" EntityType="Self.User" />
@@ -630,7 +708,6 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Agent" EntityType="EasyGoDBModel.Agent" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -643,32 +720,6 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Agent">
-          <Key>
-            <PropertyRef Name="AgentId" />
-          </Key>
-          <Property Name="AgentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Balance" Type="Decimal" Precision="20" Scale="3" />
-          <Property Name="BalanceType" Type="Byte" />
-          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsLimited" Type="Boolean" Nullable="false" />
-          <Property Name="MaxDeserve" Type="Decimal" Precision="20" Scale="3" />
-          <Property Name="PayType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="7" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
-          <Property Name="CreateUserId" Type="Int64" />
-          <Property Name="UpdateUserId" Type="Int64" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -710,6 +761,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="EasyGoDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="BalanceType" ColumnName="BalanceType" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="IsLimited" ColumnName="IsLimited" />
+                <ScalarProperty Name="MaxDeserve" ColumnName="MaxDeserve" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProgramDetails">
             <EntityTypeMapping TypeName="EasyGoDBModel.ProgramDetails">
               <MappingFragment StoreEntitySet="ProgramDetails">
@@ -748,6 +825,32 @@
                 <ScalarProperty Name="Upnum" ColumnName="Upnum" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="IsDemo" ColumnName="IsDemo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="EasyGoDBModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="BalanceType" ColumnName="BalanceType" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="IsLimited" ColumnName="IsLimited" />
+                <ScalarProperty Name="MaxDeserve" ColumnName="MaxDeserve" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -862,33 +965,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EasyGoDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EasyGoDBModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="Agent">
-            <EntityTypeMapping TypeName="EasyGoDBModel.Agent">
-              <MappingFragment StoreEntitySet="Agent">
-                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="PayType" ColumnName="PayType" />
-                <ScalarProperty Name="MaxDeserve" ColumnName="MaxDeserve" />
-                <ScalarProperty Name="IsLimited" ColumnName="IsLimited" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="BalanceType" ColumnName="BalanceType" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

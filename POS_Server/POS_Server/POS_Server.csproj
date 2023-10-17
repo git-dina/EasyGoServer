@@ -200,9 +200,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="AppSetting.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -243,12 +240,16 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Classes\Calculate.cs" />
     <Compile Include="Classes\ProgramInfo.cs" />
-    <Compile Include="Controllers\AgentController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\setValuesController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersLogsController.cs" />
     <Compile Include="CountryCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
@@ -266,9 +267,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AgentModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\PosEcommerceModel.cs" />
     <Compile Include="Models\setValuesModel.cs" />
+    <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -285,6 +287,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
