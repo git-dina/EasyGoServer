@@ -39,6 +39,10 @@ namespace POS_Server
         public virtual DbSet<UserLog> UserLog { get; set; }
         public virtual DbSet<UserRequest> UserRequest { get; set; }
         public virtual DbSet<UserSettingValue> UserSettingValue { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Item> Item { get; set; }
+        public virtual DbSet<ItemUnit> ItemUnit { get; set; }
+        public virtual DbSet<Unit> Unit { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

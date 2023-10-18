@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppSetting">
           <Key>
             <PropertyRef Name="SettingId" />
@@ -23,6 +23,23 @@
           <Property Name="IsSystem" Type="int" />
           <Property Name="Notes" Type="ntext" />
           <Property Name="SettingId" Type="int" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Details" Type="ntext" />
+          <Property Name="Image" Type="ntext" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="bigint" />
+          <Property Name="UpdateUserId" Type="bigint" />
         </EntityType>
         <EntityType Name="CountryCode">
           <Key>
@@ -61,6 +78,53 @@
           <Property Name="UpdateDate" Type="datetime2" Precision="7" />
           <Property Name="CreateUserId" Type="bigint" />
           <Property Name="UpdateUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Details" Type="ntext" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="ntext" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Min" Type="int" />
+          <Property Name="Max" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="IsExpired" Type="bit" Nullable="false" />
+          <Property Name="AlertDays" Type="int" Nullable="false" />
+          <Property Name="IsTaxExempt" Type="bit" Nullable="false" />
+          <Property Name="Taxes" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="MinUnitId" Type="int" />
+          <Property Name="MaxUnitId" Type="int" />
+          <Property Name="AvgPurchasePrice" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="bigint" />
+          <Property Name="UpdateUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="ItemUnit">
+          <Key>
+            <PropertyRef Name="ItemUnitId" />
+          </Key>
+          <Property Name="ItemUnitId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="bigint" />
+          <Property Name="UnitId" Type="int" />
+          <Property Name="SubUnitId" Type="int" />
+          <Property Name="UnitValue" Type="int" />
+          <Property Name="IsDefaultSale" Type="bit" />
+          <Property Name="IsDefaultPurchase" Type="bit" />
+          <Property Name="Price" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="Cost" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="UpdateUserId" Type="int" />
+          <Property Name="purchasePrice" Type="decimal" Precision="20" Scale="3" />
         </EntityType>
         <EntityType Name="ProgramDetails">
           <Key>
@@ -145,6 +209,19 @@
           <Property Name="Token" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateUserId" Type="bigint" />
+          <Property Name="UpdateUserId" Type="bigint" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -217,6 +294,90 @@
             </Principal>
             <Dependent Role="AppSettingValue">
               <PropertyRef Name="SettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="MinUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="MaxUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="SubUnitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -314,12 +475,16 @@
         <EntityContainer Name="EasyGoDBModelStoreContainer">
           <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountryCode" EntityType="Self.CountryCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TokensTable" EntityType="Self.TokensTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRequest" EntityType="Self.UserRequest" Schema="dbo" store:Type="Tables" />
@@ -327,6 +492,34 @@
           <AssociationSet Name="FK_AppSettingValue_AppSetting" Association="Self.FK_AppSettingValue_AppSetting">
             <End Role="AppSetting" EntitySet="AppSetting" />
             <End Role="AppSettingValue" EntitySet="AppSettingValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Unit" Association="Self.FK_Item_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Unit1" Association="Self.FK_Item_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Item" Association="Self.FK_ItemUnit_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Unit" Association="Self.FK_ItemUnit_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Unit1" Association="Self.FK_ItemUnit_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
           </AssociationSet>
           <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
             <End Role="User" EntitySet="User" />
@@ -349,8 +542,7 @@
             <End Role="UserSettingValue" EntitySet="UserSettingValue" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyGoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -708,6 +900,38 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Category" EntityType="EasyGoDBModel.Category" />
+          <EntitySet Name="Item" EntityType="EasyGoDBModel.Item" />
+          <EntitySet Name="ItemUnit" EntityType="EasyGoDBModel.ItemUnit" />
+          <EntitySet Name="Unit" EntityType="EasyGoDBModel.Unit" />
+          <AssociationSet Name="FK_Category_Category" Association="EasyGoDBModel.FK_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Category" Association="EasyGoDBModel.FK_Item_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Unit" Association="EasyGoDBModel.FK_Item_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Unit1" Association="EasyGoDBModel.FK_Item_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Item" Association="EasyGoDBModel.FK_ItemUnit_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Unit" Association="EasyGoDBModel.FK_ItemUnit_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemUnit_Unit1" Association="EasyGoDBModel.FK_ItemUnit_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ItemUnit" EntitySet="ItemUnit" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -720,6 +944,181 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int64" />
+          <Property Name="UpdateUserId" Type="Int64" />
+          <NavigationProperty Name="Category1" Relationship="EasyGoDBModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="EasyGoDBModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_Item_Category" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Min" Type="Int32" />
+          <Property Name="Max" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="IsExpired" Type="Boolean" Nullable="false" />
+          <Property Name="AlertDays" Type="Int32" Nullable="false" />
+          <Property Name="IsTaxExempt" Type="Boolean" Nullable="false" />
+          <Property Name="Taxes" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="MinUnitId" Type="Int32" />
+          <Property Name="MaxUnitId" Type="Int32" />
+          <Property Name="AvgPurchasePrice" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int64" />
+          <Property Name="UpdateUserId" Type="Int64" />
+          <NavigationProperty Name="Category" Relationship="EasyGoDBModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Unit" Relationship="EasyGoDBModel.FK_Item_Unit" FromRole="Item" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="EasyGoDBModel.FK_Item_Unit1" FromRole="Item" ToRole="Unit" />
+          <NavigationProperty Name="ItemUnit" Relationship="EasyGoDBModel.FK_ItemUnit_Item" FromRole="Item" ToRole="ItemUnit" />
+        </EntityType>
+        <EntityType Name="ItemUnit">
+          <Key>
+            <PropertyRef Name="ItemUnitId" />
+          </Key>
+          <Property Name="ItemUnitId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int64" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="SubUnitId" Type="Int32" />
+          <Property Name="UnitValue" Type="Int32" />
+          <Property Name="IsDefaultSale" Type="Boolean" />
+          <Property Name="IsDefaultPurchase" Type="Boolean" />
+          <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="Cost" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="Barcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="UpdateUserId" Type="Int32" />
+          <Property Name="purchasePrice" Type="Decimal" Precision="20" Scale="3" />
+          <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_ItemUnit_Item" FromRole="ItemUnit" ToRole="Item" />
+          <NavigationProperty Name="Unit" Relationship="EasyGoDBModel.FK_ItemUnit_Unit" FromRole="ItemUnit" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="EasyGoDBModel.FK_ItemUnit_Unit1" FromRole="ItemUnit" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateUserId" Type="Int64" />
+          <Property Name="UpdateUserId" Type="Int64" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_Item_Unit" FromRole="Unit" ToRole="Item" />
+          <NavigationProperty Name="Item1" Relationship="EasyGoDBModel.FK_Item_Unit1" FromRole="Unit" ToRole="Item" />
+          <NavigationProperty Name="ItemUnit" Relationship="EasyGoDBModel.FK_ItemUnit_Unit" FromRole="Unit" ToRole="ItemUnit" />
+          <NavigationProperty Name="ItemUnit1" Relationship="EasyGoDBModel.FK_ItemUnit_Unit1" FromRole="Unit" ToRole="ItemUnit" />
+        </EntityType>
+        <Association Name="FK_Category_Category">
+          <End Type="EasyGoDBModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.Category" Role="Category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Category">
+          <End Type="EasyGoDBModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Unit">
+          <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="MinUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Unit1">
+          <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="MaxUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Item">
+          <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Unit">
+          <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemUnit_Unit1">
+          <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="ItemUnit">
+              <PropertyRef Name="SubUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -965,6 +1364,87 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EasyGoDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EasyGoDBModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="EasyGoDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item">
+            <EntityTypeMapping TypeName="EasyGoDBModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="AvgPurchasePrice" ColumnName="AvgPurchasePrice" />
+                <ScalarProperty Name="MaxUnitId" ColumnName="MaxUnitId" />
+                <ScalarProperty Name="MinUnitId" ColumnName="MinUnitId" />
+                <ScalarProperty Name="Taxes" ColumnName="Taxes" />
+                <ScalarProperty Name="IsTaxExempt" ColumnName="IsTaxExempt" />
+                <ScalarProperty Name="AlertDays" ColumnName="AlertDays" />
+                <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Max" ColumnName="Max" />
+                <ScalarProperty Name="Min" ColumnName="Min" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemUnit">
+            <EntityTypeMapping TypeName="EasyGoDBModel.ItemUnit">
+              <MappingFragment StoreEntitySet="ItemUnit">
+                <ScalarProperty Name="purchasePrice" ColumnName="purchasePrice" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IsDefaultPurchase" ColumnName="IsDefaultPurchase" />
+                <ScalarProperty Name="IsDefaultSale" ColumnName="IsDefaultSale" />
+                <ScalarProperty Name="UnitValue" ColumnName="UnitValue" />
+                <ScalarProperty Name="SubUnitId" ColumnName="SubUnitId" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="EasyGoDBModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

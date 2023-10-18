@@ -7,24 +7,19 @@ namespace POS_Server.Models
 {
     public class CategoryModel
     {
-        public int categoryId { get; set; }
-        public string categoryCode { get; set; }
-        public string name { get; set; }
-        public string details { get; set; }
-        public string image { get; set; }
-        public Nullable<short> isActive { get; set; }
-        public Nullable<decimal> taxes { get; set; }
-        public Nullable<byte> fixedTax { get; set; }
-        public Nullable<int> parentId { get; set; }
-        public Nullable<System.DateTime> createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createUserId { get; set; }
-        public Nullable<int> updateUserId { get; set; }
-        public string notes { get; set; }
-        public Boolean canDelete { get; set; }
-        public Nullable<int> sequence { get; set; }
-        public Nullable<int> id { get; set; }
-        public bool isTaxExempt { get; set; }
+        public int CategoryId { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string Details { get; set; }
+        public string Image { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> ParentId { get; set; }
+        public string Notes { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<long> CreateUserId { get; set; }
+        public Nullable<long> UpdateUserId { get; set; }
+
 
     }
 }

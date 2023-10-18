@@ -7,18 +7,13 @@ namespace POS_Server.Models
 {
     public class UnitModel
     {
-        public int unitId { get; set; }
-        public string name { get; set; }
-        public Nullable<short> isSmallest { get; set; }
-        public Nullable<int> smallestId { get; set; }
-        public string smallestUnit { get; set; }
-        public string notes { get; set; }
-        public Nullable<System.DateTime> createDate { get; set; }
-        public Nullable<int> createUserId { get; set; }
-        public Nullable<int> updateUserId { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> parentid { get; set; }
-        public Nullable<byte> isActive { get; set; }
-        public Boolean canDelete { get; set; }
+        public int UnitId { get; set; }
+        public string Name { get; set; }
+        public string Notes { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<long> CreateUserId { get; set; }
+        public Nullable<long> UpdateUserId { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

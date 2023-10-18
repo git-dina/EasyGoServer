@@ -23,6 +23,17 @@
         <AssociationConnector Association="EasyGoDBModel.FK_UserLog_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserRequest_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Category" Width="1.5" PointX="11.375" PointY="10.125" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Item" Width="1.5" PointX="13.625" PointY="4.125" />
+        <EntityTypeShape EntityType="EasyGoDBModel.ItemUnit" Width="1.5" PointX="15.875" PointY="4.75" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Unit" Width="1.5" PointX="11.375" PointY="5.375" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Category_Category" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Item_Category" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Item_Unit" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Item_Unit1" />
+        <AssociationConnector Association="EasyGoDBModel.FK_ItemUnit_Item" />
+        <AssociationConnector Association="EasyGoDBModel.FK_ItemUnit_Unit" />
+        <AssociationConnector Association="EasyGoDBModel.FK_ItemUnit_Unit1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
