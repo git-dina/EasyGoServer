@@ -147,7 +147,7 @@ namespace POS_Server.Controllers
                             categoriesId = new List<int>();
                             List<int> catIdlist = new List<int>();
                             categoriesId.Add(CategoryId);
-                            ItemsController icls = new ItemsController();
+                            //ItemController icls = new ItemController();
 
                             var result = Recursive(categoriesList, CategoryId).ToList();
 
@@ -180,25 +180,19 @@ namespace POS_Server.Controllers
                                 }
                                 entity.SaveChanges();
                             }
-                            if (tmpCategory.fixedTax == 1)
-                            {
-                                var Category = entity.Category.Where(U => catIdlist.Contains((int)U.CategoryId)).ToList();
-                                Category.ForEach(a => a.taxes = tmpCategory.taxes);
-                            }
+
                             // disactive items related to selected category and subs
                             catIdlist.Add(CategoryId);
                            
-                            var catitems = entity.items.Where(U => catIdlist.Contains((int)U.CategoryId)).ToList();
+                            var catitems = entity.Item.Where(U => catIdlist.Contains((int)U.CategoryId)).ToList();
                             if (catitems.Count > 0)
                             {
                                 for (int i = 0; i < catitems.Count; i++)
                                 {
-                                    if(tmpCategory.fixedTax == 1)
-                                        catitems[i].taxes = tmpCategory.taxes;
-                                    catitems[i].IsActive = (byte)isActivecat;
+                                    catitems[i].IsActive = isActivecat;
                                     catitems[i].UpdateUserId = updateuser;
                                     catitems[i].UpdateDate = cc.AddOffsetTodate(DateTime.Now);
-                                    entity.items.AddOrUpdate(catitems[i]);
+                                    entity.Item.AddOrUpdate(catitems[i]);
 
                                 }
                                 entity.SaveChanges();
@@ -228,102 +222,85 @@ namespace POS_Server.Controllers
             }
             else
             {
-                int CategoryId = 0;
+                int categoryId = 0;
                 int userId = 0;
-                Boolean final = false;
+
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
                     if (c.Type == "itemId")
                     {
-                        CategoryId = int.Parse(c.Value);
+                        categoryId = int.Parse(c.Value);
                     }
                     else if (c.Type == "userId")
                     {
                         userId = int.Parse(c.Value);
                     }
-                    else if (c.Type == "final")
+
+                }
+
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        final = bool.Parse(c.Value);
+
+                        var tmp = entity.Category.Find(categoryId);
+                        entity.Category.Remove(tmp);
+                        entity.SaveChanges();
+                        return TokenManager.GenerateToken(message);
+
                     }
                 }
-                if (final)
+                catch
                 {
                     try
                     {
                         using (EasyGoDBEntities entity = new EasyGoDBEntities())
                         {
-                            var childCategories = entity.Category.Where(u => u.ParentId == CategoryId && u.IsActive == 1).FirstOrDefault();
+                            var tmp = entity.Category.Find(categoryId);
 
-                            if (childCategories == null)
-                            {
-                               // entity.categoryuser.RemoveRange(entity.categoryuser.Where(x => x.CategoryId == CategoryId));
-
-                                var tmpCategory = entity.Category.Where(p => p.CategoryId == CategoryId).First();
-                                entity.Category.Remove(tmpCategory);
-
-                                message = entity.SaveChanges().ToString();
-                                return TokenManager.GenerateToken(message);
-                            }
-                            else
-                                message = "0";
-                            return TokenManager.GenerateToken(message);
-                        }
-                    }
-                    catch
-                    {
-                        message = "0";
-                        return TokenManager.GenerateToken(message);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        using (EasyGoDBEntities entity = new EasyGoDBEntities())
-                        {  // get all sub Category of CategoryId
                             List<Category> categoriesList = entity.Category
-                             .ToList()
-                              .Select(p => new Category
-                              {
-                                  CategoryId = p.CategoryId,
-                                  Name = p.Name,
-                                  ParentId = p.ParentId,
-                              })
-                             .ToList();
+                            .ToList()
+                             .Select(p => new Category
+                             {
+                                 CategoryId = p.CategoryId,
+                                 Name = p.Name,
+                                 ParentId = p.ParentId,
+                             })
+                            .ToList();
 
                             categoriesId = new List<int>();
-                            List<int>  catIdlist = new List<int>();
-                            categoriesId.Add(CategoryId);
-                            ItemsController icls = new ItemsController();
-                           
-                            var result =Recursive(categoriesList, CategoryId).ToList();
-                           
-                            
+                            List<int> catIdlist = new List<int>();
+                            categoriesId.Add(categoryId);
+                            //ItemController icls = new ItemController();
+
+                            var result = Recursive(categoriesList, categoryId).ToList();
+
+
                             foreach (var r in result)
                             {
                                 catIdlist.Add(r.CategoryId);
-                             
+
                             }
-                            
+
                             // end sub cat
                             // disactive selected category
-                            var tmpCategory = entity.Category.Where(p => p.CategoryId == CategoryId).First();
-                            tmpCategory.IsActive = 0;
+                            var tmpCategory = entity.Category.Where(p => p.CategoryId == categoryId).First();
+                            tmpCategory.IsActive = false;
                             tmpCategory.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
                             tmpCategory.UpdateUserId = userId;
                             entity.Category.AddOrUpdate(tmpCategory);
                             entity.SaveChanges();
 
-                       // disactive subs Category
+                            // disactive subs Category
 
-                           List<Category> sonList = entity.Category.Where(U => catIdlist.Contains(U.CategoryId)).ToList();
+                            List<Category> sonList = entity.Category.Where(U => catIdlist.Contains(U.CategoryId)).ToList();
 
                             if (sonList.Count > 0)
                             {
                                 for (int i = 0; i < sonList.Count; i++)
                                 {
-                                    sonList[i].IsActive = 0;
+                                    sonList[i].IsActive = false;
                                     sonList[i].UpdateDate = cc.AddOffsetTodate(DateTime.Now);
                                     sonList[i].UpdateUserId = userId;
                                     entity.Category.AddOrUpdate(sonList[i]);
@@ -332,36 +309,32 @@ namespace POS_Server.Controllers
                                 entity.SaveChanges();
                             }
                             // disactive items related to selected category and subs
-                            catIdlist.Add(CategoryId);
-                              var catitems = entity.items.Where(U => catIdlist.Contains((int)U.CategoryId)).ToList();
-                                if (catitems.Count > 0)
+                            catIdlist.Add(categoryId);
+                            var catitems = entity.Item.Where(U => catIdlist.Contains((int)U.CategoryId)).ToList();
+                            if (catitems.Count > 0)
+                            {
+                                for (int i = 0; i < catitems.Count; i++)
                                 {
-                                    for (int i = 0; i < catitems.Count; i++)
-                                    {
-                                    catitems[i].IsActive = 0;
+                                    catitems[i].IsActive = false;
                                     catitems[i].UpdateDate = cc.AddOffsetTodate(DateTime.Now);
                                     catitems[i].UpdateUserId = userId;
-                                    entity.items.AddOrUpdate(catitems[i]);
-                                   
-                                    }
-                                   entity.SaveChanges();
+                                    entity.Item.AddOrUpdate(catitems[i]);
 
                                 }
+                                entity.SaveChanges();
 
-
-
-                            message = "1";
+                            }
                             return TokenManager.GenerateToken(message);
 
                         }
                     }
                     catch
                     {
-                        message = "0";
+                        message = "failed";
                         return TokenManager.GenerateToken(message);
                     }
-
                 }
+               
             }
         }
 
@@ -396,7 +369,6 @@ namespace POS_Server.Controllers
                     Category category;
                     using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        var agentEntity = entity.Set<agents>();
                         category = entity.Category.Where(p => p.CategoryId == catObj.CategoryId).First();
                         category.Image = catObj.Image;
                         entity.SaveChanges();
@@ -407,7 +379,7 @@ namespace POS_Server.Controllers
 
                 catch
                 {
-                    message = "0";
+                    message = "failed";
                     return TokenManager.GenerateToken(message);
                 }
             }
@@ -482,30 +454,6 @@ namespace POS_Server.Controllers
                 return Ok(res);
             }
         }
-        //[HttpGet]
-        //[Route("GetImage")]
-        //public HttpResponseMessage GetImage(string imageName)
-        //{
-        //    if (String.IsNullOrEmpty(imageName))
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest);
-
-        //    string localFilePath;
-
-        //    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\category"), imageName);
-
-        //    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-        //    if (System.IO.File.Exists(localFilePath))
-        //    {
-        //        response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
-        //        response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-        //        response.Content.Headers.ContentDisposition.FileName = imageName;
-        //    }
-        //    else
-        //    {
-        //        response.Content = null;
-        //    }
-        //    return response;
-        //}
 
         [HttpPost]
         [Route("GetImage")]
