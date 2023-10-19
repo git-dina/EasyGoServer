@@ -129,13 +129,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:39</publishTime>
     </File>
     <File Include="bin/POS_Server.dll">
-      <publishTime>10/19/2023 14:29:18</publishTime>
+      <publishTime>10/19/2023 15:48:05</publishTime>
     </File>
     <File Include="bin/POS_Server.pdb">
-      <publishTime>10/19/2023 14:29:18</publishTime>
+      <publishTime>10/19/2023 15:48:05</publishTime>
     </File>
     <File Include="bin/POS_Server.xml">
-      <publishTime>10/19/2023 14:29:18</publishTime>
+      <publishTime>10/19/2023 15:48:05</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/11/2023 14:01:36</publishTime>

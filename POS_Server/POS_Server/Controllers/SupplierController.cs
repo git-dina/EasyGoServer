@@ -234,6 +234,7 @@ namespace POS_Server.Controllers
                                 agentObj.UpdateDate = agentObj.CreateDate;
                                 agentObj.UpdateUserId = agentObj.CreateUserId;
                                 agentObj.BalanceType = 0;
+                                agentObj.Code = GetLastNumOfCode();
                                 agent = agentEntity.Add(agentObj);
                             }
                         }
@@ -272,6 +273,36 @@ namespace POS_Server.Controllers
                 }
             }
         }
+
+        private string GetLastNumOfCode()
+        {
+            long lastNum = 0;
+            List<string> numberList;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                numberList = entity.Supplier.Where(b => b.Code.Contains("v-")).Select(b => b.Code).ToList();
+
+                for (int i = 0; i < numberList.Count; i++)
+                {
+                    string Code = numberList[i];
+                    string s = Code.Substring(Code.LastIndexOf("-") + 1);
+                    numberList[i] = s;
+                }
+                if (numberList.Count > 0)
+                {
+                    numberList.Sort();
+                    lastNum = int.Parse(numberList[numberList.Count - 1]);
+                }
+            }
+            lastNum++;
+            string strSeq = lastNum.ToString();
+            if (lastNum <= 999999)
+                strSeq = lastNum.ToString().PadLeft(6, '0');
+            string transNum = "v-" + strSeq;
+            return transNum;
+        }
+
+
         [HttpPost]
         [Route("Delete")]
         public string Delete(string token)

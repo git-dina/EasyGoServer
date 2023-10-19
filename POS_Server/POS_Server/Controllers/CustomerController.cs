@@ -241,6 +241,7 @@ namespace POS_Server.Controllers
                                 agentObj.UpdateDate = agentObj.CreateDate;
                                 agentObj.UpdateUserId = agentObj.CreateUserId;
                                 agentObj.BalanceType = 0;
+                                agentObj.Code = GetLastNumOfCode();
                                 agent = agentEntity.Add(agentObj);
                             }
                         }
@@ -249,7 +250,6 @@ namespace POS_Server.Controllers
                             agent = entity.Customer.Where(p => p.CustomerId == agentObj.CustomerId).First();
 
                             agent.Address = agentObj.Address;
-                            agent.Code = agentObj.Code;
                             agent.Company = agentObj.Company;
                             agent.Email = agentObj.Email;
                             agent.Image = agentObj.Image;
@@ -279,6 +279,34 @@ namespace POS_Server.Controllers
                 }
             }
         }
+        private string GetLastNumOfCode()
+        {
+            long lastNum = 0;
+            List<string> numberList;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                numberList = entity.Customer.Where(b => b.Code.Contains("c-")).Select(b => b.Code).ToList();
+
+                for (int i = 0; i < numberList.Count; i++)
+                {
+                    string Code = numberList[i];
+                    string s = Code.Substring(Code.LastIndexOf("-") + 1);
+                    numberList[i] = s;
+                }
+                if (numberList.Count > 0)
+                {
+                    numberList.Sort();
+                    lastNum = int.Parse(numberList[numberList.Count - 1]);
+                }
+            }
+            lastNum++;
+            string strSeq = lastNum.ToString();
+            if (lastNum <= 999999)
+                strSeq = lastNum.ToString().PadLeft(6, '0');
+            string transNum =  "c-" + strSeq;
+            return transNum;
+        }
+
         [HttpPost]
         [Route("Delete")]
         public string Delete(string token)
@@ -387,19 +415,19 @@ namespace POS_Server.Controllers
                         }
                         else
                         {
-                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent");
+                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\customer");
                             if (!Directory.Exists(dir))
                                 Directory.CreateDirectory(dir);
                             //  check if Image exist
-                            var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt);
-                            var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageWithNoExt + ".*");
+                            var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\customer"), imageWithNoExt);
+                            var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\customer"), imageWithNoExt + ".*");
                             if (files.Length > 0)
                             {
                                 File.Delete(files[0]);
                             }
 
                             //Userimage myfolder Name where i want to save my Image
-                            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
+                            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\customer"), imageName);
                             postedFile.SaveAs(filePath);
 
                         }
@@ -448,7 +476,7 @@ namespace POS_Server.Controllers
 
                 try
                 {
-                    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\agent"), imageName);
+                    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\customer"), imageName);
 
                     byte[] b = System.IO.File.ReadAllBytes(localFilePath);
                     return TokenManager.GenerateToken(Convert.ToBase64String(b));
@@ -555,50 +583,8 @@ namespace POS_Server.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("GetLastNumOfCode")]
-        public string GetLastNumOfCode(string token)
-        {
-            token = TokenManager.readToken(HttpContext.Current.Request);
-            string message = "";
-            var strP = TokenManager.GetPrincipal(token);
-            if (strP != "0") //invalid authorization
-            {
-                return TokenManager.GenerateToken(strP);
-            }
-            else
-            {
-                string Type = "";
-                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
-                foreach (Claim c in claims)
-                {
-                    if (c.Type == "type")
-                    {
-                        Type = c.Value;
-                    }
-                }
-                List<string> numberList;
-                int lastNum = 0;
-                using (EasyGoDBEntities entity = new EasyGoDBEntities())
-                {
-                    numberList = entity.Customer.Where(b => b.Code.Contains(Type + "-")).Select(b => b.Code).ToList();
-
-                    for (int i = 0; i < numberList.Count; i++)
-                    {
-                        string Code = numberList[i];
-                        string s = Code.Substring(Code.LastIndexOf("-") + 1);
-                        numberList[i] = s;
-                    }
-                    if (numberList.Count > 0)
-                    {
-                        numberList.Sort();
-                        lastNum = int.Parse(numberList[numberList.Count - 1]);
-                    }
-                }
-                message = lastNum.ToString();
-                return TokenManager.GenerateToken(message);
-            }
-        }
+      
+       
 
     }
 }
