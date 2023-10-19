@@ -280,6 +280,7 @@
     </Compile>
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\PosEcommerceModel.cs" />
     <Compile Include="Models\setValuesModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />

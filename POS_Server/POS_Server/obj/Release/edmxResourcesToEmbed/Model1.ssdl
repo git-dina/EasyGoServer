@@ -19,6 +19,23 @@
     <Property Name="Notes" Type="ntext" />
     <Property Name="SettingId" Type="int" />
   </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Details" Type="ntext" />
+    <Property Name="Image" Type="ntext" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
   <EntityType Name="CountryCode">
     <Key>
       <PropertyRef Name="CountryId" />
@@ -31,6 +48,78 @@
     <Property Name="CurrencyId" Type="int" Nullable="false" />
     <Property Name="TimeZoneName" Type="nvarchar" MaxLength="100" />
     <Property Name="TimeZoneOffset" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Company" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image" Type="ntext" />
+    <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="BalanceType" Type="tinyint" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsLimited" Type="bit" Nullable="false" />
+    <Property Name="MaxDeserve" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="PayType" Type="nvarchar" MaxLength="20" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="ItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Details" Type="ntext" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="ntext" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Min" Type="int" />
+    <Property Name="Max" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="IsExpired" Type="bit" Nullable="false" />
+    <Property Name="AlertDays" Type="int" Nullable="false" />
+    <Property Name="IsTaxExempt" Type="bit" Nullable="false" />
+    <Property Name="Taxes" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="MinUnitId" Type="int" />
+    <Property Name="MaxUnitId" Type="int" />
+    <Property Name="AvgPurchasePrice" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ItemUnit">
+    <Key>
+      <PropertyRef Name="ItemUnitId" />
+    </Key>
+    <Property Name="ItemUnitId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemId" Type="bigint" />
+    <Property Name="UnitId" Type="int" />
+    <Property Name="SubUnitId" Type="int" />
+    <Property Name="UnitValue" Type="int" />
+    <Property Name="IsDefaultSale" Type="bit" />
+    <Property Name="IsDefaultPurchase" Type="bit" />
+    <Property Name="Price" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Cost" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="int" />
+    <Property Name="UpdateUserId" Type="int" />
+    <Property Name="purchasePrice" Type="decimal" Precision="20" Scale="3" />
   </EntityType>
   <EntityType Name="ProgramDetails">
     <Key>
@@ -72,6 +161,31 @@
     <Property Name="Notes" Type="nvarchar" MaxLength="500" />
     <Property Name="IsDemo" Type="nvarchar" MaxLength="10" />
   </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Company" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image" Type="ntext" />
+    <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="BalanceType" Type="tinyint" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsLimited" Type="bit" Nullable="false" />
+    <Property Name="MaxDeserve" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="PayType" Type="nvarchar" MaxLength="20" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -89,6 +203,19 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Token" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="CreateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="UnitId" />
+    </Key>
+    <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -162,6 +289,90 @@
       </Principal>
       <Dependent Role="AppSettingValue">
         <PropertyRef Name="SettingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="MinUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Unit1">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="MaxUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Unit1">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="SubUnitId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -259,10 +470,16 @@
   <EntityContainer Name="EasyGoDBModelStoreContainer">
     <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CountryCode" EntityType="Self.CountryCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TokensTable" EntityType="Self.TokensTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRequest" EntityType="Self.UserRequest" Schema="dbo" store:Type="Tables" />
@@ -270,6 +487,34 @@
     <AssociationSet Name="FK_AppSettingValue_AppSetting" Association="Self.FK_AppSettingValue_AppSetting">
       <End Role="AppSetting" EntitySet="AppSetting" />
       <End Role="AppSettingValue" EntitySet="AppSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Unit" Association="Self.FK_Item_Unit">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Unit1" Association="Self.FK_Item_Unit1">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Item" Association="Self.FK_ItemUnit_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Unit" Association="Self.FK_ItemUnit_Unit">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Unit1" Association="Self.FK_ItemUnit_Unit1">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
     </AssociationSet>
     <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
       <End Role="User" EntitySet="User" />
