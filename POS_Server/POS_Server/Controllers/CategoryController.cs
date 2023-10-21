@@ -126,7 +126,6 @@ namespace POS_Server.Controllers
 
                             tmpCategory.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
                             tmpCategory.UpdateUserId = newObject.UpdateUserId;
-                            tmpCategory.IsActive = newObject.IsActive;
                             entity.SaveChanges();
                             int CategoryId = tmpCategory.CategoryId;
                             bool? isActivecat = tmpCategory.IsActive;
@@ -147,7 +146,6 @@ namespace POS_Server.Controllers
                             categoriesId = new List<int>();
                             List<int> catIdlist = new List<int>();
                             categoriesId.Add(CategoryId);
-                            //ItemController icls = new ItemController();
 
                             var result = Recursive(categoriesList, CategoryId).ToList();
 
@@ -204,7 +202,7 @@ namespace POS_Server.Controllers
                 }
                 catch
                 {
-                    message = "0";
+                    message = "failed";
                     return TokenManager.GenerateToken(message);
                 }
             }
