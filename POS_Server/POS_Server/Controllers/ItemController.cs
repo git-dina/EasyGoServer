@@ -27,8 +27,8 @@ namespace POS_Server.Controllers
         List<int> categoriesId = new List<int>();
 
         [HttpPost]
-        [Route("GetAllItems")]
-        public string GetAllItems(string token)
+        [Route("Get")]
+        public string Get(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
             var strP = TokenManager.GetPrincipal(token);
@@ -38,16 +38,15 @@ namespace POS_Server.Controllers
             }
             else
             {
-                Boolean canDelete = false;
 
                 DateTime cmpdate = cc.AddOffsetTodate(DateTime.Now).AddDays(newdays);
                 DateTime datenow = cc.AddOffsetTodate(DateTime.Now);
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    var itemsList = (from I in entity.Item
+                    var itemsList = (from I in entity.Item where I.IsActive == true
 
-                                     join c in entity.Category on I.CategoryId equals c.CategoryId into lj
-                                     from x in lj.DefaultIfEmpty()
+                                    // join c in entity.Category on I.CategoryId equals c.CategoryId into lj
+                                    // from x in lj.DefaultIfEmpty()
                                      select new ItemModel()
                                      {
                                          ItemId = I.ItemId,
@@ -55,7 +54,7 @@ namespace POS_Server.Controllers
                                          Code = I.Code,
                                          CategoryId = I.CategoryId,
 
-                                         CategoryName = x.Name,
+                                         CategoryName = I.Category.Name,
                                          Max = I.Max,
                                          MaxUnitId = I.MaxUnitId,
                                          MinUnitId = I.MinUnitId,
@@ -72,7 +71,7 @@ namespace POS_Server.Controllers
                                          IsNew = 0,
                                          MinUnitName = entity.Unit.Where(m => m.UnitId == I.MinUnitId).FirstOrDefault().Name,
                                          MaxUnitName = entity.Unit.Where(m => m.UnitId == I.MinUnitId).FirstOrDefault().Name,
-
+                                         Notes = I.Notes,
                                          AvgPurchasePrice = I.AvgPurchasePrice,
                                          IsExpired = I.IsExpired,
                                          AlertDays = I.AlertDays,
@@ -103,7 +102,7 @@ namespace POS_Server.Controllers
                     //                           discountType = off.discountType,
                     //                           desPrice = iu.price,
                     //                           defaultSale = iu.defaultSale,
-                    //                           isTaxExempt = iu.items.isTaxExempt,
+                    //                           isTaxExempt = iu.Item.isTaxExempt,
                     //                       }).ToList();
 
                     //itemsofferslist = itemsofferslist.Where(IO => (IO.isActiveOffer == 1 && DateTime.Compare(((DateTime)IO.startDate).Date, datenow.Date) <= 0 && System.DateTime.Compare(((DateTime)IO.endDate).Date, datenow.Date) >= 0 && IO.defaultSale == 1)
@@ -122,18 +121,18 @@ namespace POS_Server.Controllers
 
 
                     //               max = itemtb.max,
-                    //               maxUnitId = itemtb.maxUnitId,
-                    //               minUnitId = itemtb.minUnitId,
+                    //               MaxUnitId = itemtb.MaxUnitId,
+                    //               MinUnitId = itemtb.MinUnitId,
                     //               min = itemtb.min,
 
-                    //               parentId = itemtb.parentId,
+                    //               ParentId = itemtb.ParentId,
                     //               isActive = itemtb.isActive,
 
                     //               isOffer = 0,
                     //               desPrice = 0,
 
                     //               offerName = "",
-                    //               createDate = itemtb.createDate,
+                    //               CreateDate = itemtb.CreateDate,
                     //               defaultSale = unitm.defaultSale,
                     //               unitName = untb.Name,
                     //               unitId = untb.unitId,
@@ -176,13 +175,13 @@ namespace POS_Server.Controllers
 
                     //            itemsList[i].price = itofflist.price;
 
-                    //            itemsList[i].avgPurchasePrice = itemsList[i].avgPurchasePrice;
+                    //            itemsList[i].AvgPurchasePrice = itemsList[i].AvgPurchasePrice;
                     //            itemsList[i].discountType = itofflist.discountType;
                     //            itemsList[i].discountValue = itofflist.discountValue;
                     //        }
                     //    }
                     //    // is new
-                    //    int res = DateTime.Compare((DateTime)itemsList[i].createDate, cmpdate);
+                    //    int res = DateTime.Compare((DateTime)itemsList[i].CreateDate, cmpdate);
                     //    if (res >= 0)
                     //    {
                     //        itemsList[i].isNew = 1;
@@ -195,7 +194,349 @@ namespace POS_Server.Controllers
             }
         }
 
-       
 
+        // add or update item
+        [HttpPost]
+        [Route("Save")]
+        public string Save(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "";
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                Item itemObj = null;
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemObject")
+                    {
+                        itemObj = JsonConvert.DeserializeObject<Item>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        break;
+                    }
+                }
+
+                if (itemObj.UpdateUserId == 0 || itemObj.UpdateUserId == null)
+                {
+                    Nullable<int> id = null;
+                    itemObj.UpdateUserId = id;
+                }
+                if (itemObj.CreateUserId == 0 || itemObj.CreateUserId == null)
+                {
+                    Nullable<int> id = null;
+                    itemObj.CreateUserId = id;
+                }
+                if (itemObj.CategoryId == 0 || itemObj.CategoryId == null)
+                {
+                    Nullable<int> id = null;
+                    itemObj.CategoryId = id;
+                }
+                if (itemObj.MinUnitId == 0 || itemObj.MinUnitId == null)
+                {
+                    Nullable<int> id = null;
+                    itemObj.MinUnitId = id;
+                }
+                if (itemObj.MaxUnitId == 0 || itemObj.MaxUnitId == null)
+                {
+                    Nullable<int> id = null;
+                    itemObj.MaxUnitId = id;
+                }
+                if (itemObj.AvgPurchasePrice == null)
+                {
+                    itemObj.AvgPurchasePrice = 0;
+                }
+               try
+                {
+                    Item itemModel;
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var ItemEntity = entity.Set<Item>();
+                        if (itemObj.ItemId == 0)
+                        {
+                            //ProgramInfo programInfo = new ProgramInfo();
+                            //int itemMaxCount = programInfo.getItemCount();
+                            //int itemsCount = entity.Item.Count();
+                            //if (itemsCount >= itemMaxCount && itemMaxCount != -1)
+                            //{
+                            //    message = "upgrade";
+                            //}
+                            //else
+                            {
+                                itemObj.CreateDate = cc.AddOffsetTodate(DateTime.Now);
+                                itemObj.UpdateDate = itemObj.CreateDate;
+                                itemObj.UpdateUserId = itemObj.CreateUserId;
+
+                                itemModel = ItemEntity.Add(itemObj);
+                                entity.SaveChanges();
+                                message = itemObj.ItemId.ToString();
+                            }
+                        }
+                        else
+                        {
+                            itemModel = entity.Item.Where(p => p.ItemId == itemObj.ItemId).First();
+                            itemModel.Code = itemObj.Code;
+                            itemModel.CategoryId = itemObj.CategoryId;
+                            itemModel.Details = itemObj.Details;
+                            itemModel.Image = itemObj.Image;
+                            itemModel.Max = itemObj.Max;
+                            itemModel.MaxUnitId = itemObj.MaxUnitId;
+                            itemModel.Min = itemObj.Min;
+                            itemModel.MinUnitId = itemObj.MinUnitId;
+                            itemModel.Name = itemObj.Name;
+
+                            itemModel.Taxes = itemObj.Taxes;
+                            itemModel.Type = itemObj.Type;
+                            itemModel.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
+                            itemModel.UpdateUserId = itemObj.UpdateUserId;
+                            itemModel.AvgPurchasePrice = itemObj.AvgPurchasePrice;
+                            itemModel.IsExpired = itemObj.IsExpired;
+                            itemModel.AlertDays = itemObj.AlertDays;
+                            itemModel.IsTaxExempt = itemObj.IsTaxExempt;
+
+                            entity.SaveChanges();
+                            message = itemModel.ItemId.ToString();
+                        }
+                    }
+                    return TokenManager.GenerateToken(message);
+                }
+                catch
+                {
+                    message = "failed";
+                    return TokenManager.GenerateToken(message);
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateImage")]
+        public string UpdateImage(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "";
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                long itemId = 0;
+                string fileName = "";
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemId")
+                    {
+                        itemId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "image")
+                    {
+                        fileName = c.Value;
+                    }
+
+                }
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var item = entity.Item.Find(itemId);
+                        item.Image = fileName;
+                        entity.SaveChanges();
+                        message = item.ItemId.ToString();
+                    }
+                   
+                    return TokenManager.GenerateToken(message);
+                }
+                catch
+                {
+                    message = "faild";
+                    return TokenManager.GenerateToken(message);
+                }
+            }
+        }
+
+        [Route("PostItemImage")]
+        public IHttpActionResult PostItemImage()
+        {
+
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+
+                foreach (string file in httpRequest.Files)
+                {
+
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+
+                    var postedFile = httpRequest.Files[file];
+                    string imageName = postedFile.FileName;
+                    string imageWithNoExt = Path.GetFileNameWithoutExtension(postedFile.FileName);
+
+                    if (postedFile != null && postedFile.ContentLength > 0)
+                    {
+
+                        int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB
+
+                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png", ".bmp", ".jpeg", ".tiff", ".jfif" };
+                        var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+
+                        if (!AllowedFileExtensions.Contains(extension))
+                        {
+
+                            var message = string.Format("Please Upload Image of type .jpg,.gif,.png.");
+                            return Ok(message);
+                        }
+                        else if (postedFile.ContentLength > MaxContentLength)
+                        {
+
+                            var message = string.Format("Please Upload a file upto 1 mb.");
+
+                            return Ok(message);
+                        }
+                        else
+                        {
+                            //  check if Image exist
+                            var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageWithNoExt);
+                            var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageWithNoExt + ".*");
+                            if (files.Length > 0)
+                            {
+                                File.Delete(files[0]);
+                            }
+
+                            //Userimage myfolder Name where i want to save my Image
+                            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageName);
+                            postedFile.SaveAs(filePath);
+
+                        }
+                    }
+
+                    var message1 = string.Format("Image Updated Successfully.");
+                    return Ok(message1);
+                }
+                var res = string.Format("Please Upload a Image.");
+
+                return Ok(res);
+            }
+            catch
+            {
+                var res = string.Format("faild");
+
+                return Ok(res);
+            }
+        }
+
+        [HttpPost]
+        [Route("GetImage")]
+        public string GetImage(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                string imageName = "";
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "imageName")
+                    {
+                        imageName = c.Value;
+                    }
+                }
+                if (String.IsNullOrEmpty(imageName))
+                    return TokenManager.GenerateToken("0");
+
+                string localFilePath;
+
+                try
+                {
+                    localFilePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageName);
+
+                    byte[] b = System.IO.File.ReadAllBytes(localFilePath);
+                    return TokenManager.GenerateToken(Convert.ToBase64String(b));
+                }
+                catch
+                {
+                    return TokenManager.GenerateToken(null);
+
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("Delete")]
+        public string Delete(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "success";
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                long itemId = 0;
+                long userId = 0;
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemId")
+                    {
+                        itemId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "userId")
+                    {
+                        userId = long.Parse(c.Value);
+                    }
+
+                }
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+
+                        var tmp = entity.Item.Find(itemId);
+                        entity.Item.Remove(tmp);
+                        entity.SaveChanges();
+                        return TokenManager.GenerateToken(message);
+
+                    }
+                }
+                catch
+                {
+                    try
+                    {
+                        using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                        {
+                            var tmp = entity.Item.Find(itemId);
+
+                            tmp.IsActive = false;
+                            tmp.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
+                            tmp.UpdateUserId = userId;
+                            entity.SaveChanges();
+                            return TokenManager.GenerateToken(message);
+
+                        }
+                    }
+                    catch
+                    {
+                        message = "failed";
+                        return TokenManager.GenerateToken(message);
+                    }
+                }
+            }
+
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace POS_Server
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
+        public string Notes { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Unit Unit { get; set; }
