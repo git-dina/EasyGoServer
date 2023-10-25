@@ -19,8 +19,6 @@ namespace POS_Server.Models
         public Nullable<int> Max { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public bool IsExpired { get; set; }
-        public int AlertDays { get; set; }
-        public bool IsTaxExempt { get; set; }
         public Nullable<decimal> Taxes { get; set; }
         public Nullable<int> MinUnitId { get; set; }
         public Nullable<int> MaxUnitId { get; set; }
@@ -30,7 +28,10 @@ namespace POS_Server.Models
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
         public string CategoryName { get; set; }
-        
+
+        //extra
+        public List<ItemUnitModel> ItemUnits { get; set; }
+
 
         public Nullable<int> itemCount { get; set; }
 

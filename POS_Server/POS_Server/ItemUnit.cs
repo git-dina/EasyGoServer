@@ -14,6 +14,12 @@ namespace POS_Server
     
     public partial class ItemUnit
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ItemUnit()
+        {
+            this.PurInvoiceItem = new HashSet<PurInvoiceItem>();
+        }
+    
         public long ItemUnitId { get; set; }
         public Nullable<long> ItemId { get; set; }
         public Nullable<int> UnitId { get; set; }
@@ -27,12 +33,15 @@ namespace POS_Server
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
-        public Nullable<int> UpdateUserId { get; set; }
-        public Nullable<decimal> purchasePrice { get; set; }
+        public Nullable<long> CreateUserId { get; set; }
+        public Nullable<long> UpdateUserId { get; set; }
+        public Nullable<decimal> PurchasePrice { get; set; }
+        public Nullable<decimal> PackCost { get; set; }
     
         public virtual Item Item { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual Unit Unit1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurInvoiceItem> PurInvoiceItem { get; set; }
     }
 }

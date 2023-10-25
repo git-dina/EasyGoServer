@@ -31,17 +31,15 @@ namespace POS_Server
         public Nullable<int> Max { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public bool IsExpired { get; set; }
-        public int AlertDays { get; set; }
-        public bool IsTaxExempt { get; set; }
         public Nullable<decimal> Taxes { get; set; }
         public Nullable<int> MinUnitId { get; set; }
         public Nullable<int> MaxUnitId { get; set; }
         public Nullable<decimal> AvgPurchasePrice { get; set; }
+        public string Notes { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
-        public string Notes { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Unit Unit { get; set; }

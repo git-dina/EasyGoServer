@@ -74,8 +74,32 @@ namespace POS_Server.Controllers
                                          Notes = I.Notes,
                                          AvgPurchasePrice = I.AvgPurchasePrice,
                                          IsExpired = I.IsExpired,
-                                         AlertDays = I.AlertDays,
-                                         IsTaxExempt = I.IsTaxExempt,
+                                         ItemUnits = (from IU in entity.ItemUnit
+                                                      where (IU.ItemId == I.ItemId && IU.IsActive == true)
+                                                      join u in entity.Unit on IU.UnitId equals u.UnitId into lj
+                                                      from v in lj.DefaultIfEmpty()
+                                                      join u1 in entity.Unit on IU.SubUnitId equals u1.UnitId into tj
+                                                      from v1 in tj.DefaultIfEmpty()
+                                                      select new ItemUnitModel()
+                                                      {
+                                                          ItemUnitId = IU.ItemUnitId,
+                                                          UnitId = IU.UnitId,
+                                                          MainUnit = v.Name,
+                                                          CreateDate = IU.CreateDate,
+                                                          CreateUserId = IU.CreateUserId,
+                                                          IsDefaultPurchase = IU.IsDefaultPurchase,
+                                                          IsDefaultSale = IU.IsDefaultSale,
+                                                          Price = IU.Price,
+                                                          Cost = IU.Cost,
+                                                          SubUnitId = IU.SubUnitId,
+                                                          SmallUnit = v1.Name,
+                                                          UnitValue = IU.UnitValue,
+                                                          Barcode = IU.Barcode,
+                                                          UpdateDate = IU.UpdateDate,
+                                                          UpdateUserId = IU.UpdateUserId,
+                                                          PackCost = IU.PackCost,
+                                                      })
+                                                         .ToList(),
                                      })
                                    .ToList();
 
@@ -294,8 +318,6 @@ namespace POS_Server.Controllers
                             itemModel.UpdateUserId = itemObj.UpdateUserId;
                             itemModel.AvgPurchasePrice = itemObj.AvgPurchasePrice;
                             itemModel.IsExpired = itemObj.IsExpired;
-                            itemModel.AlertDays = itemObj.AlertDays;
-                            itemModel.IsTaxExempt = itemObj.IsTaxExempt;
 
                             entity.SaveChanges();
                             message = itemModel.ItemId.ToString();

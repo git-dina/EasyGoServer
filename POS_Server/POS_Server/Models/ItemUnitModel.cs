@@ -20,23 +20,23 @@ namespace POS_Server.Models
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
-        public Nullable<int> UpdateUserId { get; set; }
-        public Nullable<decimal> purchasePrice { get; set; }
+        public Nullable<long> CreateUserId { get; set; }
+        public Nullable<long> UpdateUserId { get; set; }
+        public Nullable<decimal> PurchasePrice { get; set; }
+        public Nullable<decimal> PackCost { get; set; }
+
         //extra
         public string ItemName { get; set; }
         public string ItemCode { get; set; }
-        public string UnitName { get; set; }
-        //public Nullable<int> storageCostId { get; set; }
+        public string MainUnit { get; set; }
+        public string SmallUnit { get; set; }
 
-
-       // public List<itemsPropModel> ItemProperties { get; set; }
         public string ItemType { get; set; }
-       // public Nullable<long> BranchId { get; set; }
+
 
         public Nullable<long> Quantity { get; set; }
-        public Nullable<long> SerialsCount { get; set; }
-        public Nullable<long> PropertiesCount { get; set; }
+        //public Nullable<long> SerialsCount { get; set; }
+       // public Nullable<long> PropertiesCount { get; set; }
 
     }
 }
