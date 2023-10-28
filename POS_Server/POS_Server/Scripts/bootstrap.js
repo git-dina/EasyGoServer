@@ -41,9 +41,9 @@ if (typeof jQuery === 'undefined') {
       transition       : 'transitionend'
     }
 
-    for (var Name in transEndEventNames) {
-      if (el.style[Name] !== undefined) {
-        return { end: transEndEventNames[Name] }
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
       }
     }
 
@@ -821,13 +821,13 @@ if (typeof jQuery === 'undefined') {
     if ($this.is('.disabled, :disabled')) return
 
     var $parent  = getParent($this)
-    var IsActive = $parent.hasClass('open')
+    var isActive = $parent.hasClass('open')
 
     clearMenus()
 
-    if (!IsActive) {
+    if (!isActive) {
       if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-        // if Mobile we use a backdrop because click events don't delegate
+        // if mobile we use a backdrop because click events don't delegate
         $(document.createElement('div'))
           .addClass('dropdown-backdrop')
           .insertAfter($(this))
@@ -862,9 +862,9 @@ if (typeof jQuery === 'undefined') {
     if ($this.is('.disabled, :disabled')) return
 
     var $parent  = getParent($this)
-    var IsActive = $parent.hasClass('open')
+    var isActive = $parent.hasClass('open')
 
-    if (!IsActive && e.which != 27 || IsActive && e.which == 27) {
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
       if (e.which == 27) $parent.find(toggle).trigger('focus')
       return $this.trigger('click')
     }
@@ -1318,7 +1318,7 @@ if (typeof jQuery === 'undefined') {
     b: [],
     br: [],
     col: [],
-    Code: [],
+    code: [],
     div: [],
     em: [],
     hr: [],
@@ -1352,11 +1352,11 @@ if (typeof jQuery === 'undefined') {
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi
 
   /**
-   * A pattern that matches safe data URLs. Only matches Image, video and audio types.
+   * A pattern that matches safe data URLs. Only matches image, video and audio types.
    *
    * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
    */
-  var DATA_URL_PATTERN = /^data:(?:Image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
 
   function allowedAttribute(attr, allowedAttributeList) {
     var attrName = attr.nodeName.toLowerCase()
@@ -1756,7 +1756,7 @@ if (typeof jQuery === 'undefined') {
 
     function complete() {
       if (that.hoverState != 'in') $tip.detach()
-      if (that.$element) { // TODO: Check whether guarding this Code with this `if` is really necessary.
+      if (that.$element) { // TODO: Check whether guarding this code with this `if` is really necessary.
         that.$element
           .removeAttr('aria-describedby')
           .trigger('hidden.bs.' + that.type)

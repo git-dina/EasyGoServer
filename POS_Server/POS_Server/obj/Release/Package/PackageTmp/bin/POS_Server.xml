@@ -6,9 +6,9 @@
     <members>
         <member name="M:POS_Server.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
-            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?Name={Name}"
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
             </summary>
-            <param Name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
             <returns>The ID as a string.</returns>
         </member>
         <member name="T:POS_Server.Areas.HelpPage.HelpPageConfig">
@@ -27,144 +27,144 @@
             <summary>
             Sets the documentation provider for help page.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="documentationProvider">The documentation provider.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
             <summary>
             Sets the objects that will be used by the formatters to produce sample requests/responses.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sampleObjects">The sample objects.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
             <summary>
             Sets the sample request directly for the specified media type and action.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample request.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
             <summary>
             Sets the sample request directly for the specified media type and action with parameters.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample request.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
             <summary>
             Sets the sample request directly for the specified media type of the action.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample response.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
             <summary>
             Sets the sample response directly for the specified media type of the action with specific parameters.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample response.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
             <summary>
             Sets the sample directly for all actions with the specified media type.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample.</param>
-            <param Name="mediaType">The media type.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
             <summary>
             Sets the sample directly for all actions with the specified type and media type.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sample">The sample.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="type">The parameter type or return type of an action.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
             <summary>
             Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
             The help page will use this information to produce more accurate request samples.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="type">The type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
             <summary>
             Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
             The help page will use this information to produce more accurate request samples.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="type">The type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
             <summary>
             Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
             The help page will use this information to produce more accurate response samples.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="type">The type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
             <summary>
             Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
             The help page will use this information to produce more accurate response samples.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="type">The type.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
             <summary>
             Gets the help page sample generator.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
             <returns>The help page sample generator.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,POS_Server.Areas.HelpPage.HelpPageSampleGenerator)">
             <summary>
             Sets the help page sample generator.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="sampleGenerator">The help page sample generator.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
             <summary>
             Gets the model description generator.
             </summary>
-            <param Name="config">The configuration.</param>
+            <param name="config">The configuration.</param>
             <returns>The <see cref="T:POS_Server.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
             <summary>
             Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
             </summary>
-            <param Name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
-            <param Name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
             <returns>
             An <see cref="T:POS_Server.Areas.HelpPage.Models.HelpPageApiModel"/>
             </returns>
@@ -181,7 +181,7 @@
         </member>
         <member name="T:POS_Server.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
             <summary>
-            Use this attribute to change the Name of the <see cref="T:POS_Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            Use this attribute to change the name of the <see cref="T:POS_Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
             </summary>
         </member>
         <member name="T:POS_Server.Areas.HelpPage.Models.HelpPageApiModel">
@@ -276,42 +276,42 @@
             </summary>
             <remarks>
             Collection includes just <see cref="M:POS_Server.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
-            <Code>SampleObjectFactories.Insert(0, func)</Code> to provide an override and
-            <Code>SampleObjectFactories.Add(func)</Code> to provide a fallback.</remarks>
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
             <summary>
             Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
             </summary>
-            <param Name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
             <returns>The samples keyed by media type.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
             <summary>
             Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
             </summary>
-            <param Name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
             <returns>The samples keyed by media type.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,POS_Server.Areas.HelpPage.SampleDirection)">
             <summary>
             Gets the request or response body samples.
             </summary>
-            <param Name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
-            <param Name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
             <returns>The samples keyed by media type.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,POS_Server.Areas.HelpPage.SampleDirection)">
             <summary>
             Search for samples that are provided directly through <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
             </summary>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
-            <param Name="type">The CLR type.</param>
-            <param Name="formatter">The formatter.</param>
-            <param Name="mediaType">The media type.</param>
-            <param Name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
             <returns>The sample that matches the parameters.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
@@ -321,35 +321,35 @@
             one using <see cref="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(POS_Server.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:POS_Server.Areas.HelpPage.ObjectGenerator"/>) and other
             factories in <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
             </summary>
-            <param Name="type">The type.</param>
+            <param name="type">The type.</param>
             <returns>The sample object.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
             <summary>
             Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
             </summary>
-            <param Name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
             <returns>The type.</returns>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},POS_Server.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
             <summary>
             Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
             </summary>
-            <param Name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
-            <param Name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
-            <param Name="formatters">The formatters.</param>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
             <summary>
             Writes the sample object using formatter.
             </summary>
-            <param Name="formatter">The formatter.</param>
-            <param Name="value">The value.</param>
-            <param Name="type">The type.</param>
-            <param Name="mediaType">Type of the media.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
             <returns></returns>
         </member>
         <member name="T:POS_Server.Areas.HelpPage.HelpPageSampleKey">
@@ -361,48 +361,48 @@
             <summary>
             Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
             </summary>
-            <param Name="mediaType">The media type.</param>
+            <param name="mediaType">The media type.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
             <summary>
             Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
             </summary>
-            <param Name="mediaType">The media type.</param>
-            <param Name="type">The CLR type.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleKey.#ctor(POS_Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller Name, action Name and parameter names.
+            Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
             </summary>
-            <param Name="sampleDirection">The <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,POS_Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller Name, action Name and parameter names.
+            Creates a new <see cref="T:POS_Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
             </summary>
-            <param Name="mediaType">The media type.</param>
-            <param Name="sampleDirection">The <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
-            <param Name="controllerName">Name of the controller.</param>
-            <param Name="actionName">Name of the action.</param>
-            <param Name="parameterNames">The parameter names.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
         </member>
         <member name="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.ControllerName">
             <summary>
-            Gets the Name of the controller.
+            Gets the name of the controller.
             </summary>
             <value>
-            The Name of the controller.
+            The name of the controller.
             </value>
         </member>
         <member name="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.ActionName">
             <summary>
-            Gets the Name of the action.
+            Gets the name of the action.
             </summary>
             <value>
-            The Name of the action.
+            The name of the action.
             </value>
         </member>
         <member name="P:POS_Server.Areas.HelpPage.HelpPageSampleKey.MediaType">
@@ -425,14 +425,14 @@
         </member>
         <member name="T:POS_Server.Areas.HelpPage.ImageSample">
             <summary>
-            This represents an Image sample on the help page. There's a display template named ImageSample associated with this class.
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
             </summary>
         </member>
         <member name="M:POS_Server.Areas.HelpPage.ImageSample.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:POS_Server.Areas.HelpPage.ImageSample"/> class.
             </summary>
-            <param Name="src">The URL of an Image.</param>
+            <param name="src">The URL of an image.</param>
         </member>
         <member name="T:POS_Server.Areas.HelpPage.InvalidSample">
             <summary>
@@ -457,7 +457,7 @@
             Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
             Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
             </summary>
-            <param Name="type">The type.</param>
+            <param name="type">The type.</param>
             <returns>An object of the given type.</returns>
         </member>
         <member name="T:POS_Server.Areas.HelpPage.SampleDirection">
@@ -479,7 +479,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:POS_Server.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
-            <param Name="documentPath">The physical path to XML document.</param>
+            <param name="documentPath">The physical path to XML document.</param>
         </member>
         <member name="M:POS_Server.Controllers.UsersLogsController.Save(POS_Server.UserLog)">
             

@@ -129,8 +129,8 @@ namespace POS_Server.Areas.HelpPage.ModelDescriptions
                     throw new InvalidOperationException(
                         String.Format(
                             CultureInfo.CurrentCulture,
-                            "A model description could not be created. Duplicate model Name '{0}' was found for types '{1}' and '{2}'. " +
-                            "Use the [ModelName] attribute to change the model Name for at least one of the types so that it has a unique Name.",
+                            "A model description could not be created. Duplicate model name '{0}' was found for types '{1}' and '{2}'. " +
+                            "Use the [ModelName] attribute to change the model name for at least one of the types so that it has a unique name.",
                             modelName,
                             modelDescription.ModelType.FullName,
                             modelType.FullName));
@@ -201,7 +201,7 @@ namespace POS_Server.Areas.HelpPage.ModelDescriptions
             return GenerateComplexTypeModelDescription(modelType);
         }
 
-        // Change this to provide different Name for the member.
+        // Change this to provide different name for the member.
         private static string GetMemberName(MemberInfo member, bool hasDataContractAttribute)
         {
             JsonPropertyAttribute jsonProperty = member.GetCustomAttribute<JsonPropertyAttribute>();

@@ -5,17 +5,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\EasyGo\server-publish</_PublishTargetUrl>
-    <History>True|2023-10-28T13:20:19.8936527Z;False|2023-10-28T15:19:00.1925782+02:00;True|2023-10-26T00:42:16.1546920+03:00;True|2023-10-24T22:20:11.7368985+03:00;True|2023-10-24T20:41:04.3347740+03:00;True|2023-10-24T20:29:00.9608231+03:00;True|2023-10-24T20:11:41.6213345+03:00;True|2023-10-15T15:33:30.6828822+03:00;True|2023-10-15T15:25:57.8350646+03:00;True|2023-10-15T15:20:30.6909090+03:00;True|2023-10-15T01:04:56.3041805+03:00;</History>
+    <History>True|2023-10-28T20:55:29.9623982Z;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:00:59</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/Api.cshtml">
       <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml">
       <publishTime>04/11/2023 14:01:00</publishTime>
@@ -27,7 +27,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml">
       <publishTime>04/11/2023 14:01:00</publishTime>
@@ -45,7 +45,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml">
       <publishTime>04/11/2023 14:01:00</publishTime>
@@ -63,10 +63,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Shared/_Layout.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/Web.config">
-      <publishTime>10/19/2023 14:25:50</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Areas/HelpPage/Views/_ViewStart.cshtml">
       <publishTime>04/11/2023 14:01:00</publishTime>
@@ -129,13 +129,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:39</publishTime>
     </File>
     <File Include="bin/POS_Server.dll">
-      <publishTime>10/28/2023 15:20:17</publishTime>
+      <publishTime>10/28/2023 22:55:28</publishTime>
     </File>
     <File Include="bin/POS_Server.pdb">
-      <publishTime>10/28/2023 15:20:17</publishTime>
+      <publishTime>10/28/2023 22:55:28</publishTime>
     </File>
     <File Include="bin/POS_Server.xml">
-      <publishTime>10/28/2023 15:20:17</publishTime>
+      <publishTime>10/28/2023 22:55:27</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/11/2023 14:01:36</publishTime>
@@ -339,28 +339,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:43</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.css">
-      <publishTime>10/13/2023 00:19:57</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.css.map">
-      <publishTime>10/13/2023 00:19:57</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.min.css">
-      <publishTime>10/13/2023 00:19:57</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.min.css.map">
-      <publishTime>10/13/2023 00:19:57</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap.css.map">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css.map">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:00</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>04/11/2023 14:01:00</publishTime>
@@ -372,7 +372,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>10/12/2023 23:55:13</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
       <publishTime>04/11/2023 14:01:17</publishTime>
@@ -384,55 +384,55 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>10/12/2023 23:55:13</publishTime>
+      <publishTime>04/11/2023 14:01:11</publishTime>
     </File>
     <File Include="Model1.edmx.diagram">
-      <publishTime>10/26/2023 00:34:13</publishTime>
+      <publishTime>10/28/2023 22:38:56</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.min.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.min.map">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.slim.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.slim.min.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.slim.min.map">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
-      <publishTime>10/13/2023 00:19:58</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/13/2023 00:13:16</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/13/2023 00:00:31</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>10/19/2023 00:01:47</publishTime>
+      <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/28/2023 15:20:19</publishTime>
+      <publishTime>10/28/2023 22:51:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

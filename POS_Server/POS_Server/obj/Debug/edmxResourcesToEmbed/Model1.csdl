@@ -23,6 +23,26 @@
     <NavigationProperty Name="AppSetting" Relationship="Self.FK_AppSettingValue_AppSetting" FromRole="AppSettingValue" ToRole="AppSetting" />
     <NavigationProperty Name="UserSettingValue" Relationship="Self.FK_UserSettingValue_AppSettingValue" FromRole="AppSettingValue" ToRole="UserSettingValue" />
   </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Item_Category" FromRole="Category" ToRole="Item" />
+  </EntityType>
   <EntityType Name="CountryCode">
     <Key>
       <PropertyRef Name="CountryId" />
@@ -60,6 +80,61 @@
     <Property Name="UpdateDate" Type="DateTime" Precision="7" />
     <Property Name="CreateUserId" Type="Int64" />
     <Property Name="UpdateUserId" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="ItemId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Min" Type="Int32" />
+    <Property Name="Max" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="IsExpired" Type="Boolean" Nullable="false" />
+    <Property Name="Taxes" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="MinUnitId" Type="Int32" />
+    <Property Name="MaxUnitId" Type="Int32" />
+    <Property Name="AvgPurchasePrice" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Item_Category" FromRole="Item" ToRole="Category" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_Item_Unit" FromRole="Item" ToRole="Unit" />
+    <NavigationProperty Name="Unit1" Relationship="Self.FK_Item_Unit1" FromRole="Item" ToRole="Unit" />
+    <NavigationProperty Name="ItemUnit" Relationship="Self.FK_ItemUnit_Item" FromRole="Item" ToRole="ItemUnit" />
+  </EntityType>
+  <EntityType Name="ItemUnit">
+    <Key>
+      <PropertyRef Name="ItemUnitId" />
+    </Key>
+    <Property Name="ItemUnitId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemId" Type="Int64" />
+    <Property Name="UnitId" Type="Int32" />
+    <Property Name="SubUnitId" Type="Int32" />
+    <Property Name="UnitValue" Type="Int32" />
+    <Property Name="IsDefaultSale" Type="Boolean" />
+    <Property Name="IsDefaultPurchase" Type="Boolean" />
+    <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Cost" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Barcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="PurchasePrice" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="PackCost" Type="Decimal" Precision="20" Scale="3" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_ItemUnit_Item" FromRole="ItemUnit" ToRole="Item" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_ItemUnit_Unit" FromRole="ItemUnit" ToRole="Unit" />
+    <NavigationProperty Name="Unit1" Relationship="Self.FK_ItemUnit_Unit1" FromRole="ItemUnit" ToRole="Unit" />
+    <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="ItemUnit" ToRole="PurInvoiceItem" />
   </EntityType>
   <EntityType Name="ProgramDetails">
     <Key>
@@ -101,6 +176,62 @@
     <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="IsDemo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="PurchaseInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="InvType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SupplierId" Type="Int64" />
+    <Property Name="DiscountType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiscountValue" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="DiscountPercentage" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Total" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="TotalNet" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Paid" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Deserved" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="DeservedDate" Type="DateTime" Precision="0" />
+    <Property Name="BranchCreatorId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="TaxType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="InvDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="InvoiceMainId" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VendorInvNum" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VendorInvDate" Type="DateTime" Precision="7" />
+    <Property Name="PosId" Type="Int32" />
+    <Property Name="IsApproved" Type="Byte" />
+    <Property Name="ManualDiscountValue" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="ManualDiscountType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="PurchaseInvoice" ToRole="Supplier" />
+    <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurchaseInvoice" ToRole="PurInvoiceItem" />
+  </EntityType>
+  <EntityType Name="PurInvoiceItem">
+    <Key>
+      <PropertyRef Name="InvItemId" />
+    </Key>
+    <Property Name="InvItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceId" Type="Int64" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="ItemUnitId" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="ItemUnit" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="PurInvoiceItem" ToRole="ItemUnit" />
+    <NavigationProperty Name="PurchaseInvoice" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurInvoiceItem" ToRole="PurchaseInvoice" />
+  </EntityType>
   <EntityType Name="Supplier">
     <Key>
       <PropertyRef Name="SupplierId" />
@@ -125,6 +256,7 @@
     <Property Name="UpdateDate" Type="DateTime" Precision="7" />
     <Property Name="CreateUserId" Type="Int64" />
     <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="PurchaseInvoice" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="Supplier" ToRole="PurchaseInvoice" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -143,6 +275,23 @@
     <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Token" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreateDate" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="UnitId" />
+    </Key>
+    <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Item_Unit" FromRole="Unit" ToRole="Item" />
+    <NavigationProperty Name="Item1" Relationship="Self.FK_Item_Unit1" FromRole="Unit" ToRole="Item" />
+    <NavigationProperty Name="ItemUnit" Relationship="Self.FK_ItemUnit_Unit" FromRole="Unit" ToRole="ItemUnit" />
+    <NavigationProperty Name="ItemUnit1" Relationship="Self.FK_ItemUnit_Unit1" FromRole="Unit" ToRole="ItemUnit" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -251,6 +400,126 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Category_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="MinUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Unit1">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="MaxUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemUnit_Unit1">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="ItemUnit">
+        <PropertyRef Name="SubUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurInvoiceItem_ItemUnit">
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="0..1" />
+    <End Role="PurInvoiceItem" Type="Self.PurInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemUnit">
+        <PropertyRef Name="ItemUnitId" />
+      </Principal>
+      <Dependent Role="PurInvoiceItem">
+        <PropertyRef Name="ItemUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseInvoice_Supplier">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="PurchaseInvoice" Type="Self.PurchaseInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="PurchaseInvoice">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurInvoiceItem_PurchaseInvoice">
+    <End Role="PurchaseInvoice" Type="Self.PurchaseInvoice" Multiplicity="0..1" />
+    <End Role="PurInvoiceItem" Type="Self.PurInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseInvoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="PurInvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserLog_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="UserLog" Type="Self.UserLog" Multiplicity="*" />
@@ -290,12 +559,18 @@
   <EntityContainer Name="EasyGoDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AppSetting" EntityType="Self.AppSetting" />
     <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
     <EntitySet Name="CountryCode" EntityType="Self.CountryCode" />
     <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Item" EntityType="Self.Item" />
+    <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" />
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" />
+    <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" />
+    <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="TokensTable" EntityType="Self.TokensTable" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" />
     <EntitySet Name="User" EntityType="Self.User" />
     <EntitySet Name="UserLog" EntityType="Self.UserLog" />
     <EntitySet Name="UserRequest" EntityType="Self.UserRequest" />
@@ -311,6 +586,46 @@
     <AssociationSet Name="FK_UserSettingValue_AppSettingValue" Association="Self.FK_UserSettingValue_AppSettingValue">
       <End Role="AppSettingValue" EntitySet="AppSettingValue" />
       <End Role="UserSettingValue" EntitySet="UserSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Unit" Association="Self.FK_Item_Unit">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Unit1" Association="Self.FK_Item_Unit1">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Item" Association="Self.FK_ItemUnit_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Unit" Association="Self.FK_ItemUnit_Unit">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemUnit_Unit1" Association="Self.FK_ItemUnit_Unit1">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurInvoiceItem_ItemUnit" Association="Self.FK_PurInvoiceItem_ItemUnit">
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+      <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseInvoice_Supplier" Association="Self.FK_PurchaseInvoice_Supplier">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurInvoiceItem_PurchaseInvoice" Association="Self.FK_PurInvoiceItem_PurchaseInvoice">
+      <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
+      <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
     </AssociationSet>
     <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
       <End Role="User" EntitySet="User" />
@@ -354,38 +669,6 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
-    <EntitySet Name="Category" EntityType="EasyGoDBModel.Category" />
-    <EntitySet Name="Item" EntityType="EasyGoDBModel.Item" />
-    <EntitySet Name="ItemUnit" EntityType="EasyGoDBModel.ItemUnit" />
-    <EntitySet Name="Unit" EntityType="EasyGoDBModel.Unit" />
-    <AssociationSet Name="FK_Category_Category" Association="EasyGoDBModel.FK_Category_Category">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Category1" EntitySet="Category" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Item_Category" Association="EasyGoDBModel.FK_Item_Category">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Item" EntitySet="Item" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Item_Unit" Association="EasyGoDBModel.FK_Item_Unit">
-      <End Role="Unit" EntitySet="Unit" />
-      <End Role="Item" EntitySet="Item" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Item_Unit1" Association="EasyGoDBModel.FK_Item_Unit1">
-      <End Role="Unit" EntitySet="Unit" />
-      <End Role="Item" EntitySet="Item" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ItemUnit_Item" Association="EasyGoDBModel.FK_ItemUnit_Item">
-      <End Role="Item" EntitySet="Item" />
-      <End Role="ItemUnit" EntitySet="ItemUnit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ItemUnit_Unit" Association="EasyGoDBModel.FK_ItemUnit_Unit">
-      <End Role="Unit" EntitySet="Unit" />
-      <End Role="ItemUnit" EntitySet="ItemUnit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ItemUnit_Unit1" Association="EasyGoDBModel.FK_ItemUnit_Unit1">
-      <End Role="Unit" EntitySet="Unit" />
-      <End Role="ItemUnit" EntitySet="ItemUnit" />
-    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -398,179 +681,4 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
-  <EntityType Name="Category">
-    <Key>
-      <PropertyRef Name="CategoryId" />
-    </Key>
-    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="ParentId" Type="Int32" />
-    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CreateDate" Type="DateTime" Precision="7" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
-    <Property Name="CreateUserId" Type="Int64" />
-    <Property Name="UpdateUserId" Type="Int64" />
-    <NavigationProperty Name="Category1" Relationship="EasyGoDBModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
-    <NavigationProperty Name="Category2" Relationship="EasyGoDBModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
-    <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_Item_Category" FromRole="Category" ToRole="Item" />
-  </EntityType>
-  <EntityType Name="Item">
-    <Key>
-      <PropertyRef Name="ItemId" />
-    </Key>
-    <Property Name="ItemId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="Min" Type="Int32" />
-    <Property Name="Max" Type="Int32" />
-    <Property Name="CategoryId" Type="Int32" />
-    <Property Name="IsExpired" Type="Boolean" Nullable="false" />
-    <Property Name="AlertDays" Type="Int32" Nullable="false" />
-    <Property Name="IsTaxExempt" Type="Boolean" Nullable="false" />
-    <Property Name="Taxes" Type="Decimal" Precision="20" Scale="3" />
-    <Property Name="MinUnitId" Type="Int32" />
-    <Property Name="MaxUnitId" Type="Int32" />
-    <Property Name="AvgPurchasePrice" Type="Decimal" Precision="20" Scale="3" />
-    <Property Name="CreateDate" Type="DateTime" Precision="7" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
-    <Property Name="CreateUserId" Type="Int64" />
-    <Property Name="UpdateUserId" Type="Int64" />
-    <NavigationProperty Name="Category" Relationship="EasyGoDBModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
-    <NavigationProperty Name="Unit" Relationship="EasyGoDBModel.FK_Item_Unit" FromRole="Item" ToRole="Unit" />
-    <NavigationProperty Name="Unit1" Relationship="EasyGoDBModel.FK_Item_Unit1" FromRole="Item" ToRole="Unit" />
-    <NavigationProperty Name="ItemUnit" Relationship="EasyGoDBModel.FK_ItemUnit_Item" FromRole="Item" ToRole="ItemUnit" />
-  </EntityType>
-  <EntityType Name="ItemUnit">
-    <Key>
-      <PropertyRef Name="ItemUnitId" />
-    </Key>
-    <Property Name="ItemUnitId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ItemId" Type="Int64" />
-    <Property Name="UnitId" Type="Int32" />
-    <Property Name="SubUnitId" Type="Int32" />
-    <Property Name="UnitValue" Type="Int32" />
-    <Property Name="IsDefaultSale" Type="Boolean" />
-    <Property Name="IsDefaultPurchase" Type="Boolean" />
-    <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
-    <Property Name="Cost" Type="Decimal" Precision="20" Scale="3" />
-    <Property Name="Barcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreateDate" Type="DateTime" Precision="7" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
-    <Property Name="CreateUserId" Type="Int32" />
-    <Property Name="UpdateUserId" Type="Int32" />
-    <Property Name="purchasePrice" Type="Decimal" Precision="20" Scale="3" />
-    <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_ItemUnit_Item" FromRole="ItemUnit" ToRole="Item" />
-    <NavigationProperty Name="Unit" Relationship="EasyGoDBModel.FK_ItemUnit_Unit" FromRole="ItemUnit" ToRole="Unit" />
-    <NavigationProperty Name="Unit1" Relationship="EasyGoDBModel.FK_ItemUnit_Unit1" FromRole="ItemUnit" ToRole="Unit" />
-  </EntityType>
-  <EntityType Name="Unit">
-    <Key>
-      <PropertyRef Name="UnitId" />
-    </Key>
-    <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreateDate" Type="DateTime" Precision="7" />
-    <Property Name="CreateUserId" Type="Int64" />
-    <Property Name="UpdateUserId" Type="Int64" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
-    <NavigationProperty Name="Item" Relationship="EasyGoDBModel.FK_Item_Unit" FromRole="Unit" ToRole="Item" />
-    <NavigationProperty Name="Item1" Relationship="EasyGoDBModel.FK_Item_Unit1" FromRole="Unit" ToRole="Item" />
-    <NavigationProperty Name="ItemUnit" Relationship="EasyGoDBModel.FK_ItemUnit_Unit" FromRole="Unit" ToRole="ItemUnit" />
-    <NavigationProperty Name="ItemUnit1" Relationship="EasyGoDBModel.FK_ItemUnit_Unit1" FromRole="Unit" ToRole="ItemUnit" />
-  </EntityType>
-  <Association Name="FK_Category_Category">
-    <End Type="EasyGoDBModel.Category" Role="Category" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.Category" Role="Category1" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Category1">
-        <PropertyRef Name="ParentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Item_Category">
-    <End Type="EasyGoDBModel.Category" Role="Category" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Item">
-        <PropertyRef Name="CategoryId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Item_Unit">
-    <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Unit">
-        <PropertyRef Name="UnitId" />
-      </Principal>
-      <Dependent Role="Item">
-        <PropertyRef Name="MinUnitId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Item_Unit1">
-    <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Unit">
-        <PropertyRef Name="UnitId" />
-      </Principal>
-      <Dependent Role="Item">
-        <PropertyRef Name="MaxUnitId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ItemUnit_Item">
-    <End Type="EasyGoDBModel.Item" Role="Item" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Item">
-        <PropertyRef Name="ItemId" />
-      </Principal>
-      <Dependent Role="ItemUnit">
-        <PropertyRef Name="ItemId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ItemUnit_Unit">
-    <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Unit">
-        <PropertyRef Name="UnitId" />
-      </Principal>
-      <Dependent Role="ItemUnit">
-        <PropertyRef Name="UnitId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ItemUnit_Unit1">
-    <End Type="EasyGoDBModel.Unit" Role="Unit" Multiplicity="0..1" />
-    <End Type="EasyGoDBModel.ItemUnit" Role="ItemUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Unit">
-        <PropertyRef Name="UnitId" />
-      </Principal>
-      <Dependent Role="ItemUnit">
-        <PropertyRef Name="SubUnitId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

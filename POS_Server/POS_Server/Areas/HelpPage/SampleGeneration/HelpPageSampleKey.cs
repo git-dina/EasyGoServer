@@ -13,7 +13,7 @@ namespace POS_Server.Areas.HelpPage
         /// <summary>
         /// Creates a new <see cref="HelpPageSampleKey"/> based on media type.
         /// </summary>
-        /// <param Name="mediaType">The media type.</param>
+        /// <param name="mediaType">The media type.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType)
         {
             if (mediaType == null)
@@ -30,8 +30,8 @@ namespace POS_Server.Areas.HelpPage
         /// <summary>
         /// Creates a new <see cref="HelpPageSampleKey"/> based on media type and CLR type.
         /// </summary>
-        /// <param Name="mediaType">The media type.</param>
-        /// <param Name="type">The CLR type.</param>
+        /// <param name="mediaType">The media type.</param>
+        /// <param name="type">The CLR type.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, Type type)
             : this(mediaType)
         {
@@ -44,12 +44,12 @@ namespace POS_Server.Areas.HelpPage
         }
 
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on <see cref="SampleDirection"/>, controller Name, action Name and parameter names.
+        /// Creates a new <see cref="HelpPageSampleKey"/> based on <see cref="SampleDirection"/>, controller name, action name and parameter names.
         /// </summary>
-        /// <param Name="sampleDirection">The <see cref="SampleDirection"/>.</param>
-        /// <param Name="controllerName">Name of the controller.</param>
-        /// <param Name="actionName">Name of the action.</param>
-        /// <param Name="parameterNames">The parameter names.</param>
+        /// <param name="sampleDirection">The <see cref="SampleDirection"/>.</param>
+        /// <param name="controllerName">Name of the controller.</param>
+        /// <param name="actionName">Name of the action.</param>
+        /// <param name="parameterNames">The parameter names.</param>
         public HelpPageSampleKey(SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
         {
             if (!Enum.IsDefined(typeof(SampleDirection), sampleDirection))
@@ -76,13 +76,13 @@ namespace POS_Server.Areas.HelpPage
         }
 
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type, <see cref="SampleDirection"/>, controller Name, action Name and parameter names.
+        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type, <see cref="SampleDirection"/>, controller name, action name and parameter names.
         /// </summary>
-        /// <param Name="mediaType">The media type.</param>
-        /// <param Name="sampleDirection">The <see cref="SampleDirection"/>.</param>
-        /// <param Name="controllerName">Name of the controller.</param>
-        /// <param Name="actionName">Name of the action.</param>
-        /// <param Name="parameterNames">The parameter names.</param>
+        /// <param name="mediaType">The media type.</param>
+        /// <param name="sampleDirection">The <see cref="SampleDirection"/>.</param>
+        /// <param name="controllerName">Name of the controller.</param>
+        /// <param name="actionName">Name of the action.</param>
+        /// <param name="parameterNames">The parameter names.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
             : this(sampleDirection, controllerName, actionName, parameterNames)
         {
@@ -95,18 +95,18 @@ namespace POS_Server.Areas.HelpPage
         }
 
         /// <summary>
-        /// Gets the Name of the controller.
+        /// Gets the name of the controller.
         /// </summary>
         /// <value>
-        /// The Name of the controller.
+        /// The name of the controller.
         /// </value>
         public string ControllerName { get; private set; }
 
         /// <summary>
-        /// Gets the Name of the action.
+        /// Gets the name of the action.
         /// </summary>
         /// <value>
-        /// The Name of the action.
+        /// The name of the action.
         /// </value>
         public string ActionName { get; private set; }
 

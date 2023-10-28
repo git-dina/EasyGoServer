@@ -127,6 +127,10 @@ D:\increase\github\POS-Server\POS-Server-in-v1000\POS_Server\POS_Server\obj\Rele
 D:\increase\github\POS-Server\POS-Server-in-v1000\POS_Server\POS_Server\obj\Release\POS_Server.csproj.CopyComplete
 D:\increase\github\POS-Server\POS-Server-in-v1000\POS_Server\POS_Server\obj\Release\POS_Server.dll
 D:\increase\github\POS-Server\POS-Server-in-v1000\POS_Server\POS_Server\obj\Release\POS_Server.pdb
+D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.csproj.AssemblyReference.cache
+D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.csproj.CoreCompileInputs.cache
+D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.dll
+D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.pdb
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\POS_Server.dll.config
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\POS_Server.xml
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\POS_Server.dll
@@ -251,8 +255,4 @@ D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\System.Web.WebPages.Deployment.
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\System.Web.WebPages.Razor.xml
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\Antlr3.Runtime.pdb
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.csproj.AssemblyReference.cache
-D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.csproj.CoreCompileInputs.cache
 D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.csproj.CopyComplete
-D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.dll
-D:\EasyGo\EasyGoServer\POS_Server\POS_Server\obj\Release\POS_Server.pdb

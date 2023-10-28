@@ -19,6 +19,26 @@
     <Property Name="Notes" Type="ntext" />
     <Property Name="SettingId" Type="int" />
   </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="BranchId" />
+    </Key>
+    <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -89,12 +109,11 @@
     <Property Name="Max" Type="int" />
     <Property Name="CategoryId" Type="int" />
     <Property Name="IsExpired" Type="bit" Nullable="false" />
-    <Property Name="AlertDays" Type="int" Nullable="false" />
-    <Property Name="IsTaxExempt" Type="bit" Nullable="false" />
     <Property Name="Taxes" Type="decimal" Precision="20" Scale="3" />
     <Property Name="MinUnitId" Type="int" />
     <Property Name="MaxUnitId" Type="int" />
     <Property Name="AvgPurchasePrice" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Notes" Type="ntext" />
     <Property Name="CreateDate" Type="datetime2" Precision="7" />
     <Property Name="UpdateDate" Type="datetime2" Precision="7" />
     <Property Name="CreateUserId" Type="bigint" />
@@ -117,9 +136,29 @@
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreateDate" Type="datetime2" Precision="7" />
     <Property Name="UpdateDate" Type="datetime2" Precision="7" />
-    <Property Name="CreateUserId" Type="int" />
-    <Property Name="UpdateUserId" Type="int" />
-    <Property Name="purchasePrice" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="PurchasePrice" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="PackCost" Type="decimal" Precision="20" Scale="3" />
+  </EntityType>
+  <EntityType Name="POS">
+    <Key>
+      <PropertyRef Name="PosId" />
+    </Key>
+    <Property Name="PosId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Balance" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="BranchId" Type="int" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="BalanceAll" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="BoxState" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsAdminClose" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="ProgramDetails">
     <Key>
@@ -160,6 +199,58 @@
     <Property Name="Upnum" Type="nvarchar" MaxLength="500" />
     <Property Name="Notes" Type="nvarchar" MaxLength="500" />
     <Property Name="IsDemo" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="PurchaseInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="InvType" Type="nvarchar" MaxLength="50" />
+    <Property Name="SupplierId" Type="bigint" />
+    <Property Name="DiscountType" Type="nvarchar" MaxLength="10" />
+    <Property Name="DiscountValue" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="DiscountPercentage" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Total" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="TotalNet" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Paid" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Deserved" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="DeservedDate" Type="date" />
+    <Property Name="BranchCreatorId" Type="int" />
+    <Property Name="BranchId" Type="int" />
+    <Property Name="Tax" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="TaxType" Type="nvarchar" MaxLength="10" />
+    <Property Name="TaxPercentage" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="InvDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="InvoiceMainId" Type="int" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="VendorInvNum" Type="nvarchar" MaxLength="100" />
+    <Property Name="VendorInvDate" Type="datetime2" Precision="7" />
+    <Property Name="PosId" Type="int" />
+    <Property Name="IsApproved" Type="tinyint" />
+    <Property Name="ManualDiscountValue" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="ManualDiscountType" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurInvoiceItem">
+    <Key>
+      <PropertyRef Name="InvItemId" />
+    </Key>
+    <Property Name="InvItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceId" Type="bigint" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="Price" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="ItemUnitId" Type="bigint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -376,6 +467,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_POS_Branch">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="POS" Type="Self.POS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="POS">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseInvoice_Supplier">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="PurchaseInvoice" Type="Self.PurchaseInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="PurchaseInvoice">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurInvoiceItem_ItemUnit">
+    <End Role="ItemUnit" Type="Self.ItemUnit" Multiplicity="0..1" />
+    <End Role="PurInvoiceItem" Type="Self.PurInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemUnit">
+        <PropertyRef Name="ItemUnitId" />
+      </Principal>
+      <Dependent Role="PurInvoiceItem">
+        <PropertyRef Name="ItemUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurInvoiceItem_PurchaseInvoice">
+    <End Role="PurchaseInvoice" Type="Self.PurchaseInvoice" Multiplicity="0..1" />
+    <End Role="PurInvoiceItem" Type="Self.PurInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseInvoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="PurInvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserLog_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="UserLog" Type="Self.UserLog" Multiplicity="*" />
@@ -470,12 +609,16 @@
   <EntityContainer Name="EasyGoDBModelStoreContainer">
     <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CountryCode" EntityType="Self.CountryCode" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="POS" EntityType="Self.POS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TokensTable" EntityType="Self.TokensTable" Schema="dbo" store:Type="Tables" />
@@ -515,6 +658,22 @@
     <AssociationSet Name="FK_ItemUnit_Unit1" Association="Self.FK_ItemUnit_Unit1">
       <End Role="Unit" EntitySet="Unit" />
       <End Role="ItemUnit" EntitySet="ItemUnit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POS_Branch" Association="Self.FK_POS_Branch">
+      <End Role="Branch" EntitySet="Branch" />
+      <End Role="POS" EntitySet="POS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseInvoice_Supplier" Association="Self.FK_PurchaseInvoice_Supplier">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurInvoiceItem_ItemUnit" Association="Self.FK_PurInvoiceItem_ItemUnit">
+      <End Role="ItemUnit" EntitySet="ItemUnit" />
+      <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurInvoiceItem_PurchaseInvoice" Association="Self.FK_PurInvoiceItem_PurchaseInvoice">
+      <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
+      <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
     </AssociationSet>
     <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
       <End Role="User" EntitySet="User" />

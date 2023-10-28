@@ -4,20 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6c4f8bae247c4d3db4ccf04d7c1d1d7e" Name="Diagram1">
+      <Diagram DiagramId="36753efc5626482a8ed1f840eac34cb8" Name="Diagram1">
         <EntityTypeShape EntityType="EasyGoDBModel.AppSetting" Width="1.5" PointX="10.75" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.AppSettingValue" Width="1.5" PointX="10.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Branch" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.Category" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.CountryCode" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.Customer" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Customer" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.Item" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.ItemUnit" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.ProgramDetails" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.POS" Width="1.5" PointX="12" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.ProgramDetails" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.PurchaseInvoice" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.PurInvoiceItem" Width="1.5" PointX="7.5" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.Supplier" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyGoDBModel.TokensTable" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyGoDBModel.TokensTable" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.Unit" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.User" Width="1.5" PointX="7.75" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyGoDBModel.UserLog" Width="1.5" PointX="10" PointY="9.375" IsExpanded="true" />
@@ -26,6 +28,7 @@
         <AssociationConnector Association="EasyGoDBModel.FK_AppSettingValue_AppSetting" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_AppSetting" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_AppSettingValue" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyGoDBModel.FK_POS_Branch" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_Category_Category" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_Item_Category" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_Item_Unit" ManuallyRouted="false" />

@@ -29,11 +29,13 @@ namespace POS_Server
     
         public virtual DbSet<AppSetting> AppSetting { get; set; }
         public virtual DbSet<AppSettingValue> AppSettingValue { get; set; }
+        public virtual DbSet<Branch> Branch { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<CountryCode> CountryCode { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<ItemUnit> ItemUnit { get; set; }
+        public virtual DbSet<POS> POS { get; set; }
         public virtual DbSet<ProgramDetails> ProgramDetails { get; set; }
         public virtual DbSet<PurchaseInvoice> PurchaseInvoice { get; set; }
         public virtual DbSet<PurInvoiceItem> PurInvoiceItem { get; set; }

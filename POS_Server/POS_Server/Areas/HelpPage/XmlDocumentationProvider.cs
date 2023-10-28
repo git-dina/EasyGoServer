@@ -15,16 +15,16 @@ namespace POS_Server.Areas.HelpPage
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
         private XPathNavigator _documentNavigator;
-        private const string TypeExpression = "/doc/members/member[@Name='T:{0}']";
-        private const string MethodExpression = "/doc/members/member[@Name='M:{0}']";
-        private const string PropertyExpression = "/doc/members/member[@Name='P:{0}']";
-        private const string FieldExpression = "/doc/members/member[@Name='F:{0}']";
-        private const string ParameterExpression = "param[@Name='{0}']";
+        private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
+        private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
+        private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
+        private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
+        private const string ParameterExpression = "param[@name='{0}']";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
-        /// <param Name="documentPath">The physical path to XML document.</param>
+        /// <param name="documentPath">The physical path to XML document.</param>
         public XmlDocumentationProvider(string documentPath)
         {
             if (documentPath == null)
@@ -102,15 +102,15 @@ namespace POS_Server.Areas.HelpPage
 
         private static string GetMemberName(MethodInfo method)
         {
-            string Name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
+            string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length != 0)
             {
                 string[] parameterTypeNames = parameters.Select(param => GetTypeName(param.ParameterType)).ToArray();
-                Name += String.Format(CultureInfo.InvariantCulture, "({0})", String.Join(",", parameterTypeNames));
+                name += String.Format(CultureInfo.InvariantCulture, "({0})", String.Join(",", parameterTypeNames));
             }
 
-            return Name;
+            return name;
         }
 
         private static string GetTagValue(XPathNavigator parentNode, string tagName)
@@ -136,26 +136,26 @@ namespace POS_Server.Areas.HelpPage
 
         private static string GetTypeName(Type type)
         {
-            string Name = type.FullName;
+            string name = type.FullName;
             if (type.IsGenericType)
             {
-                // Format the generic type Name to something like: Generic{System.Int32,System.String}
+                // Format the generic type name to something like: Generic{System.Int32,System.String}
                 Type genericType = type.GetGenericTypeDefinition();
                 Type[] genericArguments = type.GetGenericArguments();
                 string genericTypeName = genericType.FullName;
 
-                // Trim the generic parameter counts from the Name
+                // Trim the generic parameter counts from the name
                 genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
                 string[] argumentTypeNames = genericArguments.Select(t => GetTypeName(t)).ToArray();
-                Name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName, String.Join(",", argumentTypeNames));
+                name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName, String.Join(",", argumentTypeNames));
             }
             if (type.IsNested)
             {
-                // Changing the nested type Name from OuterType+InnerType to OuterType.InnerType to match the XML documentation syntax.
-                Name = Name.Replace("+", ".");
+                // Changing the nested type name from OuterType+InnerType to OuterType.InnerType to match the XML documentation syntax.
+                name = name.Replace("+", ".");
             }
 
-            return Name;
+            return name;
         }
     }
 }

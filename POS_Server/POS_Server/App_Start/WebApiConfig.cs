@@ -20,7 +20,7 @@ namespace POS_Server
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-               name: "DefaultApi",
+                name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );

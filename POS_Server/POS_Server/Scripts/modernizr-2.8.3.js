@@ -117,7 +117,7 @@ window.Modernizr = (function( window, document, undefined ) {
       // when injected with innerHTML. To get around this you need to prepend the 'NoScope' element
       // with a 'scoped' element, in our case the soft-hyphen entity as it won't mess with our measurements.
       // msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
-      // Documents served as xml will throw if using &shy; so use xml friendly enCoded version. See issue #277
+      // Documents served as xml will throw if using &shy; so use xml friendly encoded version. See issue #277
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
       div.id = mod;
       // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
@@ -125,7 +125,7 @@ window.Modernizr = (function( window, document, undefined ) {
       (body ? div : fakeBody).innerHTML += style;
       fakeBody.appendChild(div);
       if ( !body ) {
-          //avoid crashing IE8, if background Image is used
+          //avoid crashing IE8, if background image is used
           fakeBody.style.background = '';
           //Safari 5.13/5.1.4 OSX stops loading if ::-webkit-scrollbar is used and scrollbars are visible
           fakeBody.style.overflow = 'hidden';
@@ -352,7 +352,7 @@ window.Modernizr = (function( window, document, undefined ) {
             var item = obj[props[i]];
             if ( item !== undefined) {
 
-                // return the property Name as a string
+                // return the property name as a string
                 if (elem === false) return props[i];
 
                 // let's bind a function
@@ -505,7 +505,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // Per 1.6:
     // This used to be Modernizr.historymanagement but the longer
-    // Name has been deprecated in favor of a shorter and property-matching one.
+    // name has been deprecated in favor of a shorter and property-matching one.
     // The old API is still available in 1.6, but as of 2.0 will throw a warning,
     // and in the first release thereafter disappear entirely.
     tests['history'] = function() {
@@ -625,14 +625,14 @@ window.Modernizr = (function( window, document, undefined ) {
          * dev.w3.org/csswg/css3-images/#gradients-
          */
 
-        var str1 = 'background-Image:',
+        var str1 = 'background-image:',
             str2 = 'gradient(linear,left top,right bottom,from(#9f9),to(white));',
             str3 = 'linear-gradient(left top,#9f9, white);';
 
         setCss(
              // legacy webkit syntax (FIXME: remove when syntax not in use anymore)
               (str1 + '-webkit- '.split(' ').join(str2 + str1) +
-             // standard syntax             // trailing 'background-Image:'
+             // standard syntax             // trailing 'background-image:'
               prefixes.join(str3 + str1)).slice(0, -str1.length)
         );
 
@@ -732,12 +732,12 @@ window.Modernizr = (function( window, document, undefined ) {
         try {
             if ( bool = !!elem.canPlayType ) {
                 bool      = new Boolean(bool);
-                bool.ogg  = elem.canPlayType('video/ogg; Codecs="theora"')      .replace(/^no$/,'');
+                bool.ogg  = elem.canPlayType('video/ogg; codecs="theora"')      .replace(/^no$/,'');
 
                 // Without QuickTime, this value will be `undefined`. github.com/Modernizr/Modernizr/issues/546
-                bool.h264 = elem.canPlayType('video/mp4; Codecs="avc1.42E01E"') .replace(/^no$/,'');
+                bool.h264 = elem.canPlayType('video/mp4; codecs="avc1.42E01E"') .replace(/^no$/,'');
 
-                bool.webm = elem.canPlayType('video/webm; Codecs="vp8, vorbis"').replace(/^no$/,'');
+                bool.webm = elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/,'');
             }
 
         } catch(e) { }
@@ -752,13 +752,13 @@ window.Modernizr = (function( window, document, undefined ) {
         try {
             if ( bool = !!elem.canPlayType ) {
                 bool      = new Boolean(bool);
-                bool.ogg  = elem.canPlayType('audio/ogg; Codecs="vorbis"').replace(/^no$/,'');
+                bool.ogg  = elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,'');
                 bool.mp3  = elem.canPlayType('audio/mpeg;')               .replace(/^no$/,'');
 
                 // Mimetypes accepted:
                 //   developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
-                //   bit.ly/iphoneosCodecs
-                bool.wav  = elem.canPlayType('audio/wav; Codecs="1"')     .replace(/^no$/,'');
+                //   bit.ly/iphoneoscodecs
+                bool.wav  = elem.canPlayType('audio/wav; codecs="1"')     .replace(/^no$/,'');
                 bool.m4a  = ( elem.canPlayType('audio/x-m4a;')            ||
                               elem.canPlayType('audio/aac;'))             .replace(/^no$/,'');
             }
@@ -852,7 +852,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // We're using f which is the <input> element created early on
         // Mike Taylr has created a comprehensive resource for testing these attributes
         //   when applied to all input types:
-        //   miketaylr.com/Code/input-type-attr.html
+        //   miketaylr.com/code/input-type-attr.html
         // spec: www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
 
         // Only input placeholder is tested while textarea's placeholder is not.
@@ -914,8 +914,8 @@ window.Modernizr = (function( window, document, undefined ) {
                       // Interestingly, opera fails the earlier test, so it doesn't
                       //  even make it here.
 
-                    } else if ( /^(url|Email)$/.test(inputElemType) ) {
-                      // Real url and Email support comes with prebaked validation.
+                    } else if ( /^(url|email)$/.test(inputElemType) ) {
+                      // Real url and email support comes with prebaked validation.
                       bool = inputElem.checkValidity && inputElem.checkValidity() === false;
 
                     } else {
@@ -927,7 +927,7 @@ window.Modernizr = (function( window, document, undefined ) {
                 inputs[ props[i] ] = !!bool;
             }
             return inputs;
-        })('search tel url Email datetime date month week time datetime-local number range color'.split(' '));
+        })('search tel url email datetime date month week time datetime-local number range color'.split(' '));
         /*>>inputtypes*/
     }
     /*>>webforms*/
@@ -1019,7 +1019,7 @@ window.Modernizr = (function( window, document, undefined ) {
         var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
 
         /** Not all elements can be cloned in IE **/
-        var saveClones = /^(?:a|b|Code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
+        var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
 
         /** Detect whether the browser supports default html5 styles */
         var supportsHtml5Styles;
@@ -1108,7 +1108,7 @@ window.Modernizr = (function( window, document, undefined ) {
         /**
          * returns a shived element for the given nodeName and document
          * @memberOf html5
-         * @param {String} nodeName Name of the element
+         * @param {String} nodeName name of the element
          * @param {Document} ownerDocument The context document.
          * @returns {Object} The shived element.
          */
@@ -1133,7 +1133,7 @@ window.Modernizr = (function( window, document, undefined ) {
           }
 
           // Avoid adding some elements to fragments in IE < 9 because
-          // * Attributes like `Name` or `type` cannot be set/changed once an element
+          // * Attributes like `name` or `type` cannot be set/changed once an element
           //   is inserted into a document/fragment
           // * Link elements with `src` attributes that are inaccessible, as with
           //   a 403 response, will cause the tab/window to crash
@@ -1321,7 +1321,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>mq*/
     // Modernizr.mq tests a given media query, live against the current state of the window
-    // A few important Notes:
+    // A few important notes:
     //   * If a browser does not support media queries at all (eg. oldIE) the mq() will always return false
     //   * A max-width or orientation query will be evaluated against the current state, which may change later.
     //   * You must specify values. Eg. If you are testing support for the min-width media query use:
@@ -1363,7 +1363,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     /*>>prefixed*/
-    // Modernizr.prefixed() returns the prefixed or nonprefixed property Name variant of your input
+    // Modernizr.prefixed() returns the prefixed or nonprefixed property name variant of your input
     // Modernizr.prefixed('boxSizing') // 'MozBoxSizing'
 
     // Properties must be passed as dom-style camelcase, rather than `box-sizing` hypentated style.
