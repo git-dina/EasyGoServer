@@ -244,6 +244,7 @@
     </Compile>
     <Compile Include="Classes\Calculate.cs" />
     <Compile Include="Classes\ProgramInfo.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -284,6 +285,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivateModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\PurInvoiceModel.cs" />
