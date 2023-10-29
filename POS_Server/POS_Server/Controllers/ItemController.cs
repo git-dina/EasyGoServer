@@ -423,6 +423,10 @@ namespace POS_Server.Controllers
                         }
                         else
                         {
+                            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item");
+                            if (!Directory.Exists(dir))
+                                Directory.CreateDirectory(dir);
+
                             //  check if Image exist
                             var pathCheck = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageWithNoExt);
                             var files = Directory.GetFiles(System.Web.Hosting.HostingEnvironment.MapPath("~\\images\\item"), imageWithNoExt + ".*");
@@ -475,7 +479,7 @@ namespace POS_Server.Controllers
                     }
                 }
                 if (String.IsNullOrEmpty(imageName))
-                    return TokenManager.GenerateToken("0");
+                    return TokenManager.GenerateToken("faild");
 
                 string localFilePath;
 
@@ -488,7 +492,7 @@ namespace POS_Server.Controllers
                 }
                 catch
                 {
-                    return TokenManager.GenerateToken(null);
+                    return TokenManager.GenerateToken("failed");
 
                 }
             }
