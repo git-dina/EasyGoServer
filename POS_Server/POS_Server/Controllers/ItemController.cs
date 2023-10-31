@@ -84,7 +84,7 @@ namespace POS_Server.Controllers
                                                       {
                                                           ItemUnitId = IU.ItemUnitId,
                                                           UnitId = IU.UnitId,
-                                                          MainUnit = v.Name,
+                                                          UnitName = v.Name,
                                                           CreateDate = IU.CreateDate,
                                                           CreateUserId = IU.CreateUserId,
                                                           IsDefaultPurchase = IU.IsDefaultPurchase,
@@ -98,6 +98,7 @@ namespace POS_Server.Controllers
                                                           UpdateDate = IU.UpdateDate,
                                                           UpdateUserId = IU.UpdateUserId,
                                                           PackCost = IU.PackCost,
+                                                          UnitCount = IU.UnitCount,
                                                       })
                                                          .ToList(),
                                      })

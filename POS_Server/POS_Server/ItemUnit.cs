@@ -37,6 +37,8 @@ namespace POS_Server
         public Nullable<long> UpdateUserId { get; set; }
         public Nullable<decimal> PurchasePrice { get; set; }
         public Nullable<decimal> PackCost { get; set; }
+        public string Notes { get; set; }
+        public int UnitCount { get; set; }
     
         public virtual Item Item { get; set; }
         public virtual Unit Unit { get; set; }

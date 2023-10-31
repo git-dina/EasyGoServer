@@ -32,6 +32,64 @@ namespace POS_Server.Controllers
             }
             else
             {
+
+                try
+                {
+
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var itemUnitsList = (from IU in entity.ItemUnit
+                                             where (IU.IsActive == true)
+                                             join u in entity.Unit on IU.UnitId equals u.UnitId into lj
+                                             from v in lj.DefaultIfEmpty()
+                                             join u1 in entity.Unit on IU.SubUnitId equals u1.UnitId into tj
+                                             from v1 in tj.DefaultIfEmpty()
+                                             select new ItemUnitModel()
+                                             {
+                                                 ItemUnitId = IU.ItemUnitId,
+                                                 UnitId = IU.UnitId,
+                                                 UnitName = v.Name,
+                                                 CreateDate = IU.CreateDate,
+                                                 CreateUserId = IU.CreateUserId,
+                                                 IsDefaultPurchase = IU.IsDefaultPurchase,
+                                                 IsDefaultSale = IU.IsDefaultSale,
+                                                 Price = IU.Price,
+                                                 Cost = IU.Cost,
+                                                 SubUnitId = IU.SubUnitId,
+                                                 SmallUnit = v1.Name,
+                                                 UnitValue = IU.UnitValue,
+                                                 Barcode = IU.Barcode,
+                                                 UpdateDate = IU.UpdateDate,
+                                                 UpdateUserId = IU.UpdateUserId,
+                                                 PurchasePrice = IU.PurchasePrice,
+                                                 PackCost = IU.PackCost,
+                                                 Notes = IU.Notes,
+                                                 ItemId = IU.ItemId,
+                                                 UnitCount = IU.UnitCount,
+                                             }).ToList();
+                        return TokenManager.GenerateToken(itemUnitsList);
+
+                    }
+                }
+                catch
+                {
+                    return TokenManager.GenerateToken("failed");
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("GetItemUnit")]
+        public string GetItemUnit(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
                 long itemId = 0;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
@@ -54,7 +112,7 @@ namespace POS_Server.Controllers
                                              {
                                                  ItemUnitId = IU.ItemUnitId,
                                                  UnitId = IU.UnitId,
-                                                 MainUnit = v.Name,
+                                                 UnitName = v.Name,
                                                  CreateDate = IU.CreateDate,
                                                  CreateUserId = IU.CreateUserId,
                                                  IsDefaultPurchase = IU.IsDefaultPurchase,
@@ -67,6 +125,11 @@ namespace POS_Server.Controllers
                                                  Barcode = IU.Barcode,
                                                  UpdateDate = IU.UpdateDate,
                                                  UpdateUserId = IU.UpdateUserId,
+                                                 PurchasePrice = IU.PurchasePrice,
+                                                 PackCost = IU.PackCost,
+                                                 Notes = IU.Notes,
+                                                 UnitCount = IU.UnitCount,
+                                                 ItemId = IU.ItemId,
                                              }).ToList();
                         return TokenManager.GenerateToken(itemUnitsList);
 
@@ -78,7 +141,6 @@ namespace POS_Server.Controllers
                 }
             }
         }
-
         // add or update item unit
         [HttpPost]
         [Route("Save")]
@@ -104,127 +166,118 @@ namespace POS_Server.Controllers
                         break;
                     }
                 }
-                if (newObject != null)
+
+                try
                 {
-
-                    if (newObject.UpdateUserId == 0 || newObject.UpdateUserId == null)
+                    long ItemUnitId = 0;
+                    ItemUnit tmpItemUnit = new ItemUnit();
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
                     {
-                        Nullable<int> id = null;
-                        newObject.UpdateUserId = id;
-                    }
-                    if (newObject.CreateUserId == 0 || newObject.CreateUserId == null)
-                    {
-                        Nullable<int> id = null;
-                        newObject.CreateUserId = id;
-                    }
-
-                    try
-                    {
-                        long ItemUnitId = 0;
-                        ItemUnit tmpItemUnit = new ItemUnit();
-                        using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                        var itemUnitEntity = entity.Set<ItemUnit>();
+                        if (newObject.ItemUnitId == 0)
                         {
-                            var itemUnitEntity = entity.Set<ItemUnit>();
-                            if (newObject.ItemUnitId == 0)
+                            var iu = entity.ItemUnit.Where(x => x.ItemId == newObject.ItemId).FirstOrDefault();
+                            if (iu == null)
                             {
-                                var iu = entity.ItemUnit.Where(x => x.ItemId == newObject.ItemId).FirstOrDefault();
-                                if (iu == null)
-                                {
-                                    newObject.IsDefaultSale = true;
-                                    newObject.IsDefaultPurchase = true;
-                                }
-                                else
-                                {
-                                    //create
-                                    // set the other default sale or purchase to 0 if the new object.default is 1
-
-                                    if (newObject.IsDefaultSale == true)
-                                    { // get the row with same ItemId of newObject
-                                        ItemUnit defItemUnit = entity.ItemUnit.Where(p => p.ItemId == newObject.ItemId && p.IsDefaultSale == true).FirstOrDefault();
-                                        if (defItemUnit != null)
-                                        {
-                                            defItemUnit.IsDefaultSale =false;
-                                            entity.SaveChanges();
-                                        }
-                                    }
-                                    if (newObject.IsDefaultPurchase == true)
-                                    {
-                                        var defItemUnit = entity.ItemUnit.Where(p => p.ItemId == newObject.ItemId && p.IsDefaultPurchase == true).FirstOrDefault();
-                                        if (defItemUnit != null)
-                                        {
-                                            defItemUnit.IsDefaultPurchase = false;
-                                            entity.SaveChanges();
-                                        }
-                                    }
-                                }
-                                newObject.CreateDate = cc.AddOffsetTodate(DateTime.Now);
-                                newObject.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
-                                newObject.UpdateUserId = newObject.CreateUserId;
-
-                                tmpItemUnit = itemUnitEntity.Add(newObject);
+                                newObject.IsDefaultSale = true;
+                                newObject.IsDefaultPurchase = true;
                             }
                             else
                             {
-                                //update
+                                //create
                                 // set the other default sale or purchase to 0 if the new object.default is 1
-                                ItemUnitId = newObject.ItemUnitId;
-                                tmpItemUnit = entity.ItemUnit.Find(ItemUnitId);
 
                                 if (newObject.IsDefaultSale == true)
-                                {
-                                    ItemUnit saleItemUnit = entity.ItemUnit.Where(p => p.ItemId == tmpItemUnit.ItemId && p.IsDefaultSale == true).FirstOrDefault();
-                                    if (saleItemUnit != null)
+                                { // get the row with same ItemId of newObject
+                                    ItemUnit defItemUnit = entity.ItemUnit.Where(p => p.ItemId == newObject.ItemId && p.IsDefaultSale == true).FirstOrDefault();
+                                    if (defItemUnit != null)
                                     {
-                                        saleItemUnit.IsDefaultSale = false;
+                                        defItemUnit.IsDefaultSale =false;
                                         entity.SaveChanges();
                                     }
                                 }
                                 if (newObject.IsDefaultPurchase == true)
                                 {
-                                    var defItemUnit = entity.ItemUnit.Where(p => p.ItemId == tmpItemUnit.ItemId && p.IsDefaultPurchase == true).FirstOrDefault();
+                                    var defItemUnit = entity.ItemUnit.Where(p => p.ItemId == newObject.ItemId && p.IsDefaultPurchase == true).FirstOrDefault();
                                     if (defItemUnit != null)
                                     {
                                         defItemUnit.IsDefaultPurchase = false;
                                         entity.SaveChanges();
                                     }
                                 }
-                                tmpItemUnit.Barcode = newObject.Barcode;
-                                tmpItemUnit.Price = newObject.Price;
-                                tmpItemUnit.Cost = newObject.Cost;
-                                tmpItemUnit.SubUnitId = newObject.SubUnitId;
-                                tmpItemUnit.UnitId = newObject.UnitId;
-                                tmpItemUnit.UnitValue = newObject.UnitValue;
-                                tmpItemUnit.IsDefaultPurchase = newObject.IsDefaultPurchase;
-                                tmpItemUnit.IsDefaultSale = newObject.IsDefaultSale;
-                                tmpItemUnit.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
-                                tmpItemUnit.UpdateUserId = newObject.UpdateUserId;
-                                tmpItemUnit.PurchasePrice = newObject.PurchasePrice;
-                                tmpItemUnit.PackCost = newObject.PackCost;
-
                             }
+                            newObject.CreateDate = cc.AddOffsetTodate(DateTime.Now);
+                            newObject.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
+                            newObject.UpdateUserId = newObject.CreateUserId;
 
-                            entity.SaveChanges();
+                            tmpItemUnit = itemUnitEntity.Add(newObject);
+                        }
+                        else
+                        {
+                            //update
+                            // set the other default sale or purchase to 0 if the new object.default is 1
+                            ItemUnitId = newObject.ItemUnitId;
+                            tmpItemUnit = entity.ItemUnit.Find(ItemUnitId);
 
-                            var item = entity.Item.Where(x => x.ItemId == newObject.ItemId).FirstOrDefault();
-                            if (item.Type == "package")
+                            if (newObject.IsDefaultSale == true)
                             {
-                                item.AvgPurchasePrice = calculatePackagePrice(tmpItemUnit.ItemUnitId);
-                                entity.SaveChanges();
+                                ItemUnit saleItemUnit = entity.ItemUnit.Where(p => p.ItemId == tmpItemUnit.ItemId && p.IsDefaultSale == true).FirstOrDefault();
+                                if (saleItemUnit != null)
+                                {
+                                    saleItemUnit.IsDefaultSale = false;
+                                    entity.SaveChanges();
+                                }
                             }
-                            return TokenManager.GenerateToken(tmpItemUnit.ItemUnitId.ToString());
+                            if (newObject.IsDefaultPurchase == true)
+                            {
+                                var defItemUnit = entity.ItemUnit.Where(p => p.ItemId == tmpItemUnit.ItemId && p.IsDefaultPurchase == true).FirstOrDefault();
+                                if (defItemUnit != null)
+                                {
+                                    defItemUnit.IsDefaultPurchase = false;
+                                    entity.SaveChanges();
+                                }
+                            }
+                            tmpItemUnit.Barcode = newObject.Barcode;
+                            tmpItemUnit.Price = newObject.Price;
+                            tmpItemUnit.Cost = newObject.Cost;
+                            tmpItemUnit.SubUnitId = newObject.SubUnitId;
+                            tmpItemUnit.UnitId = newObject.UnitId;
+                            tmpItemUnit.UnitValue = newObject.UnitValue;
+                            tmpItemUnit.IsDefaultPurchase = newObject.IsDefaultPurchase;
+                            tmpItemUnit.IsDefaultSale = newObject.IsDefaultSale;
+                            tmpItemUnit.UpdateDate = cc.AddOffsetTodate(DateTime.Now);
+                            tmpItemUnit.UpdateUserId = newObject.UpdateUserId;
+                            tmpItemUnit.PurchasePrice = newObject.PurchasePrice;
+                            tmpItemUnit.PackCost = newObject.PackCost;
+                            tmpItemUnit.Notes = newObject.Notes;
 
                         }
-                    }
-                    catch
-                    {
-                        return TokenManager.GenerateToken("failed");
-                    }
 
+                        entity.SaveChanges();
 
+                        var item = entity.Item.Where(x => x.ItemId == newObject.ItemId).FirstOrDefault();
+                        if (item.Type == "package")
+                        {
+                            item.AvgPurchasePrice = calculatePackagePrice(tmpItemUnit.ItemUnitId);
+                            entity.SaveChanges();
+                        }
+
+                        #region calculate unit count
+                        var itemUnits = entity.ItemUnit.Where(x => x.IsActive == true && x.ItemId == newObject.ItemId).ToList();
+                        foreach(var row in itemUnits )
+                        {
+                            var unitCount = multiplyFactorWithSmallestUnit((long)newObject.ItemId, row.ItemUnitId);
+                            row.UnitCount = unitCount;
+                        }
+                        entity.SaveChanges();
+                        #endregion
+                        return TokenManager.GenerateToken(tmpItemUnit.ItemUnitId.ToString());
+
+                    }
                 }
-                else
+                catch
                 {
-                    return TokenManager.GenerateToken("0");
+                    return TokenManager.GenerateToken("failed");
                 }
 
 
@@ -232,6 +285,43 @@ namespace POS_Server.Controllers
 
         }
 
+        public int multiplyFactorWithSmallestUnit(long itemId, long itemUnitId)
+        {
+            int multiplyFactor = 1;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+
+                var smallestUnit = entity.ItemUnit.Where(iu => iu.ItemId == itemId && iu.UnitId == iu.SubUnitId && iu.IsActive == true).FirstOrDefault();
+
+                if (smallestUnit != null && smallestUnit.ItemUnitId.Equals(itemUnitId))
+                    return multiplyFactor;
+                if (smallestUnit != null)
+                {
+                    if (!smallestUnit.Equals(itemUnitId))
+                        multiplyFactor = getUnitConversionQuan(itemUnitId, smallestUnit.ItemUnitId);
+                }
+                return multiplyFactor;
+            }
+        }
+
+        private int getUnitConversionQuan(long fromItemUnit, long toItemUnit)
+        {
+            int amount = 0;
+
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == toItemUnit).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId && x.IsActive == true).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+                if (upperUnit != null)
+                    amount = (int)upperUnit.UnitValue;
+                if (fromItemUnit == upperUnit.ItemUnitId)
+                    return amount;
+                if (upperUnit != null)
+                    amount += (int)upperUnit.UnitValue * getUnitConversionQuan(fromItemUnit, upperUnit.ItemUnitId);
+
+                return amount;
+            }
+        }
         public decimal calculatePackagePrice(long packageParentId)
         {
             return 0;
