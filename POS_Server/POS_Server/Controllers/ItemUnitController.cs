@@ -66,6 +66,8 @@ namespace POS_Server.Controllers
                                                  Notes = IU.Notes,
                                                  ItemId = IU.ItemId,
                                                  UnitCount = IU.UnitCount,
+                                                 SmallestUnitId = IU.SmallestUnitId,
+                                                 SmallestUnitName = entity.Unit.Where(x => x.UnitId == IU.SmallestUnitId).Select(x => x.Name).FirstOrDefault(),
                                              }).ToList();
                         return TokenManager.GenerateToken(itemUnitsList);
 
@@ -129,6 +131,8 @@ namespace POS_Server.Controllers
                                                  PackCost = IU.PackCost,
                                                  Notes = IU.Notes,
                                                  UnitCount = IU.UnitCount,
+                                                 SmallestUnitId = IU.SmallestUnitId,
+                                                 SmallestUnitName = entity.Unit.Where(x => x.UnitId == IU.SmallestUnitId).Select(x => x.Name).FirstOrDefault(),
                                                  ItemId = IU.ItemId,
                                              }).ToList();
                         return TokenManager.GenerateToken(itemUnitsList);
@@ -267,7 +271,8 @@ namespace POS_Server.Controllers
                         foreach(var row in itemUnits )
                         {
                             var unitCount = multiplyFactorWithSmallestUnit((long)newObject.ItemId, row.ItemUnitId);
-                            row.UnitCount = unitCount;
+                            row.UnitCount = unitCount.UnitCount;
+                            row.SmallestUnitId = unitCount.SmallestUnitId;
                         }
                         entity.SaveChanges();
                         #endregion
@@ -285,22 +290,30 @@ namespace POS_Server.Controllers
 
         }
 
-        public int multiplyFactorWithSmallestUnit(long itemId, long itemUnitId)
+        public ItemUnitModel multiplyFactorWithSmallestUnit(long itemId, long itemUnitId)
         {
             int multiplyFactor = 1;
+            ItemUnitModel itemUnit = new ItemUnitModel();
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
 
                 var smallestUnit = entity.ItemUnit.Where(iu => iu.ItemId == itemId && iu.UnitId == iu.SubUnitId && iu.IsActive == true).FirstOrDefault();
+                itemUnit.SmallestUnitId = smallestUnit.UnitId;
 
                 if (smallestUnit != null && smallestUnit.ItemUnitId.Equals(itemUnitId))
-                    return multiplyFactor;
+                {
+                    itemUnit.UnitCount = multiplyFactor;
+                    //return multiplyFactor;
+                    return itemUnit;
+                }
                 if (smallestUnit != null)
                 {
                     if (!smallestUnit.Equals(itemUnitId))
-                        multiplyFactor = getUnitConversionQuan(itemUnitId, smallestUnit.ItemUnitId);
+                        itemUnit.UnitCount = getUnitConversionQuan(itemUnitId, smallestUnit.ItemUnitId);
+                        //multiplyFactor = getUnitConversionQuan(itemUnitId, smallestUnit.ItemUnitId);
                 }
-                return multiplyFactor;
+                return itemUnit;
+               // return multiplyFactor;
             }
         }
 
@@ -317,7 +330,7 @@ namespace POS_Server.Controllers
                 if (fromItemUnit == upperUnit.ItemUnitId)
                     return amount;
                 if (upperUnit != null)
-                    amount += (int)upperUnit.UnitValue * getUnitConversionQuan(fromItemUnit, upperUnit.ItemUnitId);
+                    amount = (int)upperUnit.UnitValue * getUnitConversionQuan(fromItemUnit, upperUnit.ItemUnitId);
 
                 return amount;
             }

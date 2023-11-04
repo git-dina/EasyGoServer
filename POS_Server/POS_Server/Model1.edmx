@@ -138,10 +138,11 @@
           <Property Name="Price" Type="decimal" Precision="20" Scale="3" />
           <Property Name="Cost" Type="decimal" Precision="20" Scale="3" />
           <Property Name="Barcode" Type="nvarchar" MaxLength="200" />
-          <Property Name="UnitCount" Type="int" Nullable="false" />
-          <Property Name="Notes" Type="ntext" />
           <Property Name="PurchasePrice" Type="decimal" Precision="20" Scale="3" />
           <Property Name="PackCost" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="UnitCount" Type="int" Nullable="false" />
+          <Property Name="SmallestUnitId" Type="int" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" />
           <Property Name="UpdateDate" Type="datetime2" Precision="7" />
@@ -865,6 +866,7 @@
           <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="ItemUnit" ToRole="PurInvoiceItem" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UnitCount" Type="Int32" Nullable="false" />
+          <Property Name="SmallestUnitId" Type="Int32" />
         </EntityType>
         <EntityType Name="POS">
           <Key>
@@ -1584,6 +1586,7 @@
           <EntitySetMapping Name="ItemUnit">
             <EntityTypeMapping TypeName="EasyGoDBModel.ItemUnit">
               <MappingFragment StoreEntitySet="ItemUnit">
+                <ScalarProperty Name="SmallestUnitId" ColumnName="SmallestUnitId" />
                 <ScalarProperty Name="UnitCount" ColumnName="UnitCount" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />

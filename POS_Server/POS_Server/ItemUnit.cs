@@ -39,6 +39,7 @@ namespace POS_Server
         public Nullable<decimal> PackCost { get; set; }
         public string Notes { get; set; }
         public int UnitCount { get; set; }
+        public Nullable<int> SmallestUnitId { get; set; }
     
         public virtual Item Item { get; set; }
         public virtual Unit Unit { get; set; }

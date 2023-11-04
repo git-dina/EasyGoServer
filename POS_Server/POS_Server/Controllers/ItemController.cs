@@ -99,8 +99,9 @@ namespace POS_Server.Controllers
                                                           UpdateUserId = IU.UpdateUserId,
                                                           PackCost = IU.PackCost,
                                                           UnitCount = IU.UnitCount,
-                                                      })
-                                                         .ToList(),
+                                                          SmallestUnitId = IU.SmallestUnitId,
+                                                          SmallestUnitName = entity.Unit.Where(x => x.UnitId == IU.SmallestUnitId).Select(x => x.Name).FirstOrDefault(),
+                                                      }).ToList(),
                                      })
                                    .ToList();
 

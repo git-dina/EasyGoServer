@@ -21,6 +21,7 @@ namespace POS_Server.Models
         public Nullable<decimal> PurchasePrice { get; set; }
         public Nullable<decimal> PackCost { get; set; }
         public int UnitCount { get; set; }
+        public Nullable<int> SmallestUnitId { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
@@ -33,6 +34,7 @@ namespace POS_Server.Models
         public string ItemCode { get; set; }
         public string UnitName { get; set; }
         public string SmallUnit { get; set; }
+        public string SmallestUnitName { get; set; }
 
         public string ItemType { get; set; }
 
