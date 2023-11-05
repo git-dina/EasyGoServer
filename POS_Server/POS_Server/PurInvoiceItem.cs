@@ -18,7 +18,8 @@ namespace POS_Server
         public Nullable<long> InvoiceId { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string Notes { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
         public Nullable<long> ItemUnitId { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }

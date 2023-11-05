@@ -35,8 +35,6 @@ namespace POS_Server.Models
         public Nullable<System.DateTime> VendorInvDate { get; set; }
         public Nullable<int> PosId { get; set; }
         public Nullable<byte> IsApproved { get; set; }
-        public decimal ManualDiscountValue { get; set; }
-        public string ManualDiscountType { get; set; }
         public bool IsActive { get; set; }
         public decimal ShippingCost { get; set; }
 
@@ -51,7 +49,8 @@ namespace POS_Server.Models
         public Nullable<long> InvoiceId { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string Notes { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
         public Nullable<long> ItemUnitId { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }

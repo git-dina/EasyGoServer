@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppSetting">
           <Key>
             <PropertyRef Name="SettingId" />
@@ -239,8 +239,6 @@
           <Property Name="VendorInvDate" Type="datetime2" Precision="7" />
           <Property Name="PosId" Type="int" />
           <Property Name="IsApproved" Type="tinyint" />
-          <Property Name="ManualDiscountValue" Type="decimal" Precision="20" Scale="3" Nullable="false" />
-          <Property Name="ManualDiscountType" Type="nvarchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
         </EntityType>
@@ -252,7 +250,8 @@
           <Property Name="InvoiceId" Type="bigint" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Notes" Type="ntext" />
-          <Property Name="Price" Type="decimal" Precision="20" Scale="3" />
+          <Property Name="Price" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="20" Scale="3" Nullable="false" />
           <Property Name="ItemUnitId" Type="bigint" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" />
@@ -704,7 +703,8 @@
             <End Role="UserSettingValue" EntitySet="UserSettingValue" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyGoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -853,20 +853,20 @@
           <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
           <Property Name="Cost" Type="Decimal" Precision="20" Scale="3" />
           <Property Name="Barcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="PackCost" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitCount" Type="Int32" Nullable="false" />
+          <Property Name="SmallestUnitId" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreateDate" Type="DateTime" Precision="7" />
           <Property Name="UpdateDate" Type="DateTime" Precision="7" />
           <Property Name="CreateUserId" Type="Int64" />
           <Property Name="UpdateUserId" Type="Int64" />
-          <Property Name="PurchasePrice" Type="Decimal" Precision="20" Scale="3" />
-          <Property Name="PackCost" Type="Decimal" Precision="20" Scale="3" />
           <NavigationProperty Name="Item" Relationship="Self.FK_ItemUnit_Item" FromRole="ItemUnit" ToRole="Item" />
           <NavigationProperty Name="Unit" Relationship="Self.FK_ItemUnit_Unit" FromRole="ItemUnit" ToRole="Unit" />
           <NavigationProperty Name="Unit1" Relationship="Self.FK_ItemUnit_Unit1" FromRole="ItemUnit" ToRole="Unit" />
           <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="ItemUnit" ToRole="PurInvoiceItem" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UnitCount" Type="Int32" Nullable="false" />
-          <Property Name="SmallestUnitId" Type="Int32" />
         </EntityType>
         <EntityType Name="POS">
           <Key>
@@ -959,8 +959,6 @@
           <Property Name="VendorInvDate" Type="DateTime" Precision="7" />
           <Property Name="PosId" Type="Int32" />
           <Property Name="IsApproved" Type="Byte" />
-          <Property Name="ManualDiscountValue" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
-          <Property Name="ManualDiscountType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="PurchaseInvoice" ToRole="Supplier" />
@@ -974,7 +972,8 @@
           <Property Name="InvoiceId" Type="Int64" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
+          <Property Name="Price" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
           <Property Name="ItemUnitId" Type="Int64" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="7" />
@@ -1586,9 +1585,6 @@
           <EntitySetMapping Name="ItemUnit">
             <EntityTypeMapping TypeName="EasyGoDBModel.ItemUnit">
               <MappingFragment StoreEntitySet="ItemUnit">
-                <ScalarProperty Name="SmallestUnitId" ColumnName="SmallestUnitId" />
-                <ScalarProperty Name="UnitCount" ColumnName="UnitCount" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="UnitId" ColumnName="UnitId" />
@@ -1599,13 +1595,16 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="PackCost" ColumnName="PackCost" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="UnitCount" ColumnName="UnitCount" />
+                <ScalarProperty Name="SmallestUnitId" ColumnName="SmallestUnitId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
-                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
-                <ScalarProperty Name="PackCost" ColumnName="PackCost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1700,8 +1699,6 @@
                 <ScalarProperty Name="VendorInvDate" ColumnName="VendorInvDate" />
                 <ScalarProperty Name="PosId" ColumnName="PosId" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="ManualDiscountValue" ColumnName="ManualDiscountValue" />
-                <ScalarProperty Name="ManualDiscountType" ColumnName="ManualDiscountType" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
               </MappingFragment>
@@ -1715,6 +1712,7 @@
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

@@ -47,8 +47,6 @@ namespace POS_Server
         public Nullable<System.DateTime> VendorInvDate { get; set; }
         public Nullable<int> PosId { get; set; }
         public Nullable<byte> IsApproved { get; set; }
-        public decimal ManualDiscountValue { get; set; }
-        public string ManualDiscountType { get; set; }
         public bool IsActive { get; set; }
         public decimal ShippingCost { get; set; }
     
