@@ -173,8 +173,6 @@ namespace POS_Server.Controllers
                     tmpInvoice.TaxPercentage = newObject.TaxPercentage;
                     tmpInvoice.IsApproved = newObject.IsApproved;
                     tmpInvoice.BranchCreatorId = newObject.BranchCreatorId;
-                    tmpInvoice.ManualDiscountType = newObject.ManualDiscountType;
-                    tmpInvoice.ManualDiscountValue = newObject.ManualDiscountValue;
 
                     tmpInvoice.ShippingCost = newObject.ShippingCost;
                     entity.SaveChanges();
