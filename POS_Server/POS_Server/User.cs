@@ -20,6 +20,7 @@ namespace POS_Server
             this.UserLog = new HashSet<UserLog>();
             this.UserRequest = new HashSet<UserRequest>();
             this.UserSettingValue = new HashSet<UserSettingValue>();
+            this.CashTransfer = new HashSet<CashTransfer>();
         }
     
         public long UserId { get; set; }
@@ -52,5 +53,7 @@ namespace POS_Server
         public virtual ICollection<UserRequest> UserRequest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSettingValue> UserSettingValue { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CashTransfer> CashTransfer { get; set; }
     }
 }

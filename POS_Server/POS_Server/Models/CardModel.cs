@@ -5,18 +5,17 @@ using System.Web;
 
 namespace POS_Server.Models
 {
-    public class BranchModel
+    public class CardModel
     {
-        public int BranchId { get; set; }
-        public string Code { get; set; }
+        public int CardId { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Mobile { get; set; }
         public string Notes { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public string Type { get; set; }
+        public string Image { get; set; }
+        public Nullable<bool> HasProcessNum { get; set; }
+        public Nullable<decimal> CommissionValue { get; set; }
+        public Nullable<decimal> CommissionRatio { get; set; }
+        public decimal Balance { get; set; }
+        public bool BalanceType { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
