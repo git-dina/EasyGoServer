@@ -42,6 +42,11 @@
         <AssociationConnector Association="EasyGoDBModel.FK_UserLog_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserRequest_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Notification" Width="1.5" PointX="15.375" PointY="6.75" />
+        <EntityTypeShape EntityType="EasyGoDBModel.CashTransfer" Width="1.5" PointX="10" PointY="19.625" />
+        <AssociationConnector Association="EasyGoDBModel.FK_CashTransfer_User" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Card" Width="1.5" PointX="15.375" PointY="11" />
+        <AssociationConnector Association="EasyGoDBModel.FK_CashTransfer_Card" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
