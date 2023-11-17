@@ -22,7 +22,7 @@ namespace POS_Server.Models
         public Nullable<System.DateTime> DeservedDate { get; set; }
         public Nullable<int> BranchCreatorId { get; set; }
         public Nullable<int> BranchId { get; set; }
-        public Nullable<decimal> Tax { get; set; }
+        public decimal Tax { get; set; }
         public string TaxType { get; set; }
         public decimal TaxPercentage { get; set; }
         public Nullable<System.DateTime> InvDate { get; set; }
