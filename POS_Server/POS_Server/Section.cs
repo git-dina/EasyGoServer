@@ -12,34 +12,27 @@ namespace POS_Server
     using System;
     using System.Collections.Generic;
     
-    public partial class Branch
+    public partial class Section
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Branch()
+        public Section()
         {
-            this.POS = new HashSet<POS>();
-            this.Section = new HashSet<Section>();
+            this.Location = new HashSet<Location>();
         }
     
-        public int BranchId { get; set; }
-        public string Code { get; set; }
+        public int SectionId { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Mobile { get; set; }
-        public string Notes { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public string Type { get; set; }
-        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
+        public Nullable<int> BranchId { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public string Notes { get; set; }
+        public Nullable<bool> IsFreeZone { get; set; }
     
+        public virtual Branch Branch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<POS> POS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Section> Section { get; set; }
+        public virtual ICollection<Location> Location { get; set; }
     }
 }

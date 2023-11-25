@@ -18,6 +18,7 @@ namespace POS_Server
         public ItemUnit()
         {
             this.PurInvoiceItem = new HashSet<PurInvoiceItem>();
+            this.ItemLocation = new HashSet<ItemLocation>();
         }
     
         public long ItemUnitId { get; set; }
@@ -46,5 +47,7 @@ namespace POS_Server
         public virtual Unit Unit1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurInvoiceItem> PurInvoiceItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemLocation> ItemLocation { get; set; }
     }
 }

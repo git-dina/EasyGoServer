@@ -12,34 +12,30 @@ namespace POS_Server
     using System;
     using System.Collections.Generic;
     
-    public partial class Branch
+    public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Branch()
+        public Location()
         {
-            this.POS = new HashSet<POS>();
-            this.Section = new HashSet<Section>();
+            this.ItemLocation = new HashSet<ItemLocation>();
         }
     
-        public int BranchId { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Mobile { get; set; }
-        public string Notes { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public string Type { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public int LocationId { get; set; }
+        public string x { get; set; }
+        public string y { get; set; }
+        public string z { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> SectionId { get; set; }
+        public string Notes { get; set; }
+        public Nullable<int> BranchId { get; set; }
+        public Nullable<bool> IsFreeZone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<POS> POS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Section> Section { get; set; }
+        public virtual ICollection<ItemLocation> ItemLocation { get; set; }
+        public virtual Section Section { get; set; }
     }
 }

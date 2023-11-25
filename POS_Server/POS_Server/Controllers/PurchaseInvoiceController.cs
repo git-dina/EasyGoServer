@@ -258,51 +258,174 @@ namespace POS_Server.Controllers
             }
         }
 
-        public string saveWithSerials(List<PurInvoiceItem> newObject, long invoiceId)
+        [HttpPost]
+        [Route("GetInvoicesByCreator")]
+        public async Task<string> GetInvoicesByCreator(string token)
         {
-            string message = "";
-            PurInvoiceItem t = new PurInvoiceItem();
-            using (EasyGoDBEntities entity2 = new EasyGoDBEntities())
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
             {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                #region params
+                string invType = "";
+                long createUserId = 0;
+                int duration = 0;
+                int hours = 0;
+                List<string> invTypeL = new List<string>();
 
-                //remove items transfer
-               var items = entity2.PurInvoiceItem.Where(x => x.InvoiceId == invoiceId).ToList();
-                entity2.PurInvoiceItem.RemoveRange(items);
-                entity2.SaveChanges();
-
-                var invoice = entity2.PurchaseInvoice.Find(invoiceId);
-                for (int i = 0; i < newObject.Count; i++)
+                CashTransferController cashTransferController = new CashTransferController();
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
                 {
-                    long itemUnitId = (long)newObject[i].ItemUnitId;
-
-                    #region get avg price for item
-                    var avgPrice = entity2.Item.Where(m => m.ItemId == entity2.ItemUnit.Where(x => x.ItemUnitId == itemUnitId).Select(x => x.ItemId).FirstOrDefault()).Select(m => m.AvgPurchasePrice).Single();
-                    #endregion
-
-                    if (newObject[i].CreateUserId == 0 || newObject[i].CreateUserId == null)
+                    if (c.Type == "invoiceType")
                     {
-                        Nullable<long> id = null;
-                        newObject[i].CreateUserId = id;
+                        invType = c.Value;
+                        string[] invTypeArray = invType.Split(',');
+                        foreach (string s in invTypeArray)
+                            invTypeL.Add(s.Trim());
                     }
+                    else if (c.Type == "createUserId")
+                    {
+                        createUserId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "duration")
+                    {
+                        duration = int.Parse(c.Value);
+                    }
+                }
+                #endregion
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var searchPredicate = PredicateBuilder.New<PurchaseInvoice>();
 
-                    var transferEntity = entity2.Set<PurInvoiceItem>();
+                        searchPredicate = searchPredicate.And(inv => invTypeL.Contains(inv.InvType));
+                        searchPredicate = searchPredicate.And(inv => inv.CreateUserId == createUserId);
+                        searchPredicate = searchPredicate.And(inv => inv.IsActive == true);
 
-                    newObject[i].InvoiceId = invoiceId;
-                    newObject[i].CreateDate = countryc.AddOffsetTodate(DateTime.Now);
-                    newObject[i].UpdateDate = countryc.AddOffsetTodate(DateTime.Now);
-                    newObject[i].UpdateUserId = newObject[i].CreateUserId;
+                        if (duration > 0)
+                        {
+                            DateTime dt = Convert.ToDateTime(DateTime.Today.AddDays(-duration).ToShortDateString());
+                            searchPredicate = searchPredicate.And(inv => inv.UpdateDate >= dt);
+                        }
+                        if (hours > 0)
+                        {
+                            DateTime dt = Convert.ToDateTime(DateTime.Now.AddHours(-hours));
+                            searchPredicate = searchPredicate.And(x => x.UpdateDate >= dt);
+                        }
 
-                    t = entity2.PurInvoiceItem.Add(newObject[i]);
-                   
-                  
+
+                        var invoicesList = (from b in entity.PurchaseInvoice.Where(searchPredicate)
+                                            join l in entity.Branch on b.BranchId equals l.BranchId into lj
+                                            join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
+                                            from x in lj.DefaultIfEmpty()
+                                            from y in bj.DefaultIfEmpty()
+                                            select new PurInvoiceModel()
+                                            {
+                                                InvoiceId = b.InvoiceId,
+                                                InvNumber = b.InvNumber,
+                                                SupplierId = b.SupplierId,
+                                                SupplierName = b.Supplier.Name,
+                                                InvType = b.InvType,
+                                                Total = b.Total,
+                                                TotalNet = b.TotalNet,
+                                                Paid = b.Paid,
+                                                Deserved = b.Deserved,
+                                                DeservedDate = b.DeservedDate,
+                                                InvDate = b.InvDate,
+                                                InvoiceMainId = b.InvoiceMainId,
+                                               Notes = b.Notes,
+                                                VendorInvNum = b.VendorInvNum,
+                                                VendorInvDate = b.VendorInvDate,
+                                                CreateUserId = b.CreateUserId,
+                                                UpdateDate = b.UpdateDate,
+                                                UpdateUserId = b.UpdateUserId,
+                                                BranchId = b.BranchId,
+                                                DiscountValue = b.DiscountValue,
+                                                DiscountType = b.DiscountType,
+                                                DiscountPercentage = b.DiscountPercentage,
+                                                Tax =(decimal) b.Tax,
+                                                TaxType = b.TaxType,
+                                                TaxPercentage = b.TaxPercentage,
+                                                IsApproved = b.IsApproved,
+                                                BranchName = x.Name,
+                                                BranchCreatorId = b.BranchCreatorId,
+
+                                                BranchCreatorName = y.Name,
+                                                PosId = b.PosId,
+                                                ShippingCost = b.ShippingCost,
+
+                                            }).ToList();
+
+                        if (invoicesList != null)
+                        {
+                            for (int i = 0; i < invoicesList.Count; i++)
+                            {
+                                long invoiceId = invoicesList[i].InvoiceId;
+                                invoicesList[i].InvoiceItems = GetInvoiceItems(invoiceId);
+                                invoicesList[i].cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
+
+                            }
+                        }
+
+                        return TokenManager.GenerateToken(invoicesList);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return TokenManager.GenerateToken(ex.ToString());
 
                 }
-                entity2.SaveChanges();
-
-                message = "1";
             }
-            return message;
         }
 
+        public List<PurInvoiceItemModel> GetInvoiceItems(long invoiceId)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var transferList = (from t in entity.PurInvoiceItem.Where(x => x.InvoiceId == invoiceId )
+                                    select new PurInvoiceItemModel()
+                                    {
+                                        InvItemId = t.InvItemId,
+                                        ItemId = t.ItemUnit.ItemId,
+                                        ItemName = t.ItemUnit.Item.Name,
+                                        Quantity = t.Quantity,
+
+                                        CreateUserId = t.CreateUserId,
+                                        UpdateUserId = t.UpdateUserId,
+                                        Notes = t.Notes,
+                                        CreateDate = t.CreateDate,
+                                        UpdateDate = t.UpdateDate,
+                                        ItemUnitId = t.ItemUnitId,
+                                        Price = t.Price,
+                                        UnitName = t.ItemUnit.Unit.Name,
+                                        UnitId = t.ItemUnit.UnitId,
+                                        Barcode = t.ItemUnit.Barcode,
+                                        ItemType = t.ItemUnit.Item.Type,
+                                        //PackageItems = (from S in entity.packages
+                                        //                join IU in entity.itemsUnits on S.childIUId equals IU.itemUnitId
+                                        //                join I in entity.items on IU.itemId equals I.itemId
+                                        //                where S.parentIUId == u.itemUnitId
+                                        //                select new ItemModel()
+                                        //                {
+                                        //                    isActive = S.isActive,
+                                        //                    name = I.name,
+                                        //                    type = I.type,
+                                        //                    unitName = IU.units.name,
+                                        //                    itemCount = S.quantity,
+                                        //                    itemUnitId = IU.itemUnitId,
+                                        //                }).ToList(),
+                                    })
+                                    .ToList();
+
+                return transferList;
+            }
+
+        }
     }
 }

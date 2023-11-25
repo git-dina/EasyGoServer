@@ -40,7 +40,10 @@ namespace POS_Server.Models
 
         //extra
         public string SupplierName { get; set; }
+        public string BranchName { get; set; }
+        public string BranchCreatorName { get; set; }
         public List<PurInvoiceItemModel> InvoiceItems { get; set; }
+        public List<PayedInvClass> cachTrans { get; set; }
     }
 
     public class PurInvoiceItemModel
@@ -60,5 +63,25 @@ namespace POS_Server.Models
 
         //extra
         public  ItemUnitModel ItemUnit { get; set; }
+        public Nullable<long> ItemId { get; set; }
+        public string ItemName { get; set; }
+        public string UnitName { get; set; }
+        public string Barcode { get; set; }
+        public string ItemType { get; set; }
+        public Nullable<long> UnitId { get; set; }
+        public List<ItemModel> PackageItems { get; set; }
+    }
+
+    public class PayedInvClass
+    {
+        public string ProcessType { get; set; }
+        public Nullable<decimal> Cash { get; set; }
+        public string CardName { get; set; }
+        public int Sequenc { get; set; }
+        public Nullable<long> CardId { get; set; }
+        public Nullable<decimal> CommissionValue { get; set; }
+        public Nullable<decimal> CommissionRatio { get; set; }
+        public string DocNum { get; set; }
+
     }
 }

@@ -47,6 +47,13 @@
         <AssociationConnector Association="EasyGoDBModel.FK_CashTransfer_User" />
         <EntityTypeShape EntityType="EasyGoDBModel.Card" Width="1.5" PointX="15.375" PointY="11" />
         <AssociationConnector Association="EasyGoDBModel.FK_CashTransfer_Card" />
+        <EntityTypeShape EntityType="EasyGoDBModel.ItemLocation" Width="1.5" PointX="16.5" PointY="15.875" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Location" Width="1.5" PointX="14.25" PointY="28.25" />
+        <EntityTypeShape EntityType="EasyGoDBModel.Section" Width="1.5" PointX="12" PointY="28.5" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Section_Branch" />
+        <AssociationConnector Association="EasyGoDBModel.FK_ItemLocation_ItemUnit" />
+        <AssociationConnector Association="EasyGoDBModel.FK_ItemLocation_Location" />
+        <AssociationConnector Association="EasyGoDBModel.FK_Location_Section" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

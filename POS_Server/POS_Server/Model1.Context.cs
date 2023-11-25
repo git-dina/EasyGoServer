@@ -50,6 +50,9 @@ namespace POS_Server
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<CashTransfer> CashTransfer { get; set; }
         public virtual DbSet<Card> Card { get; set; }
+        public virtual DbSet<ItemLocation> ItemLocation { get; set; }
+        public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Section> Section { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
