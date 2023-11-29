@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "zVANsFPGdPzHp0lpPqY+tKv2K9a33ktqi6FmSXSRb7Ia74S3gMCpyFsxzMmqbf8e6YX4b8txbJpyJhEkFjLMiw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\YasinIdlbi\\Documents\\Visual Studio 2022\\project\\EasyGoServer\\EasyGoServer\\EasyGoServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.13\\microsoft.aspnetcore.openapi.7.0.13.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\YasinIdlbi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

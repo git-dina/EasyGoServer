@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "x8IFjvL6j6cBnkWalnRKjA0ZriSqm7b3YkdkL0guIY4=",
+  "Source": "EasyGoServer",
+  "BasePath": "_content/EasyGoServer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
