@@ -239,6 +239,9 @@
     <Compile Include="Branch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BranchUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Card.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -260,6 +263,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ItemLocationController.cs" />
     <Compile Include="Controllers\ItemUnitController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PurchaseInvoiceController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\setValuesController.cs" />
@@ -345,6 +349,9 @@
     <Compile Include="Models\VM\TokenManager.cs" />
     <Compile Include="Models\WebDashBoardModel.cs" />
     <Compile Include="Notification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationUser.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="POS.cs">

@@ -439,8 +439,27 @@ namespace POS_Server.Controllers
             }
         }
 
-       
+        public int getLargeUnitConversionQuan(long fromItemUnit, long toItemUnit)
+        {
+            int amount = 0;
 
-        
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == toItemUnit).Select(x => new { x.UnitId, x.ItemId, x.SubUnitId, x.UnitValue }).FirstOrDefault();
+                var smallUnit = entity.ItemUnit.Where(x => x.UnitId == unit.SubUnitId && x.ItemId == unit.ItemId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+                if (toItemUnit == smallUnit.ItemUnitId)
+                {
+                    amount = 1;
+                    return amount;
+                }
+                if (smallUnit != null)
+                    amount += (int)unit.UnitValue * getLargeUnitConversionQuan(fromItemUnit, smallUnit.ItemUnitId);
+
+                return amount;
+            }
+        }
+
+
     }
 }

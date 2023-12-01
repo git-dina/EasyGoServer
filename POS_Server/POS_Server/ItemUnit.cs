@@ -17,8 +17,8 @@ namespace POS_Server
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ItemUnit()
         {
-            this.PurInvoiceItem = new HashSet<PurInvoiceItem>();
             this.ItemLocation = new HashSet<ItemLocation>();
+            this.PurInvoiceItem = new HashSet<PurInvoiceItem>();
         }
     
         public long ItemUnitId { get; set; }
@@ -43,11 +43,11 @@ namespace POS_Server
         public Nullable<long> UpdateUserId { get; set; }
     
         public virtual Item Item { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemLocation> ItemLocation { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual Unit Unit1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurInvoiceItem> PurInvoiceItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ItemLocation> ItemLocation { get; set; }
     }
 }

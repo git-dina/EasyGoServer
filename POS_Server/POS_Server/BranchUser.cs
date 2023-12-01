@@ -12,25 +12,17 @@ namespace POS_Server
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class BranchUser
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Notification()
-        {
-            this.NotificationUser = new HashSet<NotificationUser>();
-        }
-    
-        public long NotId { get; set; }
-        public string Title { get; set; }
-        public string Ncontent { get; set; }
-        public string MsgType { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public long BranchUserId { get; set; }
+        public Nullable<int> BranchId { get; set; }
+        public Nullable<long> UserId { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NotificationUser> NotificationUser { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace POS_Server
         public string Notes { get; set; }
         public Nullable<int> PosIdCreator { get; set; }
         public Nullable<byte> IsConfirm { get; set; }
-        public Nullable<int> CashTransIdSource { get; set; }
+        public Nullable<long> CashTransIdSource { get; set; }
         public string Side { get; set; }
         public string DocNum { get; set; }
         public Nullable<int> BankId { get; set; }
@@ -45,7 +45,7 @@ namespace POS_Server
         public Nullable<long> UpdateUserId { get; set; }
         public Nullable<long> CreateUserId { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Card Card { get; set; }
+        public virtual User User { get; set; }
     }
 }

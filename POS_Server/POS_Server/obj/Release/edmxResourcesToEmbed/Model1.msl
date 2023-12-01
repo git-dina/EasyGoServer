@@ -43,6 +43,75 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BranchUser">
+      <EntityTypeMapping TypeName="EasyGoDBModel.BranchUser">
+        <MappingFragment StoreEntitySet="BranchUser">
+          <ScalarProperty Name="BranchUserId" ColumnName="BranchUserId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Card">
+      <EntityTypeMapping TypeName="EasyGoDBModel.Card">
+        <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="HasProcessNum" ColumnName="HasProcessNum" />
+          <ScalarProperty Name="CommissionValue" ColumnName="CommissionValue" />
+          <ScalarProperty Name="CommissionRatio" ColumnName="CommissionRatio" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="BalanceType" ColumnName="BalanceType" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CashTransfer">
+      <EntityTypeMapping TypeName="EasyGoDBModel.CashTransfer">
+        <MappingFragment StoreEntitySet="CashTransfer">
+          <ScalarProperty Name="CashTransId" ColumnName="CashTransId" />
+          <ScalarProperty Name="TransType" ColumnName="TransType" />
+          <ScalarProperty Name="PosId" ColumnName="PosId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+          <ScalarProperty Name="InvId" ColumnName="InvId" />
+          <ScalarProperty Name="TransNum" ColumnName="TransNum" />
+          <ScalarProperty Name="Cash" ColumnName="Cash" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="PosIdCreator" ColumnName="PosIdCreator" />
+          <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
+          <ScalarProperty Name="CashTransIdSource" ColumnName="CashTransIdSource" />
+          <ScalarProperty Name="Side" ColumnName="Side" />
+          <ScalarProperty Name="DocNum" ColumnName="DocNum" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+          <ScalarProperty Name="ProcessType" ColumnName="ProcessType" />
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
+          <ScalarProperty Name="ShippingCompanyId" ColumnName="ShippingCompanyId" />
+          <ScalarProperty Name="CommissionValue" ColumnName="CommissionValue" />
+          <ScalarProperty Name="CommissionRatio" ColumnName="CommissionRatio" />
+          <ScalarProperty Name="IsCommissionPaid" ColumnName="IsCommissionPaid" />
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="Deserved" ColumnName="Deserved" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="IsInvPurpose" ColumnName="IsInvPurpose" />
+          <ScalarProperty Name="OtherSide" ColumnName="OtherSide" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Category">
       <EntityTypeMapping TypeName="EasyGoDBModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -127,6 +196,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ItemLocation">
+      <EntityTypeMapping TypeName="EasyGoDBModel.ItemLocation">
+        <MappingFragment StoreEntitySet="ItemLocation">
+          <ScalarProperty Name="ItemLocId" ColumnName="ItemLocId" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ItemUnit">
       <EntityTypeMapping TypeName="EasyGoDBModel.ItemUnit">
         <MappingFragment StoreEntitySet="ItemUnit">
@@ -140,13 +226,65 @@
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Cost" ColumnName="Cost" />
           <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+          <ScalarProperty Name="PackCost" ColumnName="PackCost" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="UnitCount" ColumnName="UnitCount" />
+          <ScalarProperty Name="SmallestUnitId" ColumnName="SmallestUnitId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
           <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
-          <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
-          <ScalarProperty Name="PackCost" ColumnName="PackCost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="EasyGoDBModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="x" ColumnName="x" />
+          <ScalarProperty Name="y" ColumnName="y" />
+          <ScalarProperty Name="z" ColumnName="z" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="IsFreeZone" ColumnName="IsFreeZone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notification">
+      <EntityTypeMapping TypeName="EasyGoDBModel.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="NotId" ColumnName="NotId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Ncontent" ColumnName="Ncontent" />
+          <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotificationUser">
+      <EntityTypeMapping TypeName="EasyGoDBModel.NotificationUser">
+        <MappingFragment StoreEntitySet="NotificationUser">
+          <ScalarProperty Name="NotUserId" ColumnName="NotUserId" />
+          <ScalarProperty Name="NotId" ColumnName="NotId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="PosId" ColumnName="PosId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -241,8 +379,6 @@
           <ScalarProperty Name="VendorInvDate" ColumnName="VendorInvDate" />
           <ScalarProperty Name="PosId" ColumnName="PosId" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-          <ScalarProperty Name="ManualDiscountValue" ColumnName="ManualDiscountValue" />
-          <ScalarProperty Name="ManualDiscountType" ColumnName="ManualDiscountType" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
         </MappingFragment>
@@ -256,12 +392,29 @@
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
           <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Section">
+      <EntityTypeMapping TypeName="EasyGoDBModel.Section">
+        <MappingFragment StoreEntitySet="Section">
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="IsFreeZone" ColumnName="IsFreeZone" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

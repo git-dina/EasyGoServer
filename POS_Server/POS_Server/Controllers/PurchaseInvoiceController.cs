@@ -1,5 +1,6 @@
 ﻿using LinqKit;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using POS_Server.Models;
 using POS_Server.Models.VM;
 using System;
@@ -71,7 +72,7 @@ namespace POS_Server.Controllers
                         if (!InvoiceId.Equals(0))
                         {
                             //save items transfer
-                          // saveWithSerials(transferObject, InvoiceId);
+                          saveInvoiceItems(invoiceModel.InvoiceItems, InvoiceId);
                         }
                     }
                 }
@@ -116,6 +117,431 @@ namespace POS_Server.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("savePurchaseInvoice")]
+        public async Task<string> savePurchaseInvoice(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "";
+            string result = "{";
+            var strP = TokenManager.GetPrincipal(token);
+
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                #region parameters
+                string amountNotStr = "";
+                //string waitNotStr = "";
+                string Object = "";
+                int posId = 0;
+
+                PurchaseInvoice newObject = null;
+                PurInvoiceModel invoiceModel = null;
+                NotificationUserModel amountNot = null;
+                //NotificationUserModel waitNotUser = null;
+               // Notification waitNot = null;
+                List<PurInvoiceItem> transferObject = new List<PurInvoiceItem>();
+                CashTransfer PosCashTransfer = null;
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemObject")
+                    {
+                        newObject = JsonConvert.DeserializeObject<PurchaseInvoice>(c.Value, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                        invoiceModel = JsonConvert.DeserializeObject<PurInvoiceModel>(c.Value, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    }
+                    else if (c.Type == "amountNot")
+                    {
+                        amountNotStr = c.Value;
+                        amountNot = JsonConvert.DeserializeObject<NotificationUserModel>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    }
+                    //else if (c.Type == "waitNot")
+                    //{
+                    //    waitNotStr = c.Value.Replace("\\", string.Empty);
+                    //    waitNotStr = waitNotStr.Trim('"');
+                    //    waitNotUser = JsonConvert.DeserializeObject<NotificationUserModel>(waitNotStr, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    //    waitNot = JsonConvert.DeserializeObject<Notification>(waitNotStr, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    //}
+                    else if (c.Type == "PosCashTransfer")
+                    {
+                        PosCashTransfer = JsonConvert.DeserializeObject<CashTransfer>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    }
+                    else if (c.Type == "posId")
+                    {
+                        posId = int.Parse(c.Value);
+                    }
+
+                }
+                #endregion
+                try
+                {
+                   // ProgramDetailsController pc = new ProgramDetailsController();
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+
+                        #region check pos balance
+                        var pos = entity.POS.Find(posId);
+                        foreach (var c in invoiceModel.ListPayments)
+                        {
+                            if (c.ProcessType == "cash" && pos.Balance < c.Cash)
+                            {
+                                message = "lowBalance";
+                                result += "Result:" + message;
+                                result += "}";
+                                return TokenManager.GenerateToken(result);
+
+                            }
+                        }
+                        #endregion
+
+                        newObject =  SaveInvoice(newObject);
+
+                        long invoiceId = newObject.InvoiceId;
+
+                        newObject.UpdateDate = newObject.UpdateDate;
+                        message = newObject.InvoiceId.ToString();
+                        newObject.InvoiceId = invoiceId;
+                        if (!invoiceId.Equals(0))
+                        {
+                            //save items transfer
+                            saveInvoiceItems(invoiceModel.InvoiceItems, invoiceId);
+
+                            #region enter items to store and notification
+
+                            if (newObject.BranchCreatorId.Equals(newObject.BranchId))
+                            {
+                                ItemLocationController ilc = new ItemLocationController();
+                                ilc.receiptInvoice((int)newObject.BranchId, invoiceModel.InvoiceItems, (long)newObject.UpdateUserId, amountNot.objectName, amountNotStr);
+
+                                saveAvgPrice(invoiceModel.InvoiceItems);
+                            }
+                            //else
+                            //{
+                            //    NotificationController nc = new NotificationController();
+                            //    nc.save(waitNot, waitNotUser.objectName, waitNotUser.prefix, (int)waitNotUser.branchId);
+                            //}
+                            #endregion
+
+                            #region save payments
+
+                            #region save pos cash transfer
+                            CashTransferController cc = new CashTransferController();
+
+                            PosCashTransfer.InvId = invoiceId;
+                            cc.addCashTransfer(PosCashTransfer);
+                            #endregion
+
+                            var inv = entity.PurchaseInvoice.Find(invoiceId);
+
+                            foreach (var item in invoiceModel.ListPayments)
+                            {
+                                item.InvId = invoiceId;
+                                await savePurchaseCash(newObject, item, posId);
+                            }
+
+                            #endregion
+                        }
+
+
+                    }
+                }
+
+                catch
+                {
+
+                    return "failed";
+                }
+                result += "Result:" + message;
+                string temp = System.Web.Helpers.Json.Encode(newObject.InvNumber).Substring(1, System.Web.Helpers.Json.Encode(newObject.InvNumber).Length - 2);
+                result += ",Message:'" + temp + "'";
+               // result += ",InvTime:'" + newObject.InvTime + "'";
+                result += ",UpdateDate:'" + DateTime.Parse(newObject.UpdateDate.ToString()).ToShortDateString() + "'";
+                #region get purchase draft count
+                List<string> invoiceType = new List<string>() { "pd ", "pbd" };
+                int draftCount = getDraftCount((long)newObject.UpdateUserId, invoiceType);
+
+                result += ",PurchaseDraftCount:" + draftCount;
+                #endregion
+
+                #region return pos Balance
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+                    var pos = entity.POS.Find(posId);
+                    result += ",PosBalance:" + pos.Balance;
+                }
+                #endregion
+                result += "}";
+                return TokenManager.GenerateToken(result);
+
+            }
+        }
+
+        [HttpPost]
+        [Route("savePurchaseBounce")]
+        public async Task<string> savePurchaseBounce(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            string message = "";
+            string result = "{";
+            var strP = TokenManager.GetPrincipal(token);
+
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                #region parameters
+              //  string Object = "";
+                int posId = 0;
+                int branchId = 0;
+                PurchaseInvoice newObject = null;
+                PurInvoiceModel invoiceModel = null;
+                NotificationUserModel notificationUser = null;
+                Notification notification = null;
+              //  List<itemsTransfer> transferObject = new List<itemsTransfer>();
+               // List<ItemTransferModel> billDetails = new List<ItemTransferModel>();
+               // List<cashTransfer> listPayments = new List<cashTransfer>();
+                CashTransfer PosCashTransfer = new CashTransfer();
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemObject")
+                    {
+                        newObject = JsonConvert.DeserializeObject<PurchaseInvoice>(c.Value, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                        invoiceModel = JsonConvert.DeserializeObject<PurInvoiceModel>(c.Value, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    }
+                    //else if (c.Type == "itemTransferObject")
+                    //{
+                    //    Object = c.Value.Replace("\\", string.Empty);
+                    //    Object = Object.Trim('"');
+                    //    transferObject = JsonConvert.DeserializeObject<List<itemsTransfer>>(Object, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    //    billDetails = JsonConvert.DeserializeObject<List<ItemTransferModel>>(Object, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    //}
+                    //else if (c.Type == "listPayments")
+                    //{
+                    //    Object = c.Value.Replace("\\", string.Empty);
+                    //    Object = Object.Trim('"');
+                    //    listPayments = JsonConvert.DeserializeObject<List<cashTransfer>>(Object, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    //}
+                    else if (c.Type == "posCashTransfer")
+                    {
+                        PosCashTransfer = JsonConvert.DeserializeObject<CashTransfer>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    }
+                    else if (c.Type == "notification")
+                    {
+                        notificationUser = JsonConvert.DeserializeObject<NotificationUserModel>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        notification = JsonConvert.DeserializeObject<Notification>(c.Value, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                    }
+                    else if (c.Type == "posId")
+                    {
+                        posId = int.Parse(c.Value);
+                    }
+                    else if (c.Type == "branchId")
+                    {
+                        branchId = int.Parse(c.Value);
+                    }
+                }
+                #endregion
+                try
+                {
+                   // ProgramDetailsController pc = new ProgramDetailsController();
+                   // ItemsTransferController it = new ItemsTransferController();
+                    ItemUnitController iuc = new ItemUnitController();
+
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        #region caculate available amount in basic invoice
+                        //get purchase invoice   
+                      //  var mainInvId = entity.PurchaseInvoice.Where(i => i.InvoiceId == newObject.InvoiceMainId).FirstOrDefault().InvoiceId;
+
+                        //purchase invoice items
+                        var mainInvoiceItems = GetInvoiceItems((long)newObject.InvoiceMainId);
+
+                        var returnedItems = invoiceModel.InvoiceItems.Select(x => x.ItemId).Distinct().ToList();
+                        foreach (var item in returnedItems)
+                        {
+                            var returnedItemUnits = invoiceModel.InvoiceItems.Where(x => x.ItemId == item).Select(x => new { x.ItemUnitId, x.Quantity }).ToList();
+                            var saledItemUnits = mainInvoiceItems.Where(x => x.ItemId == item).ToList();
+                            int returnedQuantity = 0;
+                            int purchasedQuantity = 0;
+
+                            foreach (var itemUnit in returnedItemUnits)
+                            {
+                                int multiplyFactor = multiplyFactorWithSmallestUnit((long)item, (long)itemUnit.ItemUnitId);
+                                returnedQuantity += multiplyFactor * (int)itemUnit.Quantity;
+                            }
+
+                            foreach (var itemUnit in saledItemUnits)
+                            {
+                                int multiplyFactor = multiplyFactorWithSmallestUnit((long)item, (long)itemUnit.ItemUnitId);
+                                purchasedQuantity += multiplyFactor * (int)itemUnit.Quantity;
+                            }
+                            if (returnedQuantity > purchasedQuantity)
+                            {
+                                message = "lowReturnQty";
+                                result += "Result:" + message;
+                                result += "}";
+                                return TokenManager.GenerateToken(result);
+                            }
+                        }
+
+                        #endregion
+
+                        #region check items quantity in store
+                        ItemLocationController itc = new ItemLocationController();
+                        string res = itc.checkItemsAmounts(invoiceModel.InvoiceItems, branchId);
+
+                        if (!res.Equals(""))
+                        {
+                            message = "lowQty";
+                            result += "Result:" + message;
+
+                            res = System.Web.Helpers.Json.Encode(res).Substring(1, System.Web.Helpers.Json.Encode(res).Length - 2);
+                            result += ",Message:'" + res + "'";
+                            result += "}";
+
+                            return TokenManager.GenerateToken(result);
+                        }
+                        #endregion
+
+                        newObject =  SaveInvoice(newObject);
+                        long invoiceId = newObject.InvoiceId;
+                        newObject.InvoiceId = invoiceId;
+                        message = invoiceId.ToString();
+
+                        if (!invoiceId.Equals(0))
+                        {
+                            #region save return invoice items
+                            saveInvoiceItems(invoiceModel.InvoiceItems, invoiceId);
+
+                            #endregion
+
+                            #region save payments
+
+                            #region save pos cash transfer
+                            CashTransferController cc = new CashTransferController();
+
+                            PosCashTransfer.InvId = invoiceId;
+
+                            cc.addCashTransfer(PosCashTransfer);
+                            #endregion
+                            decimal paid = 0;
+                            decimal deserved = 0;
+
+                            foreach (var item in invoiceModel.ListPayments)
+                            {
+                                ConfiguredReturnCashTrans(newObject, item, posId);
+
+                                if (item.ProcessType != "balance")
+                                {
+                                    paid += (decimal)item.Cash;
+                                    deserved += (decimal)item.Cash;
+                                }
+                            }
+                            var inv = entity.PurchaseInvoice.Find(invoiceId);
+                            inv.Paid += paid;
+                            inv.Deserved -= deserved;
+                            entity.SaveChanges();
+
+                            foreach (var item in invoiceModel.ListPayments)
+                            {
+                                if (item.ProcessType == "balance")
+                                {
+                                    var basicInvId =  entity.PurchaseInvoice.Where(i => i.InvoiceId == newObject.InvoiceMainId).FirstOrDefault().InvoiceId;
+                                    var basicInv = entity.PurchaseInvoice.Find(basicInvId);
+                                    var returnInv = entity.PurchaseInvoice.Find(invoiceId);
+
+                                    decimal salesPaid = 0;
+                                    if (basicInv.Deserved >= item.Cash)
+                                        salesPaid = (decimal)item.Cash;
+                                    else
+                                    {
+                                        salesPaid = (decimal)basicInv.Deserved;
+                                        //decrease agent balance
+                                        var agent = entity.Supplier.Find(newObject.SupplierId);
+                                        decimal newBalance = 0;
+                                        if (agent.BalanceType == 0)
+                                        {
+                                            if (salesPaid <= (decimal)agent.Balance)
+                                            {
+                                                newBalance = (decimal)agent.Balance - (decimal)item.Cash;
+                                                agent.Balance = newBalance;
+                                            }
+                                            else
+                                            {
+                                                newBalance = (decimal)item.Cash - (decimal)agent.Balance;
+                                                agent.Balance = newBalance;
+                                                agent.BalanceType = 1;
+                                            }
+
+
+                                        }
+                                        else if (agent.BalanceType == 1)
+                                        {
+                                            newBalance = (decimal)agent.Balance + (decimal)item.Cash;
+                                            agent.Balance = newBalance;
+                                        }
+                                    }
+
+                                    basicInv.Deserved -= salesPaid;
+                                    basicInv.Paid += salesPaid;
+
+                                    returnInv.Deserved -= salesPaid;
+                                    returnInv.Paid += salesPaid;
+                                    entity.SaveChanges();
+
+                                    break;
+                                }
+                            }
+                            #endregion
+
+                            #region save notification
+                            NotificationController nc = new NotificationController();
+                            notification.UpdateUserId = notification.CreateUserId;
+
+                            nc.save(notification, notificationUser.objectName, notificationUser.prefix, (int)notificationUser.branchId);
+                            #endregion
+                        }
+                    }
+                }
+
+                catch
+                {
+                    message = "0";
+                }
+                result += "Result:" + message;
+                string temp = System.Web.Helpers.Json.Encode(newObject.InvNumber).Substring(1, System.Web.Helpers.Json.Encode(newObject.InvNumber).Length - 2);
+                result += ",Message:'" + temp + "'";
+
+                #region get sales draft count
+                List<string> invoiceType = new List<string>() { "pd ", "pbd" };
+                int draftCount = getDraftCount((long)newObject.UpdateUserId, invoiceType);
+
+                result += ",PurchaseDraftCount:" + draftCount;
+                #endregion
+
+                #region return pos Balance
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+                    var pos = entity.POS.Find(posId);
+                    result += ",PosBalance:" + pos.Balance;
+                }
+                #endregion
+
+                result += "}";
+                return TokenManager.GenerateToken(result);
+
+            }
+        }
         private PurchaseInvoice SaveInvoice(PurchaseInvoice newObject)
         {
             string message = "";
@@ -229,6 +655,441 @@ namespace POS_Server.Controllers
             return invoiceNum;
         }
 
+        public string saveInvoiceItems(List<PurInvoiceItemModel> newObject, long invoiceId)
+        {
+            string message = "";
+            try
+            {
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+
+                    List<PurInvoiceItem> items = entity.PurInvoiceItem.Where(x => x.InvoiceId == invoiceId).ToList();
+                    entity.PurInvoiceItem.RemoveRange(items);
+                    entity.SaveChanges();
+
+                    var invoice = entity.PurchaseInvoice.Find(invoiceId);
+                    for (int i = 0; i < newObject.Count; i++)
+                    {
+                        PurInvoiceItem t;
+                        if (newObject[i].CreateUserId == 0 || newObject[i].CreateUserId == null)
+                        {
+                            Nullable<long> id = null;
+                            newObject[i].CreateUserId = id;
+                        }
+
+                        var transferEntity = entity.Set<PurInvoiceItem>();
+
+                        newObject[i].InvoiceId = invoiceId;
+                        newObject[i].CreateDate = countryc.AddOffsetTodate(DateTime.Now);
+                        newObject[i].UpdateDate = countryc.AddOffsetTodate(DateTime.Now);
+                        newObject[i].UpdateUserId = newObject[i].CreateUserId;
+
+                        var myContent = JsonConvert.SerializeObject(newObject[i]);
+                        var item = JsonConvert.DeserializeObject<PurInvoiceItem>(myContent, new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+                        t = entity.PurInvoiceItem.Add(item);
+                        entity.SaveChanges(); 
+                    }
+                    entity.SaveChanges();
+                    message = "1";
+                }
+            }
+            catch { message = "0"; }
+            return message;
+        }
+
+        public string saveAvgPrice(List<PurInvoiceItemModel> newObject)
+        {
+            try
+            {
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+                    var set = entity.AppSetting.Where(x => x.Name == "item_cost").FirstOrDefault();
+                    string invoiceNum = "0";
+                    if (set != null)
+                        invoiceNum = entity.AppSettingValue.Where(x => x.SettingId == (long)set.SettingId).Select(x => x.Value).Single();
+                    foreach (var item in newObject)
+                    {
+                        var itemId = entity.ItemUnit.Where(x => x.ItemUnitId == (long)item.ItemUnitId).Select(x => x.ItemId).Single();
+
+                        decimal price = GetAvgPrice((long)item.ItemUnitId, (long)itemId, int.Parse(invoiceNum));
+                        var itemO = entity.Item.Find(itemId);
+                        itemO.AvgPurchasePrice = price;
+
+                    }
+                    entity.SaveChanges();
+                }
+                return "1";
+            }
+            catch
+            {
+                return "0";
+            }
+        }
+
+        private decimal GetAvgPrice(long itemUnitId, long itemId, int numInvoice)
+        {
+            decimal price = 0;
+            int totalNum = 0;
+            decimal smallUnitPrice = 0;
+
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var itemUnits = (from i in entity.ItemUnit where (i.ItemId == itemId) select (i.ItemUnitId)).ToList();
+                List<long> invoicesIds = new List<long>();
+                if (numInvoice == 0)
+                {
+                    invoicesIds = (from p in entity.PurchaseInvoice
+                                   where p.IsActive == true && (p.InvType == "p" || p.InvType == "is")
+                                   select p).Select(x => x.InvoiceId).ToList();
+                }
+                else
+                {
+                    var invoices = (from p in entity.PurchaseInvoice
+                                    where p.IsActive == true && (p.InvType == "p" || p.InvType == "is")
+                                    orderby p.InvDate descending
+                                    select p).Take(numInvoice);
+                    invoicesIds = invoices.Select(x => x.InvoiceId).ToList();
+
+
+                }
+                price += getLastPrice(itemUnits, invoicesIds);
+                totalNum = getItemUnitLastNum(itemUnits, invoicesIds);
+
+                if (totalNum != 0)
+                    smallUnitPrice = price / totalNum;
+                return smallUnitPrice;
+
+            }
+        }
+
+        private decimal getLastPrice(List<long> itemUnits, List<long> invoiceIds)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var sumPrice = (from s in entity.PurInvoiceItem.Where(x => itemUnits.Contains((long)x.ItemUnitId) && invoiceIds.Contains((long)x.InvoiceId))
+                                select s.Quantity * s.Price).Sum();
+
+                if (sumPrice != null)
+                    return (decimal)sumPrice;
+                else
+                    return 0;
+            }
+        }
+
+        private int getItemUnitLastNum(List<long> itemUnits, List<long> invoiceIds)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+
+                var smallestUnitId = (from iu in entity.ItemUnit
+                                      where (itemUnits.Contains((long)iu.ItemUnitId) && iu.UnitId == iu.SubUnitId)
+                                      select iu.ItemUnitId).FirstOrDefault();
+
+                if (smallestUnitId == null || smallestUnitId == 0)
+                {
+                    smallestUnitId = (from u in entity.ItemUnit
+                                      where !entity.ItemUnit.Any(y => u.SubUnitId == y.UnitId)
+                                      where (itemUnits.Contains((long)u.ItemUnitId))
+                                      select u.ItemUnitId).FirstOrDefault();
+                }
+                var lst = entity.PurInvoiceItem.Where(x => x.ItemUnitId == smallestUnitId && invoiceIds.Contains((long)x.InvoiceId))
+                           .Select(t => new ItemLocationModel
+                           {
+                               Quantity = (long)t.Quantity,
+                           }).ToList();
+                long sumNum = 0;
+                if (lst.Count > 0)
+                    sumNum = lst.Sum(x => x.Quantity);
+
+
+                if (sumNum == null)
+                    sumNum = 0;
+
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == smallestUnitId).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                if (unit != null)
+                {
+                    var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+                    if (upperUnit != null && upperUnit.ItemUnitId != smallestUnitId)
+                        sumNum += (int)upperUnit.UnitValue * getLastNum(upperUnit.ItemUnitId, invoiceIds);
+                }
+
+                try
+                {
+                    return (int)sumNum;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        private long getLastNum(long itemUnitId, List<long> invoiceIds)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var lst = entity.PurInvoiceItem.Where(x => x.ItemUnitId == itemUnitId && invoiceIds.Contains((long)x.InvoiceId))
+                           .Select(t => new ItemLocationModel
+                           {
+                               Quantity =(long) t.Quantity,
+                           }).ToList();
+                long sumNum = 0;
+                if (lst.Count > 0)
+                    sumNum = lst.Sum(x => x.Quantity);
+                if (sumNum == null)
+                    sumNum = 0;
+
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == itemUnitId).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+                if (upperUnit != null)
+                    sumNum += (int)upperUnit.UnitValue * getLastNum(upperUnit.ItemUnitId, invoiceIds);
+
+                if (sumNum != null) return (long)sumNum;
+                else
+                    return 0;
+            }
+        }
+
+        private async Task savePurchaseCash(PurchaseInvoice inv, CashTransfer cashTransfer, int posId)
+        {
+            CashTransferController cc = new CashTransferController();
+
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var invoice = entity.PurchaseInvoice.Find(inv.InvoiceId);
+                switch (cashTransfer.ProcessType)
+                {
+                    case "cash":// cash: update pos balance  
+                        var pos = entity.POS.Find(posId);
+                        if (pos.Balance > 0)
+                        {
+                            if (pos.Balance >= cashTransfer.Cash)
+                            {
+                                pos.Balance -= cashTransfer.Cash;
+                                invoice.Paid = cashTransfer.Cash;
+                                invoice.Deserved -= cashTransfer.Cash;
+                            }
+                            else
+                            {
+                                invoice.Paid = pos.Balance;
+                                cashTransfer.Cash = pos.Balance;
+                                invoice.Deserved -= pos.Balance;
+                                pos.Balance = 0;
+                            }
+                            entity.SaveChanges();
+                            cc.addCashTransfer(cashTransfer); //add cash transfer  
+                        }
+                        break;
+                    case "balance":// balance: update supplier balance
+                         recordConfiguredSupplierCash(invoice, "pi", cashTransfer, posId);
+
+                        break;
+                    case "card": // card  
+                         cc.addCashTransfer(cashTransfer); //add cash transfer 
+                        invoice.Paid += cashTransfer.Cash;
+                        invoice.Deserved -= cashTransfer.Cash;
+                        entity.SaveChanges();
+                        break;
+                }
+            }
+        }
+
+
+        public PurchaseInvoice recordConfiguredSupplierCash(PurchaseInvoice invoice, string invType, CashTransfer cashTransfer, int posId)
+        {
+            CashTransferController cc = new CashTransferController();
+            decimal newBalance = 0;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var agent = entity.Supplier.Find(invoice.SupplierId);
+                var inv = entity.PurchaseInvoice.Find(invoice.InvoiceId);
+
+                #region agent Cash transfer
+                cashTransfer.PosId = posId;
+                cashTransfer.AgentId = invoice.SupplierId;
+                cashTransfer.InvId = invoice.InvoiceId;
+                cashTransfer.CreateUserId = invoice.CreateUserId;
+                cashTransfer.Side = "v"; // vendor
+                #endregion
+                switch (invType)
+                {
+                    #region purchase
+                    case "pi"://purchase invoice                 
+                        cashTransfer.TransType = "p";
+                        cashTransfer.TransNum = "pv";
+                       
+                        if (agent.BalanceType == 1)
+                        {
+                            if (cashTransfer.Cash <= (decimal)agent.Balance)
+                            {
+
+                                newBalance = (decimal)agent.Balance - (decimal)cashTransfer.Cash;
+                                agent.Balance = newBalance;
+
+                                inv.Paid += cashTransfer.Cash;
+                                inv.Deserved -= cashTransfer.Cash;
+                                ////
+                                entity.SaveChanges();
+                                ///
+                            }
+                            else
+                            {
+                                inv.Paid += (decimal)agent.Balance;
+                                inv.Deserved -= (decimal)agent.Balance;
+                                //////
+                                ///
+                                newBalance = (decimal)cashTransfer.Cash - (decimal)agent.Balance;
+                                agent.Balance = newBalance;
+                                agent.BalanceType = 0;
+                                entity.SaveChanges();
+
+                            }
+                            cashTransfer.TransType = "p"; //pull
+
+                            if (cashTransfer.ProcessType != "balance")
+                                cc.addCashTransfer(cashTransfer); //add agent cash transfer
+
+                        }
+                        else if (agent.BalanceType == 0)
+                        {
+                            newBalance = (decimal)agent.Balance + (decimal)cashTransfer.Cash;
+                            agent.Balance = newBalance;
+                            entity.SaveChanges();
+                        }
+
+                        break;
+                    #endregion
+                    #region purchase bounce
+                    case "pb"://purchase bounce invoice
+                        cashTransfer.TransType = "d";
+                        
+                        cashTransfer.TransNum = cc.generateCashNumber("dv");
+
+                       
+                        if (agent.BalanceType == 0)
+                        {
+                            if (cashTransfer.Cash <= (decimal)agent.Balance)
+                            {
+
+                                newBalance = (decimal)agent.Balance - (decimal)cashTransfer.Cash;
+                                agent.Balance = newBalance;
+
+                                entity.SaveChanges();
+                            }
+                            else
+                            {
+                                newBalance = (decimal)cashTransfer.Cash - (decimal)agent.Balance;
+                                agent.Balance = newBalance;
+                                agent.BalanceType = 1;
+                                entity.SaveChanges();
+
+                            }
+                            cashTransfer.TransType = "d"; //deposit
+
+                            if (cashTransfer.Cash > 0 && cashTransfer.ProcessType != "balance")
+                            {
+                                 cc.addCashTransfer(cashTransfer); //add cash transfer     
+                            }
+                        }
+                        else if (agent.BalanceType == 1)
+                        {
+                            newBalance = (decimal)agent.Balance + (decimal)cashTransfer.Cash;
+                            agent.Balance = newBalance;
+                            entity.SaveChanges();
+                        }
+
+
+                        break;
+                        #endregion
+                }
+            }
+
+            return invoice;
+        }
+        public int multiplyFactorWithSmallestUnit(long itemId, long itemUnitId)
+        {
+            int multiplyFactor = 1;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+
+                var smallestUnit = entity.ItemUnit.Where(iu => iu.ItemId == itemId && iu.UnitId == iu.SubUnitId && iu.IsActive == true).FirstOrDefault();
+
+                if (smallestUnit != null && smallestUnit.ItemUnitId.Equals(itemUnitId))
+                    return multiplyFactor;
+                if (smallestUnit != null)
+                {
+                    if (!smallestUnit.Equals(itemUnitId))
+                        multiplyFactor = getUnitConversionQuan(itemUnitId, smallestUnit.ItemUnitId);
+                }
+                return multiplyFactor;
+            }
+        }
+
+        private int getUnitConversionQuan(long fromItemUnit, long toItemUnit)
+        {
+            int amount = 0;
+
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == toItemUnit).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId && x.IsActive == true).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+                if (upperUnit != null)
+                    amount = (int)upperUnit.UnitValue;
+                if (fromItemUnit == upperUnit.ItemUnitId)
+                    return amount;
+                if (upperUnit != null)
+                    amount += (int)upperUnit.UnitValue * getUnitConversionQuan(fromItemUnit, upperUnit.ItemUnitId);
+
+                return amount;
+            }
+        }
+
+        private CashTransfer ConfiguredReturnCashTrans(PurchaseInvoice invoice, CashTransfer cashTransfer, int posId)
+        {
+            CashTransferController cc = new CashTransferController();
+            cashTransfer.CreateUserId = invoice.UpdateUserId;
+            switch (cashTransfer.ProcessType)
+            {
+                case "cash":// cash: update pos balance  
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var pos = entity.POS.Find(posId);
+                        pos.Balance += cashTransfer.Cash;
+                        entity.SaveChanges();
+                    }
+
+                    cashTransfer.TransType = "d"; //deposit
+                    cashTransfer.PosId = posId;
+                    cashTransfer.AgentId = invoice.SupplierId;
+                    cashTransfer.InvId = invoice.InvoiceId;
+                    cashTransfer.TransNum = "dc";
+                    cashTransfer.Side = "c"; // customer                    
+                    cashTransfer.CreateUserId = invoice.UpdateUserId;
+                    cc.addCashTransfer(cashTransfer);
+                    break;
+                case "balance":// balance: update customer balance
+
+                       recordConfiguredSupplierCash(invoice, "si", cashTransfer, posId);
+
+                    break;
+                case "card": // card
+                    cashTransfer.TransType = "d"; //deposit
+                    cashTransfer.PosId = posId;
+                    cashTransfer.AgentId = invoice.SupplierId;
+                    cashTransfer.InvId = invoice.InvoiceId;
+                    cashTransfer.TransNum = "dc";
+                    cashTransfer.Side = "c"; // customer
+                    cashTransfer.CreateUserId = invoice.UpdateUserId;
+                    cc.addCashTransfer(cashTransfer); //add cash transfer
+
+                    cc.AddCardCommission(cashTransfer);
+                    break;
+            }
+
+            return cashTransfer;
+        }
         private int getDraftCount(long CreateUserId, List<string> invoiceType)
         {
 

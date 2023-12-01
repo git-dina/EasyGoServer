@@ -29,7 +29,7 @@ namespace POS_Server.Models
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
-        public Nullable<int> InvoiceMainId { get; set; }
+        public Nullable<long> InvoiceMainId { get; set; }
         public string Notes { get; set; }
         public string VendorInvNum { get; set; }
         public Nullable<System.DateTime> VendorInvDate { get; set; }
@@ -44,6 +44,7 @@ namespace POS_Server.Models
         public string BranchCreatorName { get; set; }
         public List<PurInvoiceItemModel> InvoiceItems { get; set; }
         public List<PayedInvClass> cachTrans { get; set; }
+        public List<CashTransfer> ListPayments { get; set; }
     }
 
     public class PurInvoiceItemModel

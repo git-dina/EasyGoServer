@@ -9,7 +9,7 @@ namespace POS_Server.Models
     {
         public long ItemLocId { get; set; }
         public Nullable<int> LocationId { get; set; }
-        public Nullable<long> Quantity { get; set; }
+        public long Quantity { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
@@ -26,5 +26,6 @@ namespace POS_Server.Models
         public string UnitName { get; set; }
         public string ItemType { get; set; }
         public bool IsFreeZone { get; set; }
+        public bool IsExpired { get; set; }
     }
 }

@@ -23,6 +23,27 @@
     <NavigationProperty Name="AppSetting" Relationship="Self.FK_AppSettingValue_AppSetting" FromRole="AppSettingValue" ToRole="AppSetting" />
     <NavigationProperty Name="UserSettingValue" Relationship="Self.FK_UserSettingValue_AppSettingValue" FromRole="AppSettingValue" ToRole="UserSettingValue" />
   </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="BranchId" />
+    </Key>
+    <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_POS_Branch" FromRole="Branch" ToRole="POS" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -135,6 +156,29 @@
     <NavigationProperty Name="Unit" Relationship="Self.FK_ItemUnit_Unit" FromRole="ItemUnit" ToRole="Unit" />
     <NavigationProperty Name="Unit1" Relationship="Self.FK_ItemUnit_Unit1" FromRole="ItemUnit" ToRole="Unit" />
     <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="ItemUnit" ToRole="PurInvoiceItem" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitCount" Type="Int32" Nullable="false" />
+    <Property Name="SmallestUnitId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="POS">
+    <Key>
+      <PropertyRef Name="PosId" />
+    </Key>
+    <Property Name="PosId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Balance" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BalanceAll" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="BoxState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsAdminClose" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK_POS_Branch" FromRole="POS" ToRole="Branch" />
   </EntityType>
   <EntityType Name="ProgramDetails">
     <Key>
@@ -400,6 +444,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_POS_Branch">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="POS" Type="Self.POS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="POS">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Category_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Category1" Type="Self.Category" Multiplicity="*" />
@@ -559,11 +615,13 @@
   <EntityContainer Name="EasyGoDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AppSetting" EntityType="Self.AppSetting" />
     <EntitySet Name="AppSettingValue" EntityType="Self.AppSettingValue" />
+    <EntitySet Name="Branch" EntityType="Self.Branch" />
     <EntitySet Name="Category" EntityType="Self.Category" />
     <EntitySet Name="CountryCode" EntityType="Self.CountryCode" />
     <EntitySet Name="Customer" EntityType="Self.Customer" />
     <EntitySet Name="Item" EntityType="Self.Item" />
     <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" />
+    <EntitySet Name="POS" EntityType="Self.POS" />
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" />
     <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" />
     <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" />
@@ -586,6 +644,10 @@
     <AssociationSet Name="FK_UserSettingValue_AppSettingValue" Association="Self.FK_UserSettingValue_AppSettingValue">
       <End Role="AppSettingValue" EntitySet="AppSettingValue" />
       <End Role="UserSettingValue" EntitySet="UserSettingValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POS_Branch" Association="Self.FK_POS_Branch">
+      <End Role="Branch" EntitySet="Branch" />
+      <End Role="POS" EntitySet="POS" />
     </AssociationSet>
     <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
       <End Role="Category" EntitySet="Category" />
