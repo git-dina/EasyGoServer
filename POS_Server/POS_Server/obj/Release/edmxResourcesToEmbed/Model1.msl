@@ -352,6 +352,7 @@
     <EntitySetMapping Name="PurchaseInvoice">
       <EntityTypeMapping TypeName="EasyGoDBModel.PurchaseInvoice">
         <MappingFragment StoreEntitySet="PurchaseInvoice">
+          <ScalarProperty Name="Remain" ColumnName="Remain" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="InvNumber" ColumnName="InvNumber" />
           <ScalarProperty Name="InvType" ColumnName="InvType" />

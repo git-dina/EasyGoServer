@@ -364,6 +364,7 @@
     <Property Name="IsApproved" Type="tinyint" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="ShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="Remain" Type="decimal" Precision="20" Scale="3" />
   </EntityType>
   <EntityType Name="PurInvoiceItem">
     <Key>

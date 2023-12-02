@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EasyGoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppSetting">
           <Key>
             <PropertyRef Name="SettingId" />
@@ -369,6 +369,7 @@
           <Property Name="IsApproved" Type="tinyint" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+          <Property Name="Remain" Type="decimal" Precision="20" Scale="3" />
         </EntityType>
         <EntityType Name="PurInvoiceItem">
           <Key>
@@ -1014,8 +1015,7 @@
             <End Role="UserSettingValue" EntitySet="UserSettingValue" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyGoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1417,6 +1417,7 @@
           <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="PurchaseInvoice" ToRole="Supplier" />
           <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurchaseInvoice" ToRole="PurInvoiceItem" />
+          <Property Name="Remain" Type="Decimal" Precision="20" Scale="3" />
         </EntityType>
         <EntityType Name="PurInvoiceItem">
           <Key>
@@ -2449,6 +2450,7 @@
           <EntitySetMapping Name="PurchaseInvoice">
             <EntityTypeMapping TypeName="EasyGoDBModel.PurchaseInvoice">
               <MappingFragment StoreEntitySet="PurchaseInvoice">
+                <ScalarProperty Name="Remain" ColumnName="Remain" />
                 <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
                 <ScalarProperty Name="InvNumber" ColumnName="InvNumber" />
                 <ScalarProperty Name="InvType" ColumnName="InvType" />

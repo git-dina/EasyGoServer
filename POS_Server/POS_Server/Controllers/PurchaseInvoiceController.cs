@@ -120,7 +120,7 @@ namespace POS_Server.Controllers
 
         [HttpPost]
         [Route("savePurchaseInvoice")]
-        public async Task<string> savePurchaseInvoice(string token)
+        public string savePurchaseInvoice(string token)
         {
             token = TokenManager.readToken(HttpContext.Current.Request);
             string message = "";
@@ -136,7 +136,7 @@ namespace POS_Server.Controllers
                 #region parameters
                 string amountNotStr = "";
                 //string waitNotStr = "";
-                string Object = "";
+                //string Object = "";
                 int posId = 0;
 
                 PurchaseInvoice newObject = null;
@@ -242,7 +242,7 @@ namespace POS_Server.Controllers
                             foreach (var item in invoiceModel.ListPayments)
                             {
                                 item.InvId = invoiceId;
-                                await savePurchaseCash(newObject, item, posId);
+                                savePurchaseCash(newObject, item, posId);
                             }
 
                             #endregion
@@ -254,8 +254,7 @@ namespace POS_Server.Controllers
 
                 catch
                 {
-
-                    return "failed";
+                    message = "failed";
                 }
                 result += "Result:" + message;
                 string temp = System.Web.Helpers.Json.Encode(newObject.InvNumber).Substring(1, System.Web.Helpers.Json.Encode(newObject.InvNumber).Length - 2);
@@ -599,6 +598,7 @@ namespace POS_Server.Controllers
                     tmpInvoice.TaxPercentage = newObject.TaxPercentage;
                     tmpInvoice.IsApproved = newObject.IsApproved;
                     tmpInvoice.BranchCreatorId = newObject.BranchCreatorId;
+                    tmpInvoice.Remain = newObject.Remain;
 
                     tmpInvoice.ShippingCost = newObject.ShippingCost;
                     entity.SaveChanges();
@@ -623,9 +623,9 @@ namespace POS_Server.Controllers
 
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
-                var branch = entity.Branch.Find(BranchId);
+               // var branch = entity.Branch.Find(BranchId);
 
-                branchCode = branch.Code;
+               // branchCode = branch.Code;
 
                 var numberList = entity.PurchaseInvoice.Where(b => b.InvNumber.Contains(invoiceCode + "-") && b.BranchCreatorId == BranchId).Select(b => b.InvNumber).ToList();
                 for (int i = 0; i < numberList.Count; i++)
@@ -651,7 +651,8 @@ namespace POS_Server.Controllers
             string strSeq = sequence.ToString();
             if (sequence <= 999999)
                 strSeq = sequence.ToString().PadLeft(6, '0');
-            string invoiceNum = invoiceCode + "-" + branchCode + "-" + strSeq;
+           // string invoiceNum = invoiceCode + "-" + branchCode + "-" + strSeq;
+            string invoiceNum = invoiceCode + "-" + strSeq;
             return invoiceNum;
         }
 
@@ -852,7 +853,7 @@ namespace POS_Server.Controllers
             }
         }
 
-        private async Task savePurchaseCash(PurchaseInvoice inv, CashTransfer cashTransfer, int posId)
+        private void savePurchaseCash(PurchaseInvoice inv, CashTransfer cashTransfer, int posId)
         {
             CashTransferController cc = new CashTransferController();
 
@@ -1220,6 +1221,7 @@ namespace POS_Server.Controllers
                                                 BranchCreatorName = y.Name,
                                                 PosId = b.PosId,
                                                 ShippingCost = b.ShippingCost,
+                                                Remain = b.Remain,
 
                                             }).ToList();
 
@@ -1229,6 +1231,7 @@ namespace POS_Server.Controllers
                             {
                                 long invoiceId = invoicesList[i].InvoiceId;
                                 invoicesList[i].InvoiceItems = GetInvoiceItems(invoiceId);
+                                invoicesList[i].ItemsCount = invoicesList[i].InvoiceItems.Count;
                                 invoicesList[i].cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
 
                             }

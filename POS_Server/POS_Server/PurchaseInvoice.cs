@@ -49,6 +49,7 @@ namespace POS_Server
         public Nullable<byte> IsApproved { get; set; }
         public bool IsActive { get; set; }
         public decimal ShippingCost { get; set; }
+        public Nullable<decimal> Remain { get; set; }
     
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -398,6 +398,7 @@
     <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="PurchaseInvoice" ToRole="Supplier" />
     <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurchaseInvoice" ToRole="PurInvoiceItem" />
+    <Property Name="Remain" Type="Decimal" Precision="20" Scale="3" />
   </EntityType>
   <EntityType Name="PurInvoiceItem">
     <Key>

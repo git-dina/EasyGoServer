@@ -37,6 +37,7 @@ namespace POS_Server.Models
         public Nullable<byte> IsApproved { get; set; }
         public bool IsActive { get; set; }
         public decimal ShippingCost { get; set; }
+        public Nullable<decimal> Remain { get; set; }
 
         //extra
         public string SupplierName { get; set; }
@@ -45,6 +46,8 @@ namespace POS_Server.Models
         public List<PurInvoiceItemModel> InvoiceItems { get; set; }
         public List<PayedInvClass> cachTrans { get; set; }
         public List<CashTransfer> ListPayments { get; set; }
+
+        public int ItemsCount { get; set; }
     }
 
     public class PurInvoiceItemModel
