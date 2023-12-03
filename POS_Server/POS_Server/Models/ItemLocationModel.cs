@@ -25,7 +25,8 @@ namespace POS_Server.Models
         public string SectionName { get; set; }
         public string UnitName { get; set; }
         public string ItemType { get; set; }
-        public bool IsFreeZone { get; set; }
+        public bool? IsFreeZone { get; set; }
         public bool IsExpired { get; set; }
+        public int SectionId { get; set; }
     }
 }

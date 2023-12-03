@@ -163,7 +163,7 @@ namespace POS_Server.Controllers
                 }
             }
         }
-
+        [NonAction]
         public void receiptInvoice(int branchId, List<PurInvoiceItemModel> newObject, long userId, string objectName, string notificationObj)
         {
             NotificationController notificationController = new NotificationController();
@@ -358,6 +358,198 @@ namespace POS_Server.Controllers
             }
             return res;
         }
+        [HttpPost]
+        [Route("GetFreeZoneItems")]
+        public string GetFreeZoneItems(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                int branchId = 0;
 
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "branchId")
+                    {
+                        branchId = int.Parse(c.Value);
+                    }
+
+                }
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var docImageList = (from b in entity.ItemLocation
+                                            where b.Quantity > 0 
+                                            //join u in entity.itemsUnits on b.itemUnitId equals u.itemUnitId
+                                            //join i in entity.items on u.itemId equals i.itemId
+                                            //join l in entity.locations on b.locationId equals l.locationId
+                                            //join s in entity.sections on l.sectionId equals s.sectionId
+                                            where b.Location.BranchId == branchId && b.Location.IsFreeZone == true
+
+                                            select new ItemLocationModel
+                                            {
+                                                CreateDate = b.CreateDate,
+                                                CreateUserId = b.CreateUserId,
+                                                EndDate = b.EndDate,
+                                                ItemLocId = b.ItemLocId,
+                                               ItemUnitId = b.ItemUnitId,
+                                                LocationId = b.LocationId,
+                                                Notes = b.Notes,
+                                                Quantity = (long)b.Quantity,
+                                                StartDate = b.StartDate,
+
+                                                UpdateDate = b.UpdateDate,
+                                                UpdateUserId = b.UpdateUserId,
+                                                ItemName = b.ItemUnit.Item.Name,
+                                                SectionId = (int)b.Location.SectionId,
+                                                IsFreeZone = b.Location.IsFreeZone,
+                                                ItemType = b.ItemUnit.Item.Type,
+                                                LocationName = b.Location.x + b.Location.y + b.Location.z,
+                                                SectionName = b.Location.Section.Name,
+                                                UnitName = b.ItemUnit.Unit.Name,
+                                                IsExpired = b.ItemUnit.Item.IsExpired,
+                                            }).ToList();
+
+
+                        return TokenManager.GenerateToken(docImageList);
+
+                    }
+                }
+                catch
+                {
+                    return TokenManager.GenerateToken("failed");
+                }
+            }
+        }
+
+
+        [HttpPost]
+        [Route("ChangeUnitExpireDate")]
+        public string ChangeUnitExpireDate(string token)
+        {
+
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                long itemLocId = 0;
+                long userId = 0;
+                DateTime startDate = DateTime.Now;
+                DateTime endDate = DateTime.Now;
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemLocId")
+                    {
+                        itemLocId = long.Parse(c.Value);
+
+                    }
+                    else if (c.Type == "userId")
+                    {
+                        userId = long.Parse(c.Value);
+
+                    }
+                    else if (c.Type == "startDate")
+                    {
+                        startDate = DateTime.Parse(c.Value);
+                    }
+                    else if (c.Type == "endDate")
+                    {
+                        endDate = DateTime.Parse(c.Value);
+                    }
+
+                }
+
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var itemLoc = entity.ItemLocation.Find(itemLocId);
+
+                        itemLoc.StartDate = startDate;
+                        itemLoc.EndDate = endDate;
+                        itemLoc.UpdateUserId = userId;
+                        entity.SaveChanges().ToString();
+
+                        return TokenManager.GenerateToken("success");
+                    }
+                }
+                catch
+                {
+                    return TokenManager.GenerateToken("failed");
+                }
+            }
+
+        } 
+        [HttpPost]
+        [Route("SaveItemNotes")]
+        public string SaveItemNotes(string token)
+        {
+
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                long itemLocId = 0;
+                long userId = 0;
+                string notes = "";
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "itemLocId")
+                    {
+                        itemLocId = long.Parse(c.Value);
+
+                    }
+                    else if (c.Type == "userId")
+                    {
+                        userId = long.Parse(c.Value);
+
+                    }
+                    else if (c.Type == "notes")
+                    {
+                        notes =c.Value;
+                    }
+                    
+                }
+
+                try
+                {
+                    using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                    {
+                        var itemLoc = entity.ItemLocation.Find(itemLocId);
+
+                        itemLoc.Notes = notes;
+                        itemLoc.UpdateUserId = userId;
+                        entity.SaveChanges().ToString();
+
+                        return TokenManager.GenerateToken("success");
+                    }
+                }
+                catch
+                {
+                    return TokenManager.GenerateToken("failed");
+                }
+            }
+
+        }
     }
 }
