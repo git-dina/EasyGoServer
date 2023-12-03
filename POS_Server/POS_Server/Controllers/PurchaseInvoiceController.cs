@@ -1136,7 +1136,6 @@ namespace POS_Server.Controllers
                 string invType = "";
                 long createUserId = 0;
                 int duration = 0;
-                int hours = 0;
                 List<string> invTypeL = new List<string>();
 
                 CashTransferController cashTransferController = new CashTransferController();
@@ -1174,11 +1173,6 @@ namespace POS_Server.Controllers
                         {
                             DateTime dt = Convert.ToDateTime(DateTime.Today.AddDays(-duration).ToShortDateString());
                             searchPredicate = searchPredicate.And(inv => inv.UpdateDate >= dt);
-                        }
-                        if (hours > 0)
-                        {
-                            DateTime dt = Convert.ToDateTime(DateTime.Now.AddHours(-hours));
-                            searchPredicate = searchPredicate.And(x => x.UpdateDate >= dt);
                         }
 
 
@@ -1234,6 +1228,13 @@ namespace POS_Server.Controllers
                                 invoicesList[i].ItemsCount = invoicesList[i].InvoiceItems.Count;
                                 invoicesList[i].cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
 
+                                var NInvoice = GetNextInvoice(invoiceId, invoicesList[i].InvType, createUserId, duration);
+                                if (NInvoice != null)
+                                    invoicesList[i].HasNextInvoice = true;
+
+                                var PInvoice = GetPreviouseInvoice(invoiceId, invoicesList[i].InvType, createUserId, duration);
+                                if (PInvoice != null)
+                                    invoicesList[i].HasPrevInvoice = true;
                             }
                         }
 
@@ -1290,6 +1291,255 @@ namespace POS_Server.Controllers
                 return transferList;
             }
 
+        }
+
+        [HttpPost]
+        [Route("GetNextInvoice")]
+        public string GetNextInvoice(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                CashTransferController cashTransferController = new CashTransferController();
+                long invoiceId = 0;
+                long createUserId = 0;
+                int duration = 0;
+                string invType = "";
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "invoiceId")
+                    {
+                        invoiceId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "createUserId")
+                    {
+                        createUserId = long.Parse(c.Value);
+                    } 
+                    else if (c.Type == "duration")
+                    {
+                        duration = int.Parse(c.Value);
+                    }
+                    else if (c.Type == "invType")
+                    {
+                        invType = c.Value;
+                    }
+                }
+               var invoice = GetNextInvoice(invoiceId, invType, createUserId, duration);
+
+                if (invoice != null)
+                {
+                    invoice.InvoiceItems = GetInvoiceItems(invoice.InvoiceId);
+                    invoice.ItemsCount = invoice.InvoiceItems.Count;
+                    invoice.cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
+
+                    var NInvoice = GetNextInvoice(invoice.InvoiceId, invType, createUserId, duration);
+                    if (NInvoice != null)
+                        invoice.HasNextInvoice = true; 
+                    
+                    var PInvoice = GetPreviouseInvoice(invoice.InvoiceId, invType, createUserId, duration);
+                    if (PInvoice != null)
+                        invoice.HasPrevInvoice = true;
+                }
+                return TokenManager.GenerateToken(invoice);
+
+               
+            }
+        }
+
+        [NonAction]
+        private PurInvoiceModel GetNextInvoice(long invoiceId,string invType,long createUserId,int duration)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+
+                var searchPredicate = PredicateBuilder.New<PurchaseInvoice>();
+
+                searchPredicate = searchPredicate.And(inv => inv.InvType.Equals(invType));
+                searchPredicate = searchPredicate.And(inv => inv.CreateUserId == createUserId);
+                searchPredicate = searchPredicate.And(inv => inv.IsActive == true);
+                searchPredicate = searchPredicate.And(inv => inv.InvoiceId > invoiceId);
+
+                if (duration > 0)
+                {
+                    DateTime dt = Convert.ToDateTime(DateTime.Today.AddDays(-duration).ToShortDateString());
+                    searchPredicate = searchPredicate.And(inv => inv.UpdateDate >= dt);
+                }
+
+                var invoice = (from b in entity.PurchaseInvoice.Where(searchPredicate)
+                               join l in entity.Branch on b.BranchId equals l.BranchId into lj
+                               join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
+                               from x in lj.DefaultIfEmpty()
+                               from y in bj.DefaultIfEmpty()
+                               select new PurInvoiceModel()
+                               {
+                                   InvoiceId = b.InvoiceId,
+                                   InvNumber = b.InvNumber,
+                                   SupplierId = b.SupplierId,
+                                   SupplierName = b.Supplier.Name,
+                                   InvType = b.InvType,
+                                   Total = b.Total,
+                                   TotalNet = b.TotalNet,
+                                   Paid = b.Paid,
+                                   Deserved = b.Deserved,
+                                   DeservedDate = b.DeservedDate,
+                                   InvDate = b.InvDate,
+                                   InvoiceMainId = b.InvoiceMainId,
+                                   Notes = b.Notes,
+                                   VendorInvNum = b.VendorInvNum,
+                                   VendorInvDate = b.VendorInvDate,
+                                   CreateUserId = b.CreateUserId,
+                                   UpdateDate = b.UpdateDate,
+                                   UpdateUserId = b.UpdateUserId,
+                                   BranchId = b.BranchId,
+                                   DiscountValue = b.DiscountValue,
+                                   DiscountType = b.DiscountType,
+                                   DiscountPercentage = b.DiscountPercentage,
+                                   Tax = (decimal)b.Tax,
+                                   TaxType = b.TaxType,
+                                   TaxPercentage = b.TaxPercentage,
+                                   IsApproved = b.IsApproved,
+                                   BranchName = x.Name,
+                                   BranchCreatorId = b.BranchCreatorId,
+
+                                   BranchCreatorName = y.Name,
+                                   PosId = b.PosId,
+                                   ShippingCost = b.ShippingCost,
+                                   Remain = b.Remain,
+
+                               }).OrderBy(x => x.InvoiceId).FirstOrDefault();
+
+                return invoice;
+            }
+        }
+
+        [HttpPost]
+        [Route("GetPreviousInvoice")]
+        public string GetPreviousInvoice(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                CashTransferController cashTransferController = new CashTransferController();
+                long invoiceId = 0;
+                long createUserId = 0;
+                int duration = 0;
+                string invType = "";
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "invoiceId")
+                    {
+                        invoiceId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "createUserId")
+                    {
+                        createUserId = long.Parse(c.Value);
+                    }
+                    else if (c.Type == "duration")
+                    {
+                        duration = int.Parse(c.Value);
+                    }
+                    else if (c.Type == "invType")
+                    {
+                        invType = c.Value;
+                    }
+                }
+                var invoice = GetPreviouseInvoice(invoiceId, invType, createUserId, duration);
+
+                if (invoice != null)
+                {
+                    invoice.InvoiceItems = GetInvoiceItems(invoice.InvoiceId);
+                    invoice.ItemsCount = invoice.InvoiceItems.Count;
+                    invoice.cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
+
+                    var NInvoice = GetNextInvoice(invoice.InvoiceId, invType, createUserId, duration);
+                    if (NInvoice != null)
+                        invoice.HasNextInvoice = true;
+
+                    var PInvoice = GetPreviouseInvoice(invoice.InvoiceId, invType, createUserId, duration);
+                    if (PInvoice != null)
+                        invoice.HasPrevInvoice = true;
+                }
+                return TokenManager.GenerateToken(invoice);
+
+
+            }
+        }
+        [NonAction]
+        private PurInvoiceModel GetPreviouseInvoice(long invoiceId, string invType, long createUserId, int duration)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+
+                var searchPredicate = PredicateBuilder.New<PurchaseInvoice>();
+
+                searchPredicate = searchPredicate.And(inv => inv.InvType.Equals(invType));
+                searchPredicate = searchPredicate.And(inv => inv.CreateUserId == createUserId);
+                searchPredicate = searchPredicate.And(inv => inv.IsActive == true);
+                searchPredicate = searchPredicate.And(inv => inv.InvoiceId < invoiceId);
+
+                if (duration > 0)
+                {
+                    DateTime dt = Convert.ToDateTime(DateTime.Today.AddDays(-duration).ToShortDateString());
+                    searchPredicate = searchPredicate.And(inv => inv.UpdateDate >= dt);
+                }
+
+                var invoice = (from b in entity.PurchaseInvoice.Where(searchPredicate)
+                               join l in entity.Branch on b.BranchId equals l.BranchId into lj
+                               join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
+                               from x in lj.DefaultIfEmpty()
+                               from y in bj.DefaultIfEmpty()
+                               select new PurInvoiceModel()
+                               {
+                                   InvoiceId = b.InvoiceId,
+                                   InvNumber = b.InvNumber,
+                                   SupplierId = b.SupplierId,
+                                   SupplierName = b.Supplier.Name,
+                                   InvType = b.InvType,
+                                   Total = b.Total,
+                                   TotalNet = b.TotalNet,
+                                   Paid = b.Paid,
+                                   Deserved = b.Deserved,
+                                   DeservedDate = b.DeservedDate,
+                                   InvDate = b.InvDate,
+                                   InvoiceMainId = b.InvoiceMainId,
+                                   Notes = b.Notes,
+                                   VendorInvNum = b.VendorInvNum,
+                                   VendorInvDate = b.VendorInvDate,
+                                   CreateUserId = b.CreateUserId,
+                                   UpdateDate = b.UpdateDate,
+                                   UpdateUserId = b.UpdateUserId,
+                                   BranchId = b.BranchId,
+                                   DiscountValue = b.DiscountValue,
+                                   DiscountType = b.DiscountType,
+                                   DiscountPercentage = b.DiscountPercentage,
+                                   Tax = (decimal)b.Tax,
+                                   TaxType = b.TaxType,
+                                   TaxPercentage = b.TaxPercentage,
+                                   IsApproved = b.IsApproved,
+                                   BranchName = x.Name,
+                                   BranchCreatorId = b.BranchCreatorId,
+
+                                   BranchCreatorName = y.Name,
+                                   PosId = b.PosId,
+                                   ShippingCost = b.ShippingCost,
+                                   Remain = b.Remain,
+
+                               }).OrderByDescending(x => x.InvoiceId).FirstOrDefault();
+
+                return invoice;
+            }
         }
     }
 }

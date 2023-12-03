@@ -47,7 +47,10 @@ namespace POS_Server.Models
         public List<PayedInvClass> cachTrans { get; set; }
         public List<CashTransfer> ListPayments { get; set; }
 
-        public int ItemsCount { get; set; }
+         public int ItemsCount { get; set; }
+        public bool HasNextInvoice { get; set; }
+        public bool HasPrevInvoice { get; set; }
+
     }
 
     public class PurInvoiceItemModel
