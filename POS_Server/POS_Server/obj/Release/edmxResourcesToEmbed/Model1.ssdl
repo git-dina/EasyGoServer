@@ -372,7 +372,7 @@
     </Key>
     <Property Name="InvItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InvoiceId" Type="bigint" />
-    <Property Name="Quantity" Type="int" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Notes" Type="ntext" />
     <Property Name="Price" Type="decimal" Precision="20" Scale="3" Nullable="false" />
     <Property Name="Total" Type="decimal" Precision="20" Scale="3" Nullable="false" />
@@ -382,6 +382,45 @@
     <Property Name="UpdateDate" Type="datetime2" Precision="7" />
     <Property Name="CreateUserId" Type="bigint" />
     <Property Name="UpdateUserId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="SalesInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="InvType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerId" Type="bigint" />
+    <Property Name="DiscountType" Type="nvarchar" MaxLength="10" />
+    <Property Name="DiscountValue" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="DiscountPercentage" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Total" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="TotalNet" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Paid" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="Deserved" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="DeservedDate" Type="date" />
+    <Property Name="BranchCreatorId" Type="int" />
+    <Property Name="BranchId" Type="int" />
+    <Property Name="Tax" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="TaxType" Type="nvarchar" MaxLength="10" />
+    <Property Name="TaxPercentage" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="InvDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="InvoiceMainId" Type="bigint" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="PosId" Type="int" />
+    <Property Name="IsApproved" Type="tinyint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="RealShippingCost" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="Remain" Type="decimal" Precision="20" Scale="3" />
+    <Property Name="ShippingCompanyId" Type="int" />
+    <Property Name="ShipUserId" Type="bigint" />
+    <Property Name="IsPrePaid" Type="bit" Nullable="false" />
+    <Property Name="IsShipPaid" Type="bit" Nullable="false" />
+    <Property Name="IsFreeShip" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -769,6 +808,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SalesInvoice_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="SalesInvoice" Type="Self.SalesInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="SalesInvoice">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Section_Branch">
     <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
     <End Role="Section" Type="Self.Section" Multiplicity="*" />
@@ -892,6 +943,7 @@
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalesInvoice" EntityType="Self.SalesInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -984,6 +1036,10 @@
     <AssociationSet Name="FK_PurInvoiceItem_PurchaseInvoice" Association="Self.FK_PurInvoiceItem_PurchaseInvoice">
       <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
       <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesInvoice_Customer" Association="Self.FK_SalesInvoice_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="SalesInvoice" EntitySet="SalesInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Section_Branch" Association="Self.FK_Section_Branch">
       <End Role="Branch" EntitySet="Branch" />

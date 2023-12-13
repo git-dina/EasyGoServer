@@ -174,6 +174,7 @@
     <Property Name="UpdateDate" Type="DateTime" Precision="7" />
     <Property Name="CreateUserId" Type="Int64" />
     <Property Name="UpdateUserId" Type="Int64" />
+    <NavigationProperty Name="SalesInvoice" Relationship="Self.FK_SalesInvoice_Customer" FromRole="Customer" ToRole="SalesInvoice" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -396,9 +397,9 @@
     <Property Name="IsApproved" Type="Byte" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="Remain" Type="Decimal" Precision="20" Scale="3" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseInvoice_Supplier" FromRole="PurchaseInvoice" ToRole="Supplier" />
     <NavigationProperty Name="PurInvoiceItem" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurchaseInvoice" ToRole="PurInvoiceItem" />
-    <Property Name="Remain" Type="Decimal" Precision="20" Scale="3" />
   </EntityType>
   <EntityType Name="PurInvoiceItem">
     <Key>
@@ -406,7 +407,7 @@
     </Key>
     <Property Name="InvItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="InvoiceId" Type="Int64" />
-    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
     <Property Name="Total" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
@@ -418,6 +419,46 @@
     <Property Name="UpdateUserId" Type="Int64" />
     <NavigationProperty Name="ItemUnit" Relationship="Self.FK_PurInvoiceItem_ItemUnit" FromRole="PurInvoiceItem" ToRole="ItemUnit" />
     <NavigationProperty Name="PurchaseInvoice" Relationship="Self.FK_PurInvoiceItem_PurchaseInvoice" FromRole="PurInvoiceItem" ToRole="PurchaseInvoice" />
+  </EntityType>
+  <EntityType Name="SalesInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="InvType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerId" Type="Int64" />
+    <Property Name="DiscountType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiscountValue" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="DiscountPercentage" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Total" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="TotalNet" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Paid" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="Deserved" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="DeservedDate" Type="DateTime" Precision="0" />
+    <Property Name="BranchCreatorId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="TaxType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="InvDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="InvoiceMainId" Type="Int64" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PosId" Type="Int32" />
+    <Property Name="IsApproved" Type="Byte" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="RealShippingCost" Type="Decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="Remain" Type="Decimal" Precision="20" Scale="3" />
+    <Property Name="ShippingCompanyId" Type="Int32" />
+    <Property Name="ShipUserId" Type="Int64" />
+    <Property Name="IsPrePaid" Type="Boolean" Nullable="false" />
+    <Property Name="IsShipPaid" Type="Boolean" Nullable="false" />
+    <Property Name="IsFreeShip" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_SalesInvoice_Customer" FromRole="SalesInvoice" ToRole="Customer" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -703,6 +744,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SalesInvoice_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="SalesInvoice" Type="Self.SalesInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="SalesInvoice">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Item_Unit">
     <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
     <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -915,6 +968,7 @@
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" />
     <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" />
     <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" />
+    <EntitySet Name="SalesInvoice" EntityType="Self.SalesInvoice" />
     <EntitySet Name="Section" EntityType="Self.Section" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -967,6 +1021,10 @@
     <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesInvoice_Customer" Association="Self.FK_SalesInvoice_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="SalesInvoice" EntitySet="SalesInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Item_Unit" Association="Self.FK_Item_Unit">
       <End Role="Unit" EntitySet="Unit" />

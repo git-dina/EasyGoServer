@@ -57,7 +57,7 @@ namespace POS_Server.Models
     {
         public int InvItemId { get; set; }
         public Nullable<long> InvoiceId { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public int Quantity { get; set; }
         public string Notes { get; set; }
         public decimal Price { get; set; }
         public decimal Total { get; set; }

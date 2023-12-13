@@ -46,6 +46,7 @@ namespace POS_Server
         public virtual DbSet<ProgramDetails> ProgramDetails { get; set; }
         public virtual DbSet<PurchaseInvoice> PurchaseInvoice { get; set; }
         public virtual DbSet<PurInvoiceItem> PurInvoiceItem { get; set; }
+        public virtual DbSet<SalesInvoice> SalesInvoice { get; set; }
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

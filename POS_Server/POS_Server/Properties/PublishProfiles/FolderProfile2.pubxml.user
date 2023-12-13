@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\EasyGo\EasyGoServer\server-publish</_PublishTargetUrl>
-    <History>True|2023-12-03T22:17:53.6764535Z;True|2023-12-04T01:00:42.0876299+03:00;True|2023-12-04T00:52:34.1366660+03:00;True|2023-12-03T23:45:30.0962991+03:00;True|2023-12-03T00:05:15.1330322+03:00;True|2023-12-02T15:18:04.2966512+03:00;True|2023-12-02T15:14:17.8387089+03:00;True|2023-12-02T01:36:13.8000935+03:00;True|2023-12-02T01:32:06.1774368+03:00;True|2023-12-02T00:33:48.6437920+03:00;True|2023-12-01T01:46:20.1981225+03:00;True|2023-12-01T01:10:11.1359969+03:00;True|2023-11-29T15:53:56.7794045+03:00;False|2023-11-29T01:43:14.5364478+03:00;True|2023-11-25T16:43:03.7393034+03:00;True|2023-11-24T23:32:00.7592661+03:00;True|2023-11-06T22:57:40.7673957+03:00;True|2023-11-06T21:36:45.7288400+03:00;True|2023-11-06T15:52:59.7778907+03:00;True|2023-11-05T14:41:22.0943920+03:00;False|2023-11-05T14:36:38.4314463+03:00;True|2023-11-05T00:32:12.4303287+03:00;True|2023-11-05T00:21:45.0274310+03:00;True|2023-11-04T23:39:08.7777724+03:00;True|2023-11-04T20:32:06.5552973+03:00;True|2023-11-04T20:20:29.7105355+03:00;True|2023-11-04T19:20:57.5742392+03:00;False|2023-11-04T18:40:42.1259870+03:00;True|2023-11-04T16:06:11.8701656+03:00;</History>
+    <History>True|2023-12-13T15:56:43.1623881Z;True|2023-12-13T18:37:01.6572372+03:00;True|2023-12-04T01:17:53.6764535+03:00;True|2023-12-04T01:00:42.0876299+03:00;True|2023-12-04T00:52:34.1366660+03:00;True|2023-12-03T23:45:30.0962991+03:00;True|2023-12-03T00:05:15.1330322+03:00;True|2023-12-02T15:18:04.2966512+03:00;True|2023-12-02T15:14:17.8387089+03:00;True|2023-12-02T01:36:13.8000935+03:00;True|2023-12-02T01:32:06.1774368+03:00;True|2023-12-02T00:33:48.6437920+03:00;True|2023-12-01T01:46:20.1981225+03:00;True|2023-12-01T01:10:11.1359969+03:00;True|2023-11-29T15:53:56.7794045+03:00;False|2023-11-29T01:43:14.5364478+03:00;True|2023-11-25T16:43:03.7393034+03:00;True|2023-11-24T23:32:00.7592661+03:00;True|2023-11-06T22:57:40.7673957+03:00;True|2023-11-06T21:36:45.7288400+03:00;True|2023-11-06T15:52:59.7778907+03:00;True|2023-11-05T14:41:22.0943920+03:00;False|2023-11-05T14:36:38.4314463+03:00;True|2023-11-05T00:32:12.4303287+03:00;True|2023-11-05T00:21:45.0274310+03:00;True|2023-11-04T23:39:08.7777724+03:00;True|2023-11-04T20:32:06.5552973+03:00;True|2023-11-04T20:20:29.7105355+03:00;True|2023-11-04T19:20:57.5742392+03:00;False|2023-11-04T18:40:42.1259870+03:00;True|2023-11-04T16:06:11.8701656+03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -129,13 +129,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:39</publishTime>
     </File>
     <File Include="bin/POS_Server.dll">
-      <publishTime>12/04/2023 01:17:47</publishTime>
+      <publishTime>12/13/2023 18:56:36</publishTime>
     </File>
     <File Include="bin/POS_Server.pdb">
-      <publishTime>12/04/2023 01:17:47</publishTime>
+      <publishTime>12/13/2023 18:56:36</publishTime>
     </File>
     <File Include="bin/POS_Server.xml">
-      <publishTime>12/04/2023 01:17:47</publishTime>
+      <publishTime>12/13/2023 18:56:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/11/2023 14:01:36</publishTime>
@@ -387,7 +387,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:11</publishTime>
     </File>
     <File Include="Model1.edmx.diagram">
-      <publishTime>12/01/2023 00:45:11</publishTime>
+      <publishTime>12/13/2023 18:34:22</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>04/11/2023 14:01:17</publishTime>
@@ -432,7 +432,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/11/2023 14:01:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/01/2023 00:46:20</publishTime>
+      <publishTime>12/13/2023 18:37:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

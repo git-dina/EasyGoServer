@@ -14,6 +14,12 @@ namespace POS_Server
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.SalesInvoice = new HashSet<SalesInvoice>();
+        }
+    
         public long CustomerId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
@@ -34,5 +40,8 @@ namespace POS_Server
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<long> CreateUserId { get; set; }
         public Nullable<long> UpdateUserId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesInvoice> SalesInvoice { get; set; }
     }
 }

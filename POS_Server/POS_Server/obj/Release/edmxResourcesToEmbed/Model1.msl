@@ -352,7 +352,6 @@
     <EntitySetMapping Name="PurchaseInvoice">
       <EntityTypeMapping TypeName="EasyGoDBModel.PurchaseInvoice">
         <MappingFragment StoreEntitySet="PurchaseInvoice">
-          <ScalarProperty Name="Remain" ColumnName="Remain" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="InvNumber" ColumnName="InvNumber" />
           <ScalarProperty Name="InvType" ColumnName="InvType" />
@@ -382,6 +381,7 @@
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+          <ScalarProperty Name="Remain" ColumnName="Remain" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -400,6 +400,46 @@
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
           <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesInvoice">
+      <EntityTypeMapping TypeName="EasyGoDBModel.SalesInvoice">
+        <MappingFragment StoreEntitySet="SalesInvoice">
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="InvNumber" ColumnName="InvNumber" />
+          <ScalarProperty Name="InvType" ColumnName="InvType" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
+          <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+          <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="TotalNet" ColumnName="TotalNet" />
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="Deserved" ColumnName="Deserved" />
+          <ScalarProperty Name="DeservedDate" ColumnName="DeservedDate" />
+          <ScalarProperty Name="BranchCreatorId" ColumnName="BranchCreatorId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+          <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+          <ScalarProperty Name="InvDate" ColumnName="InvDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+          <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+          <ScalarProperty Name="InvoiceMainId" ColumnName="InvoiceMainId" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="PosId" ColumnName="PosId" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+          <ScalarProperty Name="RealShippingCost" ColumnName="RealShippingCost" />
+          <ScalarProperty Name="Remain" ColumnName="Remain" />
+          <ScalarProperty Name="ShippingCompanyId" ColumnName="ShippingCompanyId" />
+          <ScalarProperty Name="ShipUserId" ColumnName="ShipUserId" />
+          <ScalarProperty Name="IsPrePaid" ColumnName="IsPrePaid" />
+          <ScalarProperty Name="IsShipPaid" ColumnName="IsShipPaid" />
+          <ScalarProperty Name="IsFreeShip" ColumnName="IsFreeShip" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

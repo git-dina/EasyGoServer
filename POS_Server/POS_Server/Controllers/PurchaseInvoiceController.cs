@@ -1268,6 +1268,7 @@ namespace POS_Server.Controllers
                                         UpdateDate = t.UpdateDate,
                                         ItemUnitId = t.ItemUnitId,
                                         Price = t.Price,
+                                        Total = t.Total,
                                         UnitName = t.ItemUnit.Unit.Name,
                                         UnitId = t.ItemUnit.UnitId,
                                         Barcode = t.ItemUnit.Barcode,
@@ -1540,6 +1541,328 @@ namespace POS_Server.Controllers
 
                 return invoice;
             }
+        }
+
+        [HttpPost]
+        [Route("GetInvoiceToReturn")]
+        public string GetInvoiceToReturn(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                CashTransferController cashTransferController = new CashTransferController();
+                long invoiceId = 0;
+
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "invoiceId")
+                    {
+                        invoiceId = long.Parse(c.Value);
+                    }
+                   
+                }
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+                    var returned = entity.PurchaseInvoice.Where(x => x.InvoiceMainId == invoiceId && x.IsActive == true).ToList();
+                    var invoice = (from b in entity.PurchaseInvoice.Where(x => x.InvoiceId == invoiceId)
+                                   join l in entity.Branch on b.BranchId equals l.BranchId into lj
+                                   join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
+                                   from x in lj.DefaultIfEmpty()
+                                   from y in bj.DefaultIfEmpty()
+                                   select new PurInvoiceModel()
+                                   {
+                                       InvoiceId = b.InvoiceId,
+                                       InvNumber = b.InvNumber,
+                                       SupplierId = b.SupplierId,
+                                       SupplierName = b.Supplier.Name,
+                                       InvType = b.InvType,
+                                       Total = b.Total,
+                                       TotalNet = b.TotalNet,
+                                       Paid = b.Paid,
+                                       Deserved = b.Deserved,
+                                       DeservedDate = b.DeservedDate,
+                                       InvDate = b.InvDate,
+                                       InvoiceMainId = b.InvoiceMainId,
+                                       Notes = b.Notes,
+                                       VendorInvNum = b.VendorInvNum,
+                                       VendorInvDate = b.VendorInvDate,
+                                       CreateUserId = b.CreateUserId,
+                                       UpdateDate = b.UpdateDate,
+                                       UpdateUserId = b.UpdateUserId,
+                                       BranchId = b.BranchId,
+                                       DiscountValue = b.DiscountValue,
+                                       DiscountType = b.DiscountType,
+                                       DiscountPercentage = b.DiscountPercentage,
+                                       Tax = (decimal)b.Tax,
+                                       TaxType = b.TaxType,
+                                       TaxPercentage = b.TaxPercentage,
+                                       IsApproved = b.IsApproved,
+                                       BranchName = x.Name,
+                                       BranchCreatorId = b.BranchCreatorId,
+
+                                       BranchCreatorName = y.Name,
+                                       PosId = b.PosId,
+                                       ShippingCost = b.ShippingCost,
+                                       Remain = b.Remain,
+
+                                   }).FirstOrDefault();
+
+                    var mainInvoiceItems = GetInvoiceItems(invoiceId);
+                    if (returned == null)
+                    {
+
+                        invoice.InvoiceItems = mainInvoiceItems;
+                        invoice.ItemsCount = invoice.InvoiceItems.Count;
+                        //invoice.cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
+                       
+
+                    }
+                    else
+                    {
+                        // decreade returned quantity from purchase invoice
+                        foreach (var inv in returned)
+                        {
+                            var invItems = GetInvoiceItems(inv.InvoiceId);
+                            foreach(var item in invItems)
+                            {
+                                invItems = updateItemQuantity(invItems, (long)item.ItemUnitId, item.Quantity);
+                            }
+                        }
+
+
+                    }
+                    return TokenManager.GenerateToken(invoice);
+                }
+
+            }
+        }
+
+        public List<PurInvoiceItemModel> updateItemQuantity(List<PurInvoiceItemModel> invoiceItems, long itemUnitId,  int requiredAmount)
+        {
+
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unitInInvoice = invoiceItems.Find(x => x.ItemUnitId == itemUnitId);
+              // foreach(var item in unitInInvoice)
+                {
+                    int availableAmount =(int)unitInInvoice.Quantity;
+
+                    if (availableAmount >= requiredAmount)
+                    {
+                        unitInInvoice.Quantity = availableAmount - requiredAmount;
+                        requiredAmount = 0;
+                    }
+                    else if (availableAmount > 0)
+                    {
+                        unitInInvoice.Quantity = 0;
+                        requiredAmount = requiredAmount - availableAmount;
+                    }
+
+                    if (requiredAmount == 0)
+                        return invoiceItems;
+                }
+                if (requiredAmount != 0)
+                {
+                    dic = checkUpperUnit(invoiceItems, itemUnitId,  requiredAmount);
+
+                    var unit = entity.ItemUnit.Where(x => x.ItemUnitId == itemUnitId).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                    var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+
+                    if (dic["remainQuantity"] > 0)
+                    {
+                        unitInInvoice = invoiceItems.Find(x => x.ItemUnitId == itemUnitId);
+                        if (unitInInvoice != null)
+                        {
+                            unitInInvoice.Quantity = dic["remainQuantity"];
+                        }
+                        else
+                        {
+                            var itemUnit = entity.ItemUnit.Find(itemUnitId);
+                            PurInvoiceItemModel itemL = new PurInvoiceItemModel();
+                            itemL.ItemUnitId = itemUnitId;
+                            itemL.Quantity = dic["remainQuantity"];
+                            itemL.Price =(decimal)itemUnit.Price;
+                            itemL.Total = (int)itemL.Quantity * itemL.Price;
+                            itemL.ItemName = itemUnit.Item.Name;
+                            itemL.UnitName = itemUnit.Unit.Name;
+                            itemL.UnitId = itemUnit.UnitId;
+                           invoiceItems.Add(itemL);
+                        }
+                    }
+                    if (dic["requiredQuantity"] > 0)
+                    {
+                        checkLowerUnit(invoiceItems, itemUnitId, dic["requiredQuantity"]);
+                    }
+
+                }
+            }
+            return invoiceItems;
+
+        }
+
+        private Dictionary<string, int> checkUpperUnit(List<PurInvoiceItemModel> invoiceItems, long itemUnitId,  int requiredAmount)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic.Add("remainQuantity", 0);
+            dic.Add("requiredQuantity", 0);
+            dic.Add("isConsumed", 0);
+            int remainQuantity = 0;
+            int firstRequir = requiredAmount;
+            decimal newQuant = 0;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == itemUnitId).Select(x => new { x.UnitId, x.ItemId }).FirstOrDefault();
+                var upperUnit = entity.ItemUnit.Where(x => x.SubUnitId == unit.UnitId && x.ItemId == unit.ItemId && x.SubUnitId != x.UnitId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+                if (upperUnit != null)
+                {
+                    decimal unitValue = (decimal)upperUnit.UnitValue;
+                    int breakNum = (int)Math.Ceiling(requiredAmount / unitValue);
+                    newQuant = (decimal)(breakNum * upperUnit.UnitValue);
+                    var itemL = invoiceItems.Find(il => il.ItemUnitId == upperUnit.ItemUnitId && il.Quantity > 0);
+
+                    if(itemL != null)
+                    {
+                        dic["isConsumed"] = 1;
+                        //var smallUnitLocId = invoiceItems.Where(x => x.ItemUnitId == itemUnitId).FirstOrDefault();
+
+                        if (breakNum <= itemL.Quantity)
+                        {
+                            itemL.Quantity = itemL.Quantity - breakNum;
+
+                            remainQuantity = (int)newQuant - firstRequir;
+                            requiredAmount = 0;
+
+                            dic["remainQuantity"] = remainQuantity;
+                            dic["requiredQuantity"] = 0;
+
+                            return dic;
+                        }
+                        else
+                        {
+                            itemL.Quantity = 0;
+                            breakNum = (int)(breakNum - itemL.Quantity);
+                            requiredAmount = requiredAmount - ((int)itemL.Quantity * (int)upperUnit.UnitValue);
+                            entity.SaveChanges();
+                        }
+                       
+                    }
+                    if (breakNum != 0)
+                    {
+                        dic = new Dictionary<string, int>();
+                        dic = checkUpperUnit(invoiceItems,upperUnit.ItemUnitId,  breakNum);
+                        //var item = (from s in entity.sections
+                        //            where s.branchId == branchId
+                        //            join l in entity.locations on s.sectionId equals l.sectionId
+                        //            join il in entity.itemsLocations on l.locationId equals il.locationId
+                        //            where il.itemUnitId == upperUnit.itemUnitId && il.invoiceId == null
+                        //            select new
+                        //            {
+                        //                il.itemsLocId,
+                        //            }).FirstOrDefault();
+                        if (itemL != null)
+                        {
+                            itemL.Quantity = dic["remainQuantity"];
+                        }
+                        else
+                        {
+                            var itemUnit = entity.ItemUnit.Find(upperUnit.ItemUnitId);
+                            itemL = new PurInvoiceItemModel();
+                            itemL.ItemUnitId = itemUnitId;
+                            itemL.Quantity = dic["remainQuantity"];
+                            itemL.Price = (decimal)itemUnit.Price;
+                            itemL.Total = (int)itemL.Quantity * itemL.Price;
+                            itemL.ItemName = itemUnit.Item.Name;
+                            itemL.UnitName = itemUnit.Unit.Name;
+                            itemL.UnitId = itemUnit.UnitId;
+                            invoiceItems.Add(itemL);
+
+                        }
+                        ///////////////////
+                        if (dic["isConsumed"] == 0)
+                        {
+                            dic["requiredQuantity"] = requiredAmount;
+                            dic["remainQuantity"] = 0;
+                        }
+                        else
+                        {
+                            dic["remainQuantity"] = (int)newQuant - firstRequir;
+                            dic["requiredQuantity"] = breakNum * (int)upperUnit.UnitValue;
+                        }
+                        return dic;
+                    }
+                }
+                else
+                {
+                    dic["remainQuantity"] = 0;
+                    dic["requiredQuantity"] = requiredAmount;
+
+                    return dic;
+                }
+            }
+            return dic;
+        }
+
+        private Dictionary<string, int> checkLowerUnit(List<PurInvoiceItemModel> invoiceItems,long itemUnitId,  int requiredAmount)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            int remainQuantity = 0;
+            int firstRequir = requiredAmount;
+            decimal newQuant = 0;
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var unit = entity.ItemUnit.Where(x => x.ItemUnitId == itemUnitId).Select(x => new { x.UnitId, x.ItemId, x.SubUnitId, x.UnitValue }).FirstOrDefault();
+                var lowerUnit = entity.ItemUnit.Where(x => x.UnitId == unit.SubUnitId && x.ItemId == unit.ItemId).Select(x => new { x.UnitValue, x.ItemUnitId }).FirstOrDefault();
+
+                if (lowerUnit != null)
+                {
+                    decimal unitValue = (decimal)unit.UnitValue;
+                    int breakNum = (int)requiredAmount * (int)unitValue;
+                    newQuant = (decimal)Math.Ceiling(breakNum / (decimal)lowerUnit.UnitValue);
+                    var itemL = invoiceItems.Find(x => x.ItemUnitId == lowerUnit.ItemUnitId);    
+
+                    if (itemL != null)
+                    {
+
+                        if (breakNum <= itemL.Quantity)
+                        {
+                            itemL.Quantity = itemL.Quantity - breakNum;
+                            remainQuantity = (int)newQuant - firstRequir;
+                            requiredAmount = 0;
+                            dic.Add("remainQuantity", remainQuantity);
+
+                            return dic;
+                        }
+                        else
+                        {
+                            itemL.Quantity = 0;
+                            breakNum = (int)(breakNum - itemL.Quantity);
+                            requiredAmount = requiredAmount - ((int)itemL.Quantity / (int)unit.UnitValue);
+                            entity.SaveChanges();
+                        }
+                    }
+                    if (itemUnitId == lowerUnit.ItemUnitId)
+                        return dic;
+                    if (breakNum != 0)
+                    {
+                        dic = new Dictionary<string, int>();
+                        dic = checkLowerUnit(invoiceItems, lowerUnit.ItemUnitId,  breakNum);
+
+                        dic["remainQuantity"] = (int)newQuant - firstRequir;
+                        dic["requiredQuantity"] = breakNum;
+                        return dic;
+                    }
+                }
+            }
+            return dic;
         }
     }
 }
