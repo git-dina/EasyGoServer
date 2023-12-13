@@ -1567,82 +1567,87 @@ namespace POS_Server.Controllers
                     }
                    
                 }
-                using (EasyGoDBEntities entity = new EasyGoDBEntities())
-                {
-                    var returned = entity.PurchaseInvoice.Where(x => x.InvoiceMainId == invoiceId && x.IsActive == true).ToList();
-                    var invoice = (from b in entity.PurchaseInvoice.Where(x => x.InvoiceId == invoiceId)
-                                   join l in entity.Branch on b.BranchId equals l.BranchId into lj
-                                   join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
-                                   from x in lj.DefaultIfEmpty()
-                                   from y in bj.DefaultIfEmpty()
-                                   select new PurInvoiceModel()
-                                   {
-                                       InvoiceId = b.InvoiceId,
-                                       InvNumber = b.InvNumber,
-                                       SupplierId = b.SupplierId,
-                                       SupplierName = b.Supplier.Name,
-                                       InvType = b.InvType,
-                                       Total = b.Total,
-                                       TotalNet = b.TotalNet,
-                                       Paid = b.Paid,
-                                       Deserved = b.Deserved,
-                                       DeservedDate = b.DeservedDate,
-                                       InvDate = b.InvDate,
-                                       InvoiceMainId = b.InvoiceMainId,
-                                       Notes = b.Notes,
-                                       VendorInvNum = b.VendorInvNum,
-                                       VendorInvDate = b.VendorInvDate,
-                                       CreateUserId = b.CreateUserId,
-                                       UpdateDate = b.UpdateDate,
-                                       UpdateUserId = b.UpdateUserId,
-                                       BranchId = b.BranchId,
-                                       DiscountValue = b.DiscountValue,
-                                       DiscountType = b.DiscountType,
-                                       DiscountPercentage = b.DiscountPercentage,
-                                       Tax = (decimal)b.Tax,
-                                       TaxType = b.TaxType,
-                                       TaxPercentage = b.TaxPercentage,
-                                       IsApproved = b.IsApproved,
-                                       BranchName = x.Name,
-                                       BranchCreatorId = b.BranchCreatorId,
 
-                                       BranchCreatorName = y.Name,
-                                       PosId = b.PosId,
-                                       ShippingCost = b.ShippingCost,
-                                       Remain = b.Remain,
-
-                                   }).FirstOrDefault();
-
-                    var mainInvoiceItems = GetInvoiceItems(invoiceId);
-                    if (returned == null)
-                    {
-
-                        invoice.InvoiceItems = mainInvoiceItems;
-                        invoice.ItemsCount = invoice.InvoiceItems.Count;
-                        //invoice.cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
-                       
-
-                    }
-                    else
-                    {
-                        // decreade returned quantity from purchase invoice
-                        foreach (var inv in returned)
-                        {
-                            var invItems = GetInvoiceItems(inv.InvoiceId);
-                            foreach(var item in invItems)
-                            {
-                                invItems = updateItemQuantity(invItems, (long)item.ItemUnitId, item.Quantity);
-                            }
-                        }
-
-
-                    }
-                    return TokenManager.GenerateToken(invoice);
-                }
+                var invoice = GetInvoiceToReturn(invoiceId);
+                return TokenManager.GenerateToken(invoice);
 
             }
         }
+       private PurInvoiceModel GetInvoiceToReturn(long invoiceId)
+        {
+            using (EasyGoDBEntities entity = new EasyGoDBEntities())
+            {
+                var returned = entity.PurchaseInvoice.Where(x => x.InvoiceMainId == invoiceId && x.IsActive == true).ToList();
+                var invoice = (from b in entity.PurchaseInvoice.Where(x => x.InvoiceId == invoiceId)
+                               join l in entity.Branch on b.BranchId equals l.BranchId into lj
+                               join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
+                               from x in lj.DefaultIfEmpty()
+                               from y in bj.DefaultIfEmpty()
+                               select new PurInvoiceModel()
+                               {
+                                   InvoiceId = b.InvoiceId,
+                                   InvNumber = b.InvNumber,
+                                   SupplierId = b.SupplierId,
+                                   SupplierName = b.Supplier.Name,
+                                   InvType = b.InvType,
+                                   Total = b.Total,
+                                   TotalNet = b.TotalNet,
+                                   Paid = b.Paid,
+                                   Deserved = b.Deserved,
+                                   DeservedDate = b.DeservedDate,
+                                   InvDate = b.InvDate,
+                                   InvoiceMainId = b.InvoiceMainId,
+                                   Notes = b.Notes,
+                                   VendorInvNum = b.VendorInvNum,
+                                   VendorInvDate = b.VendorInvDate,
+                                   CreateUserId = b.CreateUserId,
+                                   UpdateDate = b.UpdateDate,
+                                   UpdateUserId = b.UpdateUserId,
+                                   BranchId = b.BranchId,
+                                   DiscountValue = b.DiscountValue,
+                                   DiscountType = b.DiscountType,
+                                   DiscountPercentage = b.DiscountPercentage,
+                                   Tax = (decimal)b.Tax,
+                                   TaxType = b.TaxType,
+                                   TaxPercentage = b.TaxPercentage,
+                                   IsApproved = b.IsApproved,
+                                   BranchName = x.Name,
+                                   BranchCreatorId = b.BranchCreatorId,
 
+                                   BranchCreatorName = y.Name,
+                                   PosId = b.PosId,
+                                   ShippingCost = b.ShippingCost,
+                                   Remain = b.Remain,
+
+                               }).FirstOrDefault();
+
+                var mainInvoiceItems = GetInvoiceItems(invoiceId);
+                if (returned == null)
+                {
+
+                    invoice.InvoiceItems = mainInvoiceItems;
+                    invoice.ItemsCount = invoice.InvoiceItems.Count;
+                    //invoice.cachTrans = cashTransferController.GetPayedByInvId(invoiceId);
+
+
+                }
+                else
+                {
+                    // decreade returned quantity from purchase invoice
+                    foreach (var inv in returned)
+                    {
+                        var invItems = GetInvoiceItems(inv.InvoiceId);
+                        foreach (var item in invItems)
+                        {
+                            invItems = updateItemQuantity(invItems, (long)item.ItemUnitId, item.Quantity);
+                        }
+                    }
+
+
+                }
+                return invoice;
+            }
+        }
         public List<PurInvoiceItemModel> updateItemQuantity(List<PurInvoiceItemModel> invoiceItems, long itemUnitId,  int requiredAmount)
         {
 
@@ -1863,6 +1868,64 @@ namespace POS_Server.Controllers
                 }
             }
             return dic;
+        }
+
+        [HttpPost]
+        [Route("GetInvoiceToReturnByNum")]
+        public string GetInvoiceToReturnByNum(string token)
+        {
+            token = TokenManager.readToken(HttpContext.Current.Request);
+            var strP = TokenManager.GetPrincipal(token);
+            if (strP != "0") //invalid authorization
+            {
+                return TokenManager.GenerateToken(strP);
+            }
+            else
+            {
+                BranchController bc = new BranchController();
+                string invNum = "";
+                int branchId = 0;
+                int userId = 0;
+                IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
+                foreach (Claim c in claims)
+                {
+                    if (c.Type == "invNum")
+                    {
+                        invNum = c.Value;
+                    }
+                    else if (c.Type == "branchId")
+                    {
+                        branchId = int.Parse(c.Value);
+                    }
+                    else if (c.Type == "userId")
+                    {
+                        userId = int.Parse(c.Value);
+                    }
+                }
+                using (EasyGoDBEntities entity = new EasyGoDBEntities())
+                {
+                    //get user branches permission
+                    var branches = bc.BrListByBranchandUser(branchId, userId);
+                    List<int> branchesIds = new List<int>();
+                    for (int i = 0; i < branches.Count; i++)
+                        branchesIds.Add(branches[i].BranchId);
+
+                    var invoiceId = entity.PurchaseInvoice.Where(b => b.InvNumber == invNum
+                                  && b.IsActive == true
+                                  && branchesIds.Contains((int)b.BranchId))
+                                    .Select(b => b.InvoiceId).FirstOrDefault();
+
+                    if (invoiceId != null)
+                    {
+                       var invoice = GetInvoiceToReturn(invoiceId);
+                        return TokenManager.GenerateToken(invoice);
+
+                    }
+
+
+                    return TokenManager.GenerateToken(new PurchaseInvoice());
+                }
+            }
         }
     }
 }

@@ -50,6 +50,7 @@ namespace POS_Server.Models
          public int ItemsCount { get; set; }
         public bool HasNextInvoice { get; set; }
         public bool HasPrevInvoice { get; set; }
+        public decimal DBDiscountValue { get; set; }
 
     }
 
