@@ -548,7 +548,7 @@ namespace POS_Server.Controllers
             #region generate InvNumber
 
             int BranchId = (int)newObject.BranchCreatorId;
-            string InvNumber =  generateInvNumber(newObject.InvNumber, BranchId);
+            string InvNumber =  generateInvNumber(newObject.InvType, BranchId);
 
             #endregion
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
@@ -565,6 +565,7 @@ namespace POS_Server.Controllers
                     newObject.UpdateDate = countryc.AddOffsetTodate(DateTime.Now);
                     newObject.UpdateUserId = newObject.CreateUserId;
                     newObject.InvNumber = InvNumber;
+                    newObject.IsActive = true;
 
                     tmpInvoice = invoiceEntity.Add(newObject);
                     entity.SaveChanges();
@@ -1590,10 +1591,10 @@ namespace POS_Server.Controllers
                                    SupplierId = b.SupplierId,
                                    SupplierName = b.Supplier.Name,
                                    InvType = b.InvType,
-                                   Total = b.Total,
-                                   TotalNet = b.TotalNet,
-                                   Paid = b.Paid,
-                                   Deserved = b.Deserved,
+                                  // Total = b.Total,
+                                  // TotalNet = b.TotalNet,
+                                   //Paid = b.Paid,
+                                   //Deserved = b.Deserved,
                                    DeservedDate = b.DeservedDate,
                                    InvDate = b.InvDate,
                                    InvoiceMainId = b.InvoiceMainId,
@@ -1604,12 +1605,12 @@ namespace POS_Server.Controllers
                                    UpdateDate = b.UpdateDate,
                                    UpdateUserId = b.UpdateUserId,
                                    BranchId = b.BranchId,
-                                   DiscountValue = b.DiscountValue,
+                                   DiscountValue = 0,
                                    DiscountType = b.DiscountType,
-                                   DiscountPercentage = b.DiscountPercentage,
-                                   Tax = (decimal)b.Tax,
-                                   TaxType = b.TaxType,
-                                   TaxPercentage = b.TaxPercentage,
+                                   DiscountPercentage = 0,
+                                   Tax = 0,
+                                  TaxType = b.TaxType,
+                                   TaxPercentage = 0,
                                    IsApproved = b.IsApproved,
                                    BranchName = x.Name,
                                    BranchCreatorId = b.BranchCreatorId,
@@ -1617,12 +1618,12 @@ namespace POS_Server.Controllers
                                    BranchCreatorName = y.Name,
                                    PosId = b.PosId,
                                    ShippingCost = b.ShippingCost,
-                                   Remain = b.Remain,
+                                  // Remain = b.Remain,
 
                                }).FirstOrDefault();
 
                 var mainInvoiceItems = GetInvoiceItems(invoiceId);
-                if (returned == null)
+                if (returned.Count == 0)
                 {
 
                     invoice.InvoiceItems = mainInvoiceItems;
@@ -1639,12 +1640,14 @@ namespace POS_Server.Controllers
                         var invItems = GetInvoiceItems(inv.InvoiceId);
                         foreach (var item in invItems)
                         {
-                            invItems = updateItemQuantity(invItems, (long)item.ItemUnitId, item.Quantity);
+                            mainInvoiceItems = updateItemQuantity(mainInvoiceItems, (long)item.ItemUnitId, item.Quantity);
                         }
                     }
-
+                    invoice.InvoiceItems = mainInvoiceItems;
 
                 }
+
+                invoice.Total = invoice.TotalNet = invoice.InvoiceItems.Sum(x => x.Quantity * x.Price);
                 return invoice;
             }
         }
