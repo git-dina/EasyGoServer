@@ -1888,7 +1888,7 @@ namespace POS_Server.Controllers
                 BranchController bc = new BranchController();
                 string invNum = "";
                 int branchId = 0;
-                int userId = 0;
+                long userId = 0;
                 IEnumerable<Claim> claims = TokenManager.getTokenClaims(token);
                 foreach (Claim c in claims)
                 {
@@ -1902,7 +1902,7 @@ namespace POS_Server.Controllers
                     }
                     else if (c.Type == "userId")
                     {
-                        userId = int.Parse(c.Value);
+                        userId = long.Parse(c.Value);
                     }
                 }
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
