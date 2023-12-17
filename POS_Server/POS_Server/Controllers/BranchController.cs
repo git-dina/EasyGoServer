@@ -64,7 +64,7 @@ namespace POS_Server.Controllers
             }
         }
 
-        public List<Branch> BrListByBranchandUser(int mainBranchId, long userId)
+        public List<BranchModel> BrListByBranchandUser(int mainBranchId, long userId)
         {
             List<BranchModel> Listb = new List<BranchModel>();
             List<BranchModel> Listu = new List<BranchModel>();
@@ -73,14 +73,15 @@ namespace POS_Server.Controllers
             List<int> usrIds = new List<int>();
             List<int> intersectIds = new List<int>();
 
-            List<Branch> List = new List<Branch>();
-            User thisuser = new User();
+            List<BranchModel> List = new List<BranchModel>();
+            UserModel thisuser = new UserModel();
             try
             {
 
                 using (EasyGoDBEntities entity = new EasyGoDBEntities())
                 {
-                    thisuser = entity.User.Where(x => x.UserId == userId).Select(u => new User
+                    thisuser = entity.User.Where(x => x.UserId == userId)
+                        .Select(u => new UserModel()
                     {
                         UserId = u.UserId,
 
@@ -99,11 +100,11 @@ namespace POS_Server.Controllers
                 {
                     //Listb = BranchesByBranch(mainBranchId);
                     Lists = BranchSonsbyId(mainBranchId);
-
+                   
                     Listu = BranchesByUser(userId);
 
-                    Listb = Listb.Union(Lists).ToList();
-                    brIds = Listb.Select(b => b.BranchId).ToList();
+                    Lists = Lists.Union(Listb).ToList();
+                    brIds = Lists.Select(b => b.BranchId).ToList();
                     usrIds = Listu.Select(b => b.BranchId).ToList();
 
                     int id = 0;
@@ -115,7 +116,8 @@ namespace POS_Server.Controllers
                         intersectIds.Add(id);
                     }
 
-                    List = Listu.Where(x => intersectIds.Contains(x.BranchId)).GroupBy(X => X.BranchId).Select(X => new Branch
+                    List = Listu.Where(x => intersectIds.Contains(x.BranchId))
+                        .GroupBy(X => X.BranchId).Select(X => new BranchModel()
                     {
                         BranchId = X.FirstOrDefault().BranchId,
                         Code = X.FirstOrDefault().Code,
@@ -143,7 +145,7 @@ namespace POS_Server.Controllers
             catch
             {
 
-                List = new List<Branch>();
+                List = new List<BranchModel>();
                 return List;
             }
 
@@ -151,12 +153,12 @@ namespace POS_Server.Controllers
 
         }
 
-        public List<Branch> Allbranches()
+        public List<BranchModel> Allbranches()
         {
-            List<Branch> List = new List<Branch>();
+            List<BranchModel> List = new List<BranchModel>();
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
-                List = entity.Branch.Where(b => b.BranchId != 1).Select(B => new Branch
+                List = entity.Branch.Where(b => b.BranchId != 1).Select(B => new BranchModel()
                 {
                     BranchId = B.BranchId,//
                     Code = B.Code,//

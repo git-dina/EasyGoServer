@@ -1909,9 +1909,14 @@ namespace POS_Server.Controllers
                 {
                     //get user branches permission
                     var branches = bc.BrListByBranchandUser(branchId, userId);
+                    
+
                     List<int> branchesIds = new List<int>();
                     for (int i = 0; i < branches.Count; i++)
                         branchesIds.Add(branches[i].BranchId);
+
+                    if (branchesIds.Count.Equals(0))
+                        branchesIds.Add(branchId);
 
                     var invoiceId = entity.PurchaseInvoice.Where(b => b.InvNumber == invNum
                                   && b.IsActive == true

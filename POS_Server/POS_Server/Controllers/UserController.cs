@@ -1483,6 +1483,18 @@ namespace POS_Server.Controllers
 
                                 entity.SaveChanges().ToString();
                                 message = userObj.UserId.ToString();
+
+                                //add user to branch - temporary
+                                BranchUser bu = new BranchUser()
+                                {
+                                    BranchId = 2,
+                                    UserId = userObj.UserId,
+                                    CreateDate = cc.AddOffsetTodate(DateTime.Now),
+                                    UpdateDate = cc.AddOffsetTodate(DateTime.Now),
+                                };
+
+                                entity.BranchUser.Add(bu);
+                                entity.SaveChanges();
                                 return TokenManager.GenerateToken(message);
 
                             }
