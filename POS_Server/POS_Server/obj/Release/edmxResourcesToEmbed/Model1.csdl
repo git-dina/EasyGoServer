@@ -459,6 +459,7 @@
     <Property Name="IsShipPaid" Type="Boolean" Nullable="false" />
     <Property Name="IsFreeShip" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Customer" Relationship="Self.FK_SalesInvoice_Customer" FromRole="SalesInvoice" ToRole="Customer" />
+    <NavigationProperty Name="SaleInvoiceItem" Relationship="EasyGoDBModel.FK_SaleInvoiceItem_SalesInvoice" FromRole="SalesInvoice" ToRole="SaleInvoiceItem" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -1120,6 +1121,11 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="SaleInvoiceItem" EntityType="EasyGoDBModel.SaleInvoiceItem" />
+    <AssociationSet Name="FK_SaleInvoiceItem_SalesInvoice" Association="EasyGoDBModel.FK_SaleInvoiceItem_SalesInvoice">
+      <End Role="SalesInvoice" EntitySet="SalesInvoice" />
+      <End Role="SaleInvoiceItem" EntitySet="SaleInvoiceItem" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1132,4 +1138,40 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="SaleInvoiceItem">
+    <Key>
+      <PropertyRef Name="ItemTransId" />
+    </Key>
+    <Property Name="ItemTransId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceId" Type="Int64" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+    <Property Name="CreateUserId" Type="Int64" />
+    <Property Name="UpdateUserId" Type="Int64" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="ItemUnitId" Type="Int64" />
+    <Property Name="OfferId" Type="Int32" />
+    <Property Name="Profit" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="PurchasePrice" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="ItemTax" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="ItemUnitPrice" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="OfferValue" Type="Decimal" Nullable="false" Precision="20" Scale="3" />
+    <Property Name="OfferType" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="OfferName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SalesInvoice" Relationship="EasyGoDBModel.FK_SaleInvoiceItem_SalesInvoice" FromRole="SaleInvoiceItem" ToRole="SalesInvoice" />
+  </EntityType>
+  <Association Name="FK_SaleInvoiceItem_SalesInvoice">
+    <End Type="EasyGoDBModel.SalesInvoice" Role="SalesInvoice" Multiplicity="0..1" />
+    <End Type="EasyGoDBModel.SaleInvoiceItem" Role="SaleInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesInvoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="SaleInvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

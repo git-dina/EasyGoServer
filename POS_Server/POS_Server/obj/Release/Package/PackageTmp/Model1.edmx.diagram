@@ -62,6 +62,8 @@
         <AssociationConnector Association="EasyGoDBModel.FK_UserLog_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserRequest_User" ManuallyRouted="false" />
         <AssociationConnector Association="EasyGoDBModel.FK_UserSettingValue_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EasyGoDBModel.SaleInvoiceItem" Width="1.5" PointX="20.25" PointY="13.375" />
+        <AssociationConnector Association="EasyGoDBModel.FK_SaleInvoiceItem_SalesInvoice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

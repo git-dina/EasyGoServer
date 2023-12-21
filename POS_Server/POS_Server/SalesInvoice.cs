@@ -14,6 +14,12 @@ namespace POS_Server
     
     public partial class SalesInvoice
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SalesInvoice()
+        {
+            this.SaleInvoiceItem = new HashSet<SaleInvoiceItem>();
+        }
+    
         public long InvoiceId { get; set; }
         public string InvNumber { get; set; }
         public string InvType { get; set; }
@@ -50,5 +56,7 @@ namespace POS_Server
         public bool IsFreeShip { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SaleInvoiceItem> SaleInvoiceItem { get; set; }
     }
 }

@@ -383,6 +383,29 @@
     <Property Name="CreateUserId" Type="bigint" />
     <Property Name="UpdateUserId" Type="bigint" />
   </EntityType>
+  <EntityType Name="SaleInvoiceItem">
+    <Key>
+      <PropertyRef Name="ItemTransId" />
+    </Key>
+    <Property Name="ItemTransId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="InvoiceId" Type="bigint" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" />
+    <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="CreateUserId" Type="bigint" />
+    <Property Name="UpdateUserId" Type="bigint" />
+    <Property Name="Notes" Type="ntext" />
+    <Property Name="Price" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="ItemUnitId" Type="bigint" />
+    <Property Name="OfferId" Type="int" />
+    <Property Name="Profit" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="PurchasePrice" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="ItemTax" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="ItemUnitPrice" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="OfferValue" Type="decimal" Precision="20" Scale="3" Nullable="false" />
+    <Property Name="OfferType" Type="nvarchar" MaxLength="15" />
+    <Property Name="OfferName" Type="nvarchar" MaxLength="500" />
+  </EntityType>
   <EntityType Name="SalesInvoice">
     <Key>
       <PropertyRef Name="InvoiceId" />
@@ -808,6 +831,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SaleInvoiceItem_SalesInvoice">
+    <End Role="SalesInvoice" Type="Self.SalesInvoice" Multiplicity="0..1" />
+    <End Role="SaleInvoiceItem" Type="Self.SaleInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesInvoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="SaleInvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SalesInvoice_Customer">
     <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
     <End Role="SalesInvoice" Type="Self.SalesInvoice" Multiplicity="*" />
@@ -943,6 +978,7 @@
     <EntitySet Name="ProgramDetails" EntityType="Self.ProgramDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurInvoiceItem" EntityType="Self.PurInvoiceItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleInvoiceItem" EntityType="Self.SaleInvoiceItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SalesInvoice" EntityType="Self.SalesInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
@@ -1036,6 +1072,10 @@
     <AssociationSet Name="FK_PurInvoiceItem_PurchaseInvoice" Association="Self.FK_PurInvoiceItem_PurchaseInvoice">
       <End Role="PurchaseInvoice" EntitySet="PurchaseInvoice" />
       <End Role="PurInvoiceItem" EntitySet="PurInvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SaleInvoiceItem_SalesInvoice" Association="Self.FK_SaleInvoiceItem_SalesInvoice">
+      <End Role="SalesInvoice" EntitySet="SalesInvoice" />
+      <End Role="SaleInvoiceItem" EntitySet="SaleInvoiceItem" />
     </AssociationSet>
     <AssociationSet Name="FK_SalesInvoice_Customer" Association="Self.FK_SalesInvoice_Customer">
       <End Role="Customer" EntitySet="Customer" />

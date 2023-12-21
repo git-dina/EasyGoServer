@@ -317,6 +317,7 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\PurInvoiceModel.cs" />
+    <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\TaxesModel.cs" />
     <Compile Include="Models\SliceUserModel.cs" />
@@ -368,6 +369,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="PurInvoiceItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SaleInvoiceItem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesInvoice.cs">

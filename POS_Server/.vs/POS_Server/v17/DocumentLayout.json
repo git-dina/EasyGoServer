@@ -1,0 +1,273 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\EasyGo\\EasyGoServer\\POS_Server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\models\\salesinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\models\\salesinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\saleinvoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\saleinvoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\models\\purinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\models\\purinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\salesinvoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\salesinvoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|POS_Server||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\model1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\model1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\controllers\\purchaseinvoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\controllers\\purchaseinvoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\controllers\\branchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\controllers\\branchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\controllers\\itemlocationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\controllers\\itemlocationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\models\\itemlocationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|solutionrelative:pos_server\\models\\itemlocationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8E92C1A-EAA4-4113-AE15-84EB0F99D74C}|POS_Server\\POS_Server.csproj|d:\\easygo\\easygoserver\\pos_server\\pos_server\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SaleInvoiceItem.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\SaleInvoiceItem.cs",
+              "RelativeDocumentMoniker": "POS_Server\\SaleInvoiceItem.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\SaleInvoiceItem.cs",
+              "RelativeToolTip": "POS_Server\\SaleInvoiceItem.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACEAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-21T17:31:52.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SalesInvoice.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\SalesInvoice.cs",
+              "RelativeDocumentMoniker": "POS_Server\\SalesInvoice.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\SalesInvoice.cs",
+              "RelativeToolTip": "POS_Server\\SalesInvoice.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAADcAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-21T17:07:27.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3fd5e0cc-709a-4f8c-94c3-7f0f8dff5bb2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SalesInvoiceModel.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\SalesInvoiceModel.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Models\\SalesInvoiceModel.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\SalesInvoiceModel.cs",
+              "RelativeToolTip": "POS_Server\\Models\\SalesInvoiceModel.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAADQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-21T17:19:40.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Model1.edmx [Diagram1]",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Model1.edmx",
+              "RelativeDocumentMoniker": "POS_Server\\Model1.edmx",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Model1.edmx [Diagram1]",
+              "RelativeToolTip": "POS_Server\\Model1.edmx [Diagram1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
+              "WhenOpened": "2023-12-21T17:08:19.917Z",
+              "EditorCaption": " [Diagram1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PurInvoiceModel.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\PurInvoiceModel.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Models\\PurInvoiceModel.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\PurInvoiceModel.cs",
+              "RelativeToolTip": "POS_Server\\Models\\PurInvoiceModel.cs",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAgwFAAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-01T21:32:12.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\UserController.cs",
+              "RelativeToolTip": "POS_Server\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAMEFAAAAAAAAAAAAAMkFAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-17T14:26:01.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BranchController.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\BranchController.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Controllers\\BranchController.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\BranchController.cs",
+              "RelativeToolTip": "POS_Server\\Controllers\\BranchController.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAApwJMAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-13T19:47:09.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PurchaseInvoiceController.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\PurchaseInvoiceController.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Controllers\\PurchaseInvoiceController.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\PurchaseInvoiceController.cs",
+              "RelativeToolTip": "POS_Server\\Controllers\\PurchaseInvoiceController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH8HAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-01T21:32:26.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ItemLocationController.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\ItemLocationController.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Controllers\\ItemLocationController.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Controllers\\ItemLocationController.cs",
+              "RelativeToolTip": "POS_Server\\Controllers\\ItemLocationController.cs",
+              "ViewState": "AQIAAOcBAAAAAAAAAAAiwBsCAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-03T21:42:06.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "POS_Server",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\POS_Server.csproj",
+              "RelativeDocumentMoniker": "POS_Server\\POS_Server.csproj",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\POS_Server.csproj*",
+              "RelativeToolTip": "POS_Server\\POS_Server.csproj*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2023-12-20T23:03:59.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Web.config",
+              "RelativeDocumentMoniker": "POS_Server\\Web.config",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Web.config",
+              "RelativeToolTip": "POS_Server\\Web.config",
+              "ViewState": "AQIAAE4AAAAAAAAAAAArwF0AAACbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2023-12-20T22:50:10.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Model1.Designer.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Model1.Designer.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Model1.Designer.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Model1.Designer.cs",
+              "RelativeToolTip": "POS_Server\\Model1.Designer.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAwAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-20T23:11:40.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ItemLocationModel.cs",
+              "DocumentMoniker": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\ItemLocationModel.cs",
+              "RelativeDocumentMoniker": "POS_Server\\Models\\ItemLocationModel.cs",
+              "ToolTip": "D:\\EasyGo\\EasyGoServer\\POS_Server\\POS_Server\\Models\\ItemLocationModel.cs",
+              "RelativeToolTip": "POS_Server\\Models\\ItemLocationModel.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAA6wBsAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-12-03T21:44:43.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
