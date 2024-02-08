@@ -1578,7 +1578,7 @@ namespace POS_Server.Controllers
         {
             using (EasyGoDBEntities entity = new EasyGoDBEntities())
             {
-                var returned = entity.PurchaseInvoice.Where(x => x.InvoiceMainId == invoiceId && x.IsActive == true).ToList();
+                var returned = entity.PurchaseInvoice.Where(x => x.InvoiceMainId == invoiceId && x.InvType!="pbd" && x.IsActive == true).ToList();
                 var invoice = (from b in entity.PurchaseInvoice.Where(x => x.InvoiceId == invoiceId)
                                join l in entity.Branch on b.BranchId equals l.BranchId into lj
                                join m in entity.Branch on b.BranchCreatorId equals m.BranchId into bj
@@ -1634,7 +1634,7 @@ namespace POS_Server.Controllers
                 }
                 else
                 {
-                    // decreade returned quantity from purchase invoice
+                    // decrease returned quantity from purchase invoice
                     foreach (var inv in returned)
                     {
                         var invItems = GetInvoiceItems(inv.InvoiceId);
